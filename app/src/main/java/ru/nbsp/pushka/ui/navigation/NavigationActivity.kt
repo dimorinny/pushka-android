@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.feed.FeedFragment
+import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem
 import java.util.*
 
 /**
@@ -63,7 +64,9 @@ class NavigationActivity : BaseActivity() {
                 .withActionBarDrawerToggle(true)
                 .withAccountHeader(accountHeader)
                 .withDrawerItems(getDrawerItems())
-                // TODO: click listener
+                .withOnDrawerItemClickListener { view, index, item ->
+                    drawerItemClicked(NavigationDrawerItem.values()[item.identifier])
+                }
                 .withCloseOnClick(true)
                 // TODO: open/close listener
                 .withHeaderDivider(false)
@@ -90,6 +93,13 @@ class NavigationActivity : BaseActivity() {
         }
 
         return items
+    }
+
+    private fun drawerItemClicked(drawerItem: NavigationDrawerItem): Boolean {
+        return when (drawerItem) {
+            NavigationDrawerItem.FEED -> { setFragment(FeedFragment()); true }
+            else -> false
+        }
     }
 
     private fun setDefaultContent() {
