@@ -6,7 +6,7 @@ import ru.nbsp.pushka.ui.BaseActivity
 /**
  * Created by Dimorinny on 11.02.16.
  */
-open internal class PresentedActivity<T> : BaseActivity() where T : BasePresenter {
+open class PresentedActivity<T> : BaseActivity() where T : BasePresenter {
 
     private var presenter: T? = null
 

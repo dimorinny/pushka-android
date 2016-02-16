@@ -3,7 +3,11 @@
     <!-- Theme -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorDivider">#B6B6B6</color>
 
     <!-- Common -->
     <color name="white">#FFF</color>
@@ -15,4 +19,8 @@
     <!-- Drawer -->
     <color name="drawer_selected_icon">#515151</color>
     <color name="drawer_selected_text">#515151</color>
+
+    <!-- Login -->
+    <color name="login_vk_color">#597ca0</color>
+    <color name="login_google_color">#ea4335</color>
 </resources>

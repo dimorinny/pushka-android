@@ -5,6 +5,7 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.api.ApiModule
 import ru.nbsp.pushka.service.ApiPushkaService
 import ru.nbsp.pushka.service.ServiceModule
+import ru.nbsp.pushka.ui.login.LoginActivity
 import javax.inject.Singleton
 
 /**
@@ -20,4 +21,5 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(application: BaseApplication)
     fun inject(pushkaService: ApiPushkaService)
+    fun inject(loginActivity: LoginActivity)
 }

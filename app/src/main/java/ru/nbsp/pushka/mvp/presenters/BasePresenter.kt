@@ -9,11 +9,11 @@ import ru.nbsp.pushka.mvp.views.BaseView
 interface BasePresenter {
     val view: BaseView?
 
-    open fun onCreate()
+    open fun onCreate() {}
 
-    open fun onPause()
+    open fun onPause() {}
 
-    open fun onResume()
+    open fun onResume() {}
 
-    open fun onDestroy()
+    open fun onDestroy() {}
 }
