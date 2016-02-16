@@ -11,6 +11,7 @@
 
     <!-- Common -->
     <color name="white">#FFF</color>
+    <color name="nearly_white">#FAFAFA</color>
     <color name="black">#000</color>
     <color name="transparent">#00000000</color>
     <color name="compatibility_pressed_color">#1a000000</color>
@@ -22,5 +23,7 @@
 
     <!-- Login -->
     <color name="login_vk_color">#597ca0</color>
+    <color name="login_vk_color_pressed">#496b8f</color>
     <color name="login_google_color">#ea4335</color>
+    <color name="login_google_color_pressed">#c4392d</color>
 </resources>

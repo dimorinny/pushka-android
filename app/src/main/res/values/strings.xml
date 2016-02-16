@@ -3,4 +3,9 @@
 
     <!-- Titles -->
     <string name="title_feed">Лента</string>
+
+    <!-- Login -->
+    <string name="login_enter_vk">Войти с помощью Вконтакте</string>
+    <string name="login_enter_google">Войти с помощью Google</string>
+    <string name="login_help">Нужна помощь?</string>
 </resources>
