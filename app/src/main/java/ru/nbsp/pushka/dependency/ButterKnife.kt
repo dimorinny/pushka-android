@@ -1,4 +1,4 @@
-package com.dimorinny.vscale.dependency
+package ru.nbsp.pushka.dependency
 
 import android.app.Activity
 import android.app.Dialog

@@ -1,6 +1,7 @@
 package ru.nbsp.pushka
 
 import android.app.Application
+import com.vk.sdk.VKSdk
 import ru.nbsp.pushka.di.AppComponent
 import ru.nbsp.pushka.di.AppModule
 import ru.nbsp.pushka.di.DaggerAppComponent
@@ -16,7 +17,13 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        initSocial()
         initAppComponent()
+    }
+
+    private fun initSocial() {
+        VKSdk.initialize(applicationContext)
     }
 
     fun initAppComponent() {

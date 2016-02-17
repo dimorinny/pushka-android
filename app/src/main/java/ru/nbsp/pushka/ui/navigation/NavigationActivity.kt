@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
-import com.dimorinny.vscale.dependency.bindView
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -15,6 +14,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ru.nbsp.pushka.R
+import ru.nbsp.pushka.dependency.bindView
 import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.feed.FeedFragment
 import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem

@@ -16,7 +16,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         AppModule::class,
         ApiModule::class,
-        ServiceModule::class
+        ServiceModule::class,
+        SchedulerModule::class
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)

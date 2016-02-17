@@ -5,6 +5,7 @@ import com.squareup.okhttp.OkHttpClient
 import retrofit.RestAdapter
 import retrofit.android.AndroidLog
 import retrofit.client.OkClient
+import ru.nbsp.pushka.api.response.LoginResponse
 import rx.Observable
 
 /**
@@ -13,7 +14,7 @@ import rx.Observable
 class ApiPushka(private val context: Context, private val client: OkHttpClient) {
 
     companion object {
-        private val BASE_URL = "http://pushka.xyz/"
+        private val BASE_URL = "http://104.155.30.211"
     }
 
     private val restAdapter: RestAdapter = initRestAdapter()
@@ -28,7 +29,7 @@ class ApiPushka(private val context: Context, private val client: OkHttpClient) 
                 .build()
     }
 
-    fun getObjects(): Observable<List<Any>> {
-        return restInterface.getObjects()
+    fun login(token: String, provider: String): Observable<LoginResponse> {
+        return restInterface.login(token, provider)
     }
 }

@@ -1,6 +1,9 @@
 package ru.nbsp.pushka.api
 
-import retrofit.http.GET
+import retrofit.http.Field
+import retrofit.http.FormUrlEncoded
+import retrofit.http.POST
+import ru.nbsp.pushka.api.response.LoginResponse
 import rx.Observable
 
 /**
@@ -8,7 +11,8 @@ import rx.Observable
  */
 interface PushkaInterface {
 
-    // Sample
-    @GET("/url")
-    fun getObjects(): Observable<List<Any>>
+    @FormUrlEncoded
+    @POST("/auth/social")
+    fun login(@Field("token") token: String,
+              @Field("token") provider: String): Observable<LoginResponse>
 }
