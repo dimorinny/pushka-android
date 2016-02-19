@@ -7,4 +7,6 @@ import ru.nbsp.pushka.mvp.views.BaseView
  */
 interface LoginView : BaseView {
     fun openVkLoginDialog()
+    fun openGoogleLoginDialog()
+    fun showAlert(message: String)
 }

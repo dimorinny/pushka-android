@@ -3,7 +3,6 @@ package ru.nbsp.pushka.ui.login
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
@@ -17,6 +16,7 @@ import ru.nbsp.pushka.dependency.bindView
 import ru.nbsp.pushka.mvp.PresentedActivity
 import ru.nbsp.pushka.mvp.presenters.login.LoginPresenter
 import ru.nbsp.pushka.mvp.views.login.LoginView
+import ru.nbsp.pushka.util.AlertUtils
 import javax.inject.Inject
 
 /**
@@ -32,11 +32,15 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     @Inject
     lateinit var presenter: LoginPresenter
 
+    @Inject
+    lateinit var alertUtils: AlertUtils
+
     lateinit var socialAuthManager: SocialAuthManager
 
     val textLogo: TextView by bindView(R.id.text_logo)
     val backgroundImage: KenBurnsView by bindView(R.id.login_background_image)
     val vkButton: View by bindView(R.id.login_vk_button)
+    val googleButton: View by bindView(R.id.login_google_button)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +56,12 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
 
     private fun initViews() {
         vkButton.setOnClickListener { presenter.onVkLoginButtonClicked() }
+        googleButton.setOnClickListener { presenter.onGoogleLoginButtonClicked() }
     }
 
     private fun initAuthManager() {
         socialAuthManager = SocialAuthManager(this)
+        socialAuthManager.initGoogleAuth(this)
     }
 
     override fun initPresenter(presenter: LoginPresenter) {
@@ -77,15 +83,20 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
         socialAuthManager.login(SocialAuthManager.DRIVER_VK, this)
     }
 
+    override fun openGoogleLoginDialog() {
+        socialAuthManager.login(SocialAuthManager.DRIVER_GOOGLE, this)
+    }
+
     override fun onSocialLoginSuccess(provider: String, token: String) {
-        Log.v("LoginActivity", provider)
-        Log.v("LoginActivity", token)
         presenter.onLoginSuccess(provider, token)
     }
 
     override fun onSocialLoginError() {
-        Log.v("LoginActivity", "Error")
         presenter.onLoginError()
+    }
+
+    override fun showAlert(message: String) {
+        alertUtils.showAlert(this, message)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -21,7 +21,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun providePushkaApi(context: Context, client: OkHttpClient) : ApiPushka{
+    fun providePushkaApi(context: Context, client: OkHttpClient) : ApiPushka {
         return ApiPushka(context, client)
     }
 }
