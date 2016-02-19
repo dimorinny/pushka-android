@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.auth
+package ru.nbsp.pushka.auth.social
 
 import android.app.Activity
 import android.content.Intent
