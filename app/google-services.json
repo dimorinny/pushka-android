@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_id": "pushka-1224",
+    "project_number": "1070437861086",
+    "name": "Pushka"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070437861086:android:af6138fcba102a69",
+        "client_id": "android:ru.nbsp.pushka",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "ru.nbsp.pushka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070437861086-b4mm95e38tsfm3jme3bsvitridsl5fod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.nbsp.pushka",
+            "certificate_hash": "A5B9DBB5532751FA31B82FBA70E191D371E8E957"
+          }
+        },
+        {
+          "client_id": "1070437861086-tvbpn9i8eigs62v2hk8e0fkvsonmbqua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

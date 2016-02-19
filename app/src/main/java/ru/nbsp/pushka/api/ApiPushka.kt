@@ -14,7 +14,7 @@ import rx.Observable
 class ApiPushka(private val context: Context, private val client: OkHttpClient) {
 
     companion object {
-        private val BASE_URL = "http://104.155.30.211"
+        private val BASE_URL = "http://104.155.30.211/api/v1"
     }
 
     private val restAdapter: RestAdapter = initRestAdapter()
@@ -29,7 +29,7 @@ class ApiPushka(private val context: Context, private val client: OkHttpClient) 
                 .build()
     }
 
-    fun login(token: String, provider: String): Observable<LoginResponse> {
-        return restInterface.login(token, provider)
+    fun login(provider: String, token: String): Observable<LoginResponse> {
+        return restInterface.login(provider, token)
     }
 }

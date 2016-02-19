@@ -11,8 +11,8 @@ import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.auth.SocialAuthListener
-import ru.nbsp.pushka.api.auth.SocialAuthManager
+import ru.nbsp.pushka.auth.SocialAuthListener
+import ru.nbsp.pushka.auth.SocialAuthManager
 import ru.nbsp.pushka.dependency.bindView
 import ru.nbsp.pushka.mvp.PresentedActivity
 import ru.nbsp.pushka.mvp.presenters.login.LoginPresenter
@@ -80,10 +80,12 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     override fun onSocialLoginSuccess(provider: String, token: String) {
         Log.v("LoginActivity", provider)
         Log.v("LoginActivity", token)
+        presenter.onLoginSuccess(provider, token)
     }
 
     override fun onSocialLoginError() {
         Log.v("LoginActivity", "Error")
+        presenter.onLoginError()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

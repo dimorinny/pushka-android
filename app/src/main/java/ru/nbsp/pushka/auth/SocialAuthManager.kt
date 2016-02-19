@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.api.auth
+package ru.nbsp.pushka.auth
 
 import android.app.Activity
 import android.content.Intent
@@ -25,9 +25,13 @@ class SocialAuthManager(val authListener: SocialAuthListener) {
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (data == null) return
+        var vkData = data
 
-        VKSdk.onActivityResult(requestCode, resultCode, data, object : VKCallback<VKAccessToken> {
+        if (resultCode == Activity.RESULT_OK) {
+            vkData = Intent()
+        }
+
+        VKSdk.onActivityResult(requestCode, resultCode, vkData!!, object : VKCallback<VKAccessToken> {
             override fun onResult(token: VKAccessToken) {
                 authListener.onSocialLoginSuccess(DRIVER_VK, token.accessToken)
             }
@@ -36,5 +40,9 @@ class SocialAuthManager(val authListener: SocialAuthListener) {
                 authListener.onSocialLoginError()
             }
         })
+
+
+
+
     }
 }

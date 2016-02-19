@@ -20,6 +20,6 @@ class LoginIteractor @Inject constructor(
 
     // Warning
     override fun buildObservable(parameter: LoginParam?): Observable<LoginResponse> {
-        return api.login(parameter!!.token, parameter.provider)
+        return api.login(parameter!!.provider, parameter.token)
     }
 }

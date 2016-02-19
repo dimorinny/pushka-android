@@ -14,7 +14,7 @@ class ServiceModule {
 
     @Singleton
     @Provides
-    fun providePushkaServiceHelper(context: Context): PushkaServiceHelper {
-        return PushkaServiceHelper(context)
+    fun provideApiPushkaServiceManager(context: Context): ServiceManager {
+        return ServiceManager(context)
     }
 }

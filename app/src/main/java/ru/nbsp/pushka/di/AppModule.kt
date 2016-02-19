@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.BaseApplication
@@ -15,7 +16,7 @@ class AppModule(val application: BaseApplication) {
 
     @Singleton
     @Provides
-    fun provideContext(): BaseApplication {
+    fun provideContext(): Context {
         return application
     }
 }

@@ -13,6 +13,6 @@ interface PushkaInterface {
 
     @FormUrlEncoded
     @POST("/auth/social")
-    fun login(@Field("token") token: String,
-              @Field("token") provider: String): Observable<LoginResponse>
+    fun login(@Field("provider") provider: String,
+              @Field("token") token: String): Observable<LoginResponse>
 }

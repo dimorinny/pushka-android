@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.api.auth
+package ru.nbsp.pushka.auth
 
 /**
  * Created by Dimorinny on 17.02.16.
