@@ -4,11 +4,13 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.api.response.LoginResponse
+import ru.nbsp.pushka.auth.Account
+import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
 import ru.nbsp.pushka.iteractor.login.LoginIteractor
 import ru.nbsp.pushka.iteractor.login.param.LoginParam
+import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -23,6 +25,12 @@ class ApiPushkaService : Service() {
 
     @Inject
     lateinit var loginIteractor: LoginIteractor
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var timeStampUtils: TimestampUtils
 
     private val subscription = CompositeSubscription()
 
@@ -67,10 +75,20 @@ class ApiPushkaService : Service() {
         val token = intent.getStringExtra(ARG_LOGIN_TOKEN)
         val provider = intent.getStringExtra(ARG_LOGIN_PROVIDER)
 
-        subscription.add(loginIteractor.execute(LoginParam(provider, token), LoginSubscriber(startId)))
+        loginIteractor.execute(LoginParam(provider, token))
+                .map {
+                    val user = it.user
+                    val identity = it.identity
+                    Account(user.firstName, user.lastName, user.photo,
+                        identity.accessToken, identity.refreshToken, timeStampUtils.currentTimestamp() + identity.expires)
+                }
+                .doOnNext {
+                    accountManager.setAccount(it)
+                }
+                .subscribe(LoginSubscriber(startId))
     }
 
-    inner class LoginSubscriber(val startId: Int) : Subscriber<LoginResponse>() {
+    inner class LoginSubscriber(val startId: Int) : Subscriber<Account>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
@@ -78,8 +96,8 @@ class ApiPushkaService : Service() {
             stopSelf(startId)
         }
 
-        override fun onNext(response: LoginResponse) {
-            bus.post(LoginEvent.Response(response) as LoginEvent)
+        override fun onNext(account: Account) {
+            bus.post(LoginEvent.Success() as LoginEvent)
             stopSelf(startId)
         }
     }

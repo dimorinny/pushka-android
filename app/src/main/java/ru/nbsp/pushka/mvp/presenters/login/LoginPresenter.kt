@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.mvp.presenters.login
 
+import android.util.Log
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.response.LoginResponse
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
 import ru.nbsp.pushka.di.SchedulerModule
@@ -43,7 +43,7 @@ class LoginPresenter @Inject constructor(
         val loginSubscription = bus.events(LoginEvent::class.java)
                 .flatMap {
                     when(it) {
-                        is LoginEvent.Response -> Observable.just(it.response)
+                        is LoginEvent.Success -> Observable.just(true)
                         is LoginEvent.Error -> Observable.error(it.t)
                     }
                 }
@@ -66,13 +66,15 @@ class LoginPresenter @Inject constructor(
         super.onDestroy()
     }
 
-    class LoginSubscriber : Subscriber<LoginResponse>() {
+    class LoginSubscriber : Subscriber<Boolean>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
         }
 
-        override fun onNext(response: LoginResponse) {}
+        override fun onNext(success: Boolean) {
+            Log.v("LoginPresenter", success.toString())
+        }
     }
 }

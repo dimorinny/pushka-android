@@ -1,6 +1,8 @@
 package ru.nbsp.pushka.di
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.BaseApplication
@@ -18,5 +20,11 @@ class AppModule(val application: BaseApplication) {
     @Provides
     fun provideContext(): Context {
         return application
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

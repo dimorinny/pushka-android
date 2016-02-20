@@ -1,9 +1,9 @@
 package ru.nbsp.pushka.ui
 
-import com.trello.rxlifecycle.components.support.RxFragment
+import android.support.v4.app.Fragment
 
 
 /**
  * Created by Dimorinny on 11.02.16.
  */
-open class BaseFragment : RxFragment()
+open class BaseFragment : Fragment()

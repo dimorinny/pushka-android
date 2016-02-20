@@ -13,12 +13,13 @@ import javax.inject.Named
 /**
  * Created by Dimorinny on 17.02.16.
  */
-class LoginIteractor @Inject constructor(
+class LoginIteractor
+    @Inject constructor(
         @Named(SchedulerModule.IO) jobScheduler: Scheduler,
         @Named(SchedulerModule.UI) resultScheduler: Scheduler,
-        val api: ApiPushka) : BaseIteractor<LoginResponse, LoginParam>(jobScheduler, resultScheduler) {
+        val api: ApiPushka)
+    : BaseIteractor<LoginResponse, LoginParam>(jobScheduler, resultScheduler) {
 
-    // Warning
     override fun buildObservable(parameter: LoginParam?): Observable<LoginResponse> {
         return api.login(parameter!!.provider, parameter.token)
     }

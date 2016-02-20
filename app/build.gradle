@@ -47,8 +47,6 @@ dependencies {
     // Reactive
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'com.trello:rxlifecycle:0.3.0'
-    compile 'com.trello:rxlifecycle-components:0.3.0'
 
     // Social
     compile 'com.vk:androidsdk:1.6.2'
@@ -58,6 +56,7 @@ dependencies {
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.github.salomonbrys.kotson:kotson:2.1.0'
 
     // View
     compile 'com.flaviofaria:kenburnsview:1.0.7'

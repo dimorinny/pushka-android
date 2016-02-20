@@ -9,7 +9,6 @@ import javax.inject.Singleton
  */
 @Singleton
 class StringUtils @Inject constructor(val context: Context) {
-
     fun getString(id: Int): String {
         return context.resources.getString(id)
     }

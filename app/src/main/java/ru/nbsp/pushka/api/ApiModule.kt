@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.api
 
 import android.content.Context
+import com.google.gson.Gson
 import com.squareup.okhttp.OkHttpClient
 import dagger.Module
 import dagger.Provides
@@ -17,6 +18,12 @@ class ApiModule {
     @Provides
     fun provideClient(): OkHttpClient {
         return OkHttpClient()
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 
     @Singleton
