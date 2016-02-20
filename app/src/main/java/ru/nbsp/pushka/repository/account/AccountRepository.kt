@@ -1,11 +1,11 @@
-package ru.nbsp.pushka.auth.storage
+package ru.nbsp.pushka.repository.account
 
 import ru.nbsp.pushka.auth.Account
 
 /**
  * Created by Dimorinny on 20.02.16.
  */
-interface AccountStorageRepository {
+interface AccountRepository {
     fun getAccount(): Account?
     fun saveAccount(account: Account)
     fun clear()

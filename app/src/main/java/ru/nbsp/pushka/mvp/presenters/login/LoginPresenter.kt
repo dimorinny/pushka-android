@@ -2,9 +2,9 @@ package ru.nbsp.pushka.mvp.presenters.login
 
 import android.util.Log
 import ru.nbsp.pushka.R
+import ru.nbsp.pushka.annotation.IOSched
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.di.SchedulerModule
 import ru.nbsp.pushka.mvp.presenters.BasePresenter
 import ru.nbsp.pushka.mvp.views.login.LoginView
 import ru.nbsp.pushka.service.ServiceManager
@@ -14,14 +14,13 @@ import rx.Scheduler
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Created by Dimorinny on 16.02.16.
  */
 
 class LoginPresenter @Inject constructor(
-        @Named(SchedulerModule.UI) val resultScheduler: Scheduler,
+        @IOSched val resultScheduler: Scheduler,
         val bus: RxBus,
         val serviceManager: ServiceManager,
         val stringUtils: StringUtils): BasePresenter {

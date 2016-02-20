@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.auth.storage
+package ru.nbsp.pushka.repository.account
 
 import android.content.SharedPreferences
 import com.github.salomonbrys.kotson.fromJson
@@ -9,9 +9,9 @@ import ru.nbsp.pushka.auth.Account
  * Created by Dimorinny on 20.02.16.
  */
 
-class PreferencesAccountStorage(
+class PreferencesAccountRepository(
         val gson: Gson,
-        val sharedPreferences: SharedPreferences) : AccountStorageRepository {
+        val sharedPreferences: SharedPreferences) : AccountRepository {
 
     companion object {
         private const val PREF_ACCOUNT_KEY = "pref_account_key"

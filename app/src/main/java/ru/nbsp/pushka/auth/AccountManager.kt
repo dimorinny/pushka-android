@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.auth
 
-import ru.nbsp.pushka.auth.storage.AccountStorageRepository
+import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,19 +11,19 @@ import javax.inject.Singleton
 @Singleton
 class AccountManager
     @Inject constructor(
-            val accountStorage: AccountStorageRepository,
+            val accountRepository: AccountRepository,
             val timestampUtils: TimestampUtils){
 
     fun setAccount(account: Account) {
-        accountStorage.saveAccount(account)
+        accountRepository.saveAccount(account)
     }
 
     fun getAccount(): Account? {
-        return accountStorage.getAccount()
+        return accountRepository.getAccount()
     }
 
     fun isValid(): Boolean {
-        val account = accountStorage.getAccount() ?: return false
+        val account = accountRepository.getAccount() ?: return false
         return timestampUtils.afterNow(account.expiredTimestamp)
     }
 }

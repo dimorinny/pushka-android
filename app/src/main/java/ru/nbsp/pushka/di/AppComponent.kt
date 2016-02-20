@@ -3,10 +3,11 @@ package ru.nbsp.pushka.di
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.api.ApiModule
-import ru.nbsp.pushka.auth.AuthModule
 import ru.nbsp.pushka.auth.social.SocialAuthManager
-import ru.nbsp.pushka.service.ApiPushkaService
+import ru.nbsp.pushka.iteractor.IteractorModule
+import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.ServiceModule
+import ru.nbsp.pushka.service.api.ApiPushkaService
 import ru.nbsp.pushka.ui.login.LoginActivity
 import javax.inject.Singleton
 
@@ -20,7 +21,8 @@ import javax.inject.Singleton
         ApiModule::class,
         ServiceModule::class,
         SchedulerModule::class,
-        AuthModule::class
+        RepositoryModule::class,
+        IteractorModule::class
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)

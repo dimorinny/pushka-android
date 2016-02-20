@@ -2,10 +2,11 @@ package ru.nbsp.pushka.di
 
 import dagger.Module
 import dagger.Provides
+import ru.nbsp.pushka.annotation.IOSched
+import ru.nbsp.pushka.annotation.UISched
 import rx.Scheduler
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -15,21 +16,17 @@ import javax.inject.Singleton
 @Singleton
 @Module
 class SchedulerModule {
-    companion object {
-        const val IO = "IO"
-        const val UI = "UI"
-    }
 
     @Singleton
     @Provides
-    @Named(IO)
+    @IOSched
     fun provideIoScheduler(): Scheduler {
         return Schedulers.io()
     }
 
     @Singleton
     @Provides
-    @Named(UI)
+    @UISched
     fun provideUiScheduler(): Scheduler {
         return AndroidSchedulers.mainThread()
     }

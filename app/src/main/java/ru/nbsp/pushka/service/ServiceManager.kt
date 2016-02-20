@@ -2,6 +2,7 @@ package ru.nbsp.pushka.service
 
 import android.content.Context
 import android.content.Intent
+import ru.nbsp.pushka.service.api.ApiPushkaService
 
 /**
  * Created by Dimorinny on 12.02.16.

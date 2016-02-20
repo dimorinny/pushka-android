@@ -14,7 +14,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.dependency.bindView
+import ru.nbsp.pushka.util.bindView
 import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.feed.FeedFragment
 import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem

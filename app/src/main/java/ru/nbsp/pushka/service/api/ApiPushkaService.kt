@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.service
+package ru.nbsp.pushka.service.api
 
 import android.app.Service
 import android.content.Intent
@@ -8,8 +8,7 @@ import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.iteractor.login.LoginIteractor
-import ru.nbsp.pushka.iteractor.login.param.LoginParam
+import ru.nbsp.pushka.iteractor.user.UserIteractor
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -24,7 +23,7 @@ class ApiPushkaService : Service() {
     lateinit var bus: RxBus
 
     @Inject
-    lateinit var loginIteractor: LoginIteractor
+    lateinit var userIteractor: UserIteractor
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -75,12 +74,12 @@ class ApiPushkaService : Service() {
         val token = intent.getStringExtra(ARG_LOGIN_TOKEN)
         val provider = intent.getStringExtra(ARG_LOGIN_PROVIDER)
 
-        loginIteractor.execute(LoginParam(provider, token))
+        userIteractor.login(provider, token)
                 .map {
                     val user = it.user
                     val identity = it.identity
                     Account(user.firstName, user.lastName, user.photo,
-                        identity.accessToken, identity.refreshToken, timeStampUtils.currentTimestamp() + identity.expires)
+                            identity.accessToken, identity.refreshToken, timeStampUtils.currentTimestamp() + identity.expires)
                 }
                 .doOnNext {
                     accountManager.setAccount(it)

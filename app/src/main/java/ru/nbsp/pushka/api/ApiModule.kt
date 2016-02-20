@@ -1,10 +1,13 @@
 package ru.nbsp.pushka.api
 
-import android.content.Context
 import com.google.gson.Gson
 import com.squareup.okhttp.OkHttpClient
 import dagger.Module
 import dagger.Provides
+import retrofit.RestAdapter
+import retrofit.android.AndroidLog
+import retrofit.client.OkClient
+import retrofit.converter.GsonConverter
 import javax.inject.Singleton
 
 /**
@@ -13,6 +16,11 @@ import javax.inject.Singleton
 @Singleton
 @Module
 class ApiModule {
+
+    companion object {
+        private const val BASE_URL = "http://104.155.30.211/api/v1"
+        private const val LOG_TAG = "RETROFIT"
+    }
 
     @Singleton
     @Provides
@@ -28,7 +36,19 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun providePushkaApi(context: Context, client: OkHttpClient) : ApiPushka {
-        return ApiPushka(context, client)
+    fun provideRestAdapter(client: OkHttpClient, gson: Gson): RestAdapter {
+        return RestAdapter.Builder()
+                .setEndpoint(BASE_URL)
+                .setClient(OkClient(client))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLog(AndroidLog(LOG_TAG))
+                .setConverter(GsonConverter(gson))
+                .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providePushkaInterface(restAdapter: RestAdapter): PushkaInterface {
+        return restAdapter.create(PushkaInterface::class.java)
     }
 }
