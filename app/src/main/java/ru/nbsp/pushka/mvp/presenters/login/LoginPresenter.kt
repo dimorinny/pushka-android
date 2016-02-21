@@ -18,8 +18,8 @@ import javax.inject.Inject
 /**
  * Created by Dimorinny on 16.02.16.
  */
-
-class LoginPresenter @Inject constructor(
+class LoginPresenter
+    @Inject constructor(
         @UISched val resultScheduler: Scheduler,
         val accountManager: AccountManager,
         val bus: RxBus,

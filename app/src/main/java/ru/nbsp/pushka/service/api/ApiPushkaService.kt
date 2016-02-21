@@ -40,9 +40,7 @@ class ApiPushkaService : Service() {
         const val COMMAND_LOGIN = "command_login"
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
-    }
+    override fun onBind(intent: Intent?): IBinder? { return null }
 
     override fun onCreate() {
         super.onCreate()
@@ -79,7 +77,8 @@ class ApiPushkaService : Service() {
                     val user = it.user
                     val identity = it.identity
                     Account(user.firstName, user.lastName, user.photo,
-                            identity.accessToken, identity.refreshToken, timeStampUtils.currentTimestamp() + identity.expires)
+                            identity.accessToken, identity.refreshToken,
+                            timeStampUtils.currentTimestamp() + identity.expires)
                 }
                 .doOnNext {
                     accountManager.setAccount(it)

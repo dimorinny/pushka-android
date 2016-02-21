@@ -12,7 +12,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class SchedulersManager
+class SchedulersUtils
     @Inject constructor(
             @IOSched val ioScheduler: Scheduler,
             @UISched val uiScheduler: Scheduler) {

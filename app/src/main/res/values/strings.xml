@@ -3,6 +3,7 @@
 
     <!-- Titles -->
     <string name="title_feed">Лента</string>
+    <string name="title_subscription">Подписки</string>
 
     <!-- Login -->
     <string name="login_enter_vk">Войти с помощью Вконтакте</string>

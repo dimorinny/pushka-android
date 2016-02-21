@@ -6,10 +6,10 @@ import ru.nbsp.pushka.api.ApiModule
 import ru.nbsp.pushka.auth.social.SocialAuthManager
 import ru.nbsp.pushka.iteractor.IteractorModule
 import ru.nbsp.pushka.repository.RepositoryModule
-import ru.nbsp.pushka.service.ServiceModule
 import ru.nbsp.pushka.service.api.ApiPushkaService
 import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.login.LoginActivity
+import ru.nbsp.pushka.ui.navigation.NavigationActivity
 import javax.inject.Singleton
 
 /**
@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         AppModule::class,
         ApiModule::class,
-        ServiceModule::class,
         SchedulerModule::class,
         RepositoryModule::class,
         IteractorModule::class
@@ -31,4 +30,5 @@ interface AppComponent {
     fun inject(loginActivity: LoginActivity)
     fun inject(socialAuthManager: SocialAuthManager)
     fun inject(baseActivity: BaseActivity)
+    fun inject(navigationActivity: NavigationActivity)
 }

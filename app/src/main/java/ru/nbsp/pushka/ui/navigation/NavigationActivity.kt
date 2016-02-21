@@ -13,19 +13,21 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.annotation.AuthRequired
-import ru.nbsp.pushka.ui.BaseActivity
+import ru.nbsp.pushka.mvp.PresentedActivity
+import ru.nbsp.pushka.mvp.presenters.navigation.NavigationPresenter
+import ru.nbsp.pushka.mvp.views.navigation.NavigationView
 import ru.nbsp.pushka.ui.feed.FeedFragment
 import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem
 import ru.nbsp.pushka.util.bindView
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by Dimorinny on 12.02.16.
  */
-@AuthRequired
-class NavigationActivity : BaseActivity() {
+class NavigationActivity : PresentedActivity<NavigationPresenter>(), NavigationView {
 
     private lateinit var drawer: Drawer
     private lateinit var accountHeader: AccountHeader
@@ -33,17 +35,27 @@ class NavigationActivity : BaseActivity() {
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
 
+    @Inject
+    lateinit var presenter: NavigationPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
+        BaseApplication.graph.inject(this)
 
+        initPresenter(presenter)
         initToolbar()
         initAccountHeader()
         initDrawer()
 
         if (savedInstanceState == null) {
-            setDefaultContent()
+            setFeedContent()
         }
+    }
+
+    override fun initPresenter(presenter: NavigationPresenter) {
+        presenter.view = this
+        super.initPresenter(presenter)
     }
 
     private fun initToolbar() {
@@ -67,10 +79,9 @@ class NavigationActivity : BaseActivity() {
                 .withAccountHeader(accountHeader)
                 .withDrawerItems(getDrawerItems())
                 .withOnDrawerItemClickListener { view, index, item ->
-                    drawerItemClicked(NavigationDrawerItem.values()[item.identifier])
+                    presenter.onDrawerItemClicked(NavigationDrawerItem.values()[item.identifier])
                 }
                 .withCloseOnClick(true)
-                // TODO: open/close listener
                 .withHeaderDivider(false)
                 .build()
     }
@@ -97,14 +108,7 @@ class NavigationActivity : BaseActivity() {
         return items
     }
 
-    private fun drawerItemClicked(drawerItem: NavigationDrawerItem): Boolean {
-        return when (drawerItem) {
-            NavigationDrawerItem.FEED -> { setFragment(FeedFragment()); true }
-            else -> false
-        }
-    }
-
-    private fun setDefaultContent() {
+    override fun setFeedContent() {
         setFragment(FeedFragment())
     }
 
