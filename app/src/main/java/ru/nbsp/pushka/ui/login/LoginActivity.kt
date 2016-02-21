@@ -114,6 +114,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     override fun openNavigationWindow() {
         val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -8,6 +8,7 @@ import ru.nbsp.pushka.iteractor.IteractorModule
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.ServiceModule
 import ru.nbsp.pushka.service.api.ApiPushkaService
+import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.login.LoginActivity
 import javax.inject.Singleton
 
@@ -29,4 +30,5 @@ interface AppComponent {
     fun inject(pushkaService: ApiPushkaService)
     fun inject(loginActivity: LoginActivity)
     fun inject(socialAuthManager: SocialAuthManager)
+    fun inject(baseActivity: BaseActivity)
 }

@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class AccountManager
     @Inject constructor(
             val accountRepository: AccountRepository,
-            val timestampUtils: TimestampUtils){
+            val timestampUtils: TimestampUtils) {
 
     fun setAccount(account: Account) {
         accountRepository.saveAccount(account)

@@ -14,15 +14,17 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.util.bindView
+import ru.nbsp.pushka.annotation.AuthRequired
 import ru.nbsp.pushka.ui.BaseActivity
 import ru.nbsp.pushka.ui.feed.FeedFragment
 import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem
+import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 12.02.16.
  */
+@AuthRequired
 class NavigationActivity : BaseActivity() {
 
     private lateinit var drawer: Drawer
