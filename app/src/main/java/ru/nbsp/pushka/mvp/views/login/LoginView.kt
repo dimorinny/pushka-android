@@ -9,4 +9,7 @@ interface LoginView : BaseView {
     fun openVkLoginDialog()
     fun openGoogleLoginDialog()
     fun showAlert(message: String)
+    fun showDialog()
+    fun hideDialog()
+    fun openNavigationWindow()
 }

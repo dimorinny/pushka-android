@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.ui.login
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -12,11 +13,12 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.social.SocialAuthListener
 import ru.nbsp.pushka.auth.social.SocialAuthManager
-import ru.nbsp.pushka.util.bindView
 import ru.nbsp.pushka.mvp.PresentedActivity
 import ru.nbsp.pushka.mvp.presenters.login.LoginPresenter
 import ru.nbsp.pushka.mvp.views.login.LoginView
+import ru.nbsp.pushka.ui.navigation.NavigationActivity
 import ru.nbsp.pushka.util.AlertUtils
+import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
 /**
@@ -37,6 +39,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
 
     lateinit var socialAuthManager: SocialAuthManager
 
+    val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     val textLogo: TextView by bindView(R.id.text_logo)
     val backgroundImage: KenBurnsView by bindView(R.id.login_background_image)
     val vkButton: View by bindView(R.id.login_vk_button)
@@ -55,6 +58,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     }
 
     private fun initViews() {
+        progressDialog.setMessage(resources.getString(R.string.login_dialog_message))
         vkButton.setOnClickListener { presenter.onVkLoginButtonClicked() }
         googleButton.setOnClickListener { presenter.onGoogleLoginButtonClicked() }
     }
@@ -97,6 +101,19 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
 
     override fun showAlert(message: String) {
         alertUtils.showAlert(this, message)
+    }
+
+    override fun showDialog() {
+        progressDialog.show()
+    }
+
+    override fun hideDialog() {
+        progressDialog.dismiss()
+    }
+
+    override fun openNavigationWindow() {
+        val intent = Intent(this, NavigationActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

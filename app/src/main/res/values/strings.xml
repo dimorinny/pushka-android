@@ -10,4 +10,6 @@
     <string name="login_help">Нужна помощь?</string>
     <string name="login_text_logo">Пушка</string>
     <string name="login_auth_error">Ошибка авторизации, попробуйте позже</string>
+    <string name="login_dialog_title">Вход</string>
+    <string name="login_dialog_message">Пожалуйста, подождите...</string>
 </resources>

@@ -1,8 +1,8 @@
 package ru.nbsp.pushka.mvp.presenters.login
 
-import android.util.Log
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.annotation.IOSched
+import ru.nbsp.pushka.annotation.UISched
+import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
 import ru.nbsp.pushka.mvp.presenters.BasePresenter
@@ -20,7 +20,8 @@ import javax.inject.Inject
  */
 
 class LoginPresenter @Inject constructor(
-        @IOSched val resultScheduler: Scheduler,
+        @UISched val resultScheduler: Scheduler,
+        val accountManager: AccountManager,
         val bus: RxBus,
         val serviceManager: ServiceManager,
         val stringUtils: StringUtils): BasePresenter {
@@ -39,6 +40,11 @@ class LoginPresenter @Inject constructor(
     override fun onCreate() {
         super.onCreate()
 
+        if(accountManager.isAccountValid()) {
+            view?.openNavigationWindow()
+            return
+        }
+
         val loginSubscription = bus.events(LoginEvent::class.java)
                 .flatMap {
                     when(it) {
@@ -53,6 +59,7 @@ class LoginPresenter @Inject constructor(
     }
 
     fun onLoginSuccess(provider: String, token: String) {
+        view?.showDialog()
         serviceManager.login(provider, token)
     }
 
@@ -65,15 +72,18 @@ class LoginPresenter @Inject constructor(
         super.onDestroy()
     }
 
-    class LoginSubscriber : Subscriber<Boolean>() {
+    inner class LoginSubscriber : Subscriber<Boolean>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
+            view?.hideDialog()
+            onLoginError()
         }
 
         override fun onNext(success: Boolean) {
-            Log.v("LoginPresenter", success.toString())
+            view?.hideDialog()
+            view?.openNavigationWindow()
         }
     }
 }

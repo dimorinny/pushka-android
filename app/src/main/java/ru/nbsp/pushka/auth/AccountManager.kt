@@ -22,7 +22,7 @@ class AccountManager
         return accountRepository.getAccount()
     }
 
-    fun isValid(): Boolean {
+    fun isAccountValid(): Boolean {
         val account = accountRepository.getAccount() ?: return false
         return timestampUtils.afterNow(account.expiredTimestamp)
     }
