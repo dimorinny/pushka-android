@@ -40,6 +40,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         }
         setContentView(R.layout.activity_navigation)
         BaseApplication.graph.inject(this)
+        initPresenter(presenter)
 
         initToolbar()
         initViews()
