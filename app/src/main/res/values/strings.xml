@@ -10,7 +10,11 @@
     <string name="title_subscription">Подписки</string>
 
     <!-- Drawer -->
-    <string name="drawer_exit">Выход</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_settings">Настройки</string>
+    <string name="drawer_feed">Лента</string>
+    <string name="drawer_subscription">Подписки</string>
 
     <!-- Login -->
     <string name="login_enter_vk">Войти с помощью Вконтакте</string>

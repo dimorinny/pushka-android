@@ -20,7 +20,7 @@
 
     <!-- Drawer -->
     <color name="drawer_selected_icon">#515151</color>
-    <color name="drawer_selected_text">#515151</color>
+    <color name="drawer_selected_item">#e8e8e8</color>
 
     <!-- Login -->
     <color name="login_vk_color">#597ca0</color>
