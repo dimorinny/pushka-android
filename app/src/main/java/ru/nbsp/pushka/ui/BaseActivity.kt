@@ -27,8 +27,9 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    internal fun openLoginActivity() {
+    open fun openLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

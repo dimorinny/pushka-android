@@ -60,6 +60,7 @@ dependencies {
 
     // View
     compile 'com.flaviofaria:kenburnsview:1.0.7'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Di
     compile 'com.google.dagger:dagger:2.0.2'

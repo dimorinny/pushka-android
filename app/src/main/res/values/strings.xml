@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Пушка</string>
 
+    <!-- Common -->
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
     <!-- Titles -->
     <string name="title_feed">Лента</string>
     <string name="title_subscription">Подписки</string>
+
+    <!-- Drawer -->
+    <string name="drawer_exit">Выход</string>
 
     <!-- Login -->
     <string name="login_enter_vk">Войти с помощью Вконтакте</string>
@@ -13,4 +20,6 @@
     <string name="login_auth_error">Ошибка авторизации, попробуйте позже</string>
     <string name="login_dialog_title">Вход</string>
     <string name="login_dialog_message">Пожалуйста, подождите...</string>
+    <string name="login_exit_question">Вы действительно хотите выйти?</string>
+    <string name="login_exit_message">Выход из приложения</string>
 </resources>

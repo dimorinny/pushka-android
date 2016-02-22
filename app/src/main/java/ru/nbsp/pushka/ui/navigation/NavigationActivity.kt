@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.ui.navigation
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,12 +15,15 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
+import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.mvp.PresentedActivity
 import ru.nbsp.pushka.mvp.presenters.navigation.NavigationPresenter
 import ru.nbsp.pushka.mvp.views.navigation.NavigationView
 import ru.nbsp.pushka.ui.feed.FeedFragment
+import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerImageLoader
 import ru.nbsp.pushka.ui.navigation.drawer.NavigationDrawerItem
 import ru.nbsp.pushka.util.bindView
 import java.util.*
@@ -31,6 +36,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(), NavigationV
 
     private lateinit var drawer: Drawer
     private lateinit var accountHeader: AccountHeader
+    private lateinit var exitDialog: AlertDialog
     private val profileDrawerItem = ProfileDrawerItem()
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
@@ -38,19 +44,46 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(), NavigationV
     @Inject
     lateinit var presenter: NavigationPresenter
 
+    @Inject
+    lateinit var imageLoader: NavigationDrawerImageLoader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (isFinishing) {
+            return
+        }
+
         setContentView(R.layout.activity_navigation)
         BaseApplication.graph.inject(this)
 
         initPresenter(presenter)
         initToolbar()
+        initViews()
         initAccountHeader()
         initDrawer()
+        initImageLoader()
+        presenter.loadAccount()
 
         if (savedInstanceState == null) {
             setFeedContent()
         }
+    }
+
+    private fun initViews() {
+        val builder = AlertDialog.Builder(this)
+
+        val dialogClickListener = DialogInterface.OnClickListener { dialogInterface, which ->
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                presenter.onExitDialogPositiveClicked()
+            }
+        }
+
+        exitDialog = builder.setMessage(getString(R.string.login_exit_question))
+                .setTitle(getString(R.string.login_exit_message))
+                .setPositiveButton(getString(R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(R.string.no), dialogClickListener)
+                .create()
     }
 
     override fun initPresenter(presenter: NavigationPresenter) {
@@ -86,6 +119,10 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(), NavigationV
                 .build()
     }
 
+    private fun initImageLoader() {
+        DrawerImageLoader.init(imageLoader)
+    }
+
     private fun getDrawerItems(): ArrayList<IDrawerItem<*>> {
         val items = ArrayList<IDrawerItem<*>>()
 
@@ -117,5 +154,15 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(), NavigationV
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commitAllowingStateLoss()
+    }
+
+    override fun setAccount(account: Account) {
+        profileDrawerItem.withName(account.firstName + " " + account.secondName)
+        profileDrawerItem.withIcon(account.photo)
+        accountHeader.updateProfile(profileDrawerItem)
+    }
+
+    override fun openExitDialog() {
+        exitDialog.show()
     }
 }

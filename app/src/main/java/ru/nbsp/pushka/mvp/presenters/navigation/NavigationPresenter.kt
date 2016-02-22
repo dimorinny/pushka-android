@@ -17,7 +17,17 @@ class NavigationPresenter
     fun onDrawerItemClicked(drawerItem: NavigationDrawerItem): Boolean {
         return when (drawerItem) {
             NavigationDrawerItem.FEED -> { view?.setFeedContent(); true }
+            NavigationDrawerItem.EXIT -> { view?.openExitDialog(); true }
             else -> false
         }
+    }
+
+    fun loadAccount() {
+        view?.setAccount(accountManager.getAccount()!!)
+    }
+
+    fun onExitDialogPositiveClicked() {
+        accountManager.clear()
+        view?.openLoginActivity()
     }
 }

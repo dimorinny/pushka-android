@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.mvp.views.navigation
 
+import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.mvp.views.BaseView
 
 /**
@@ -7,4 +8,7 @@ import ru.nbsp.pushka.mvp.views.BaseView
  */
 interface NavigationView : BaseView {
     fun setFeedContent()
+    fun setAccount(account: Account)
+    fun openLoginActivity()
+    fun openExitDialog()
 }

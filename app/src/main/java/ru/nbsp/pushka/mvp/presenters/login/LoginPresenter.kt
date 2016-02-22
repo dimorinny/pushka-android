@@ -49,7 +49,7 @@ class LoginPresenter
                 .flatMap {
                     when(it) {
                         is LoginEvent.Success -> Observable.just(true)
-                        is LoginEvent.Error -> Observable.error(it.t)
+                        is LoginEvent.Error -> Observable.just(false)
                     }
                 }
                 .observeOn(resultScheduler)
@@ -77,13 +77,16 @@ class LoginPresenter
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
-            view?.hideDialog()
-            onLoginError()
         }
 
         override fun onNext(success: Boolean) {
             view?.hideDialog()
-            view?.openNavigationWindow()
+
+            if (success) {
+                view?.openNavigationWindow()
+            } else {
+                onLoginError()
+            }
         }
     }
 }
