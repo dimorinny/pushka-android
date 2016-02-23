@@ -1,6 +1,6 @@
-package ru.nbsp.pushka.presintation
+package ru.nbsp.pushka.presentation
 
-import ru.nbsp.pushka.presintation.BasePresenter
+import ru.nbsp.pushka.presentation.BasePresenter
 
 /**
  * Created by Dimorinny on 11.02.16.

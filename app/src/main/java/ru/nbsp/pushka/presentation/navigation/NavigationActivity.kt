@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presintation.navigation
+package ru.nbsp.pushka.presentation.navigation
 
 import android.graphics.Color
 import android.os.Build
@@ -16,8 +16,8 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.mvp.presenters.navigation.drawer.DisableToogleAnimation
-import ru.nbsp.pushka.presintation.PresentedActivity
-import ru.nbsp.pushka.presintation.feed.FeedFragment
+import ru.nbsp.pushka.presentation.PresentedActivity
+import ru.nbsp.pushka.presentation.feed.FeedFragment
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ import javax.inject.Inject
  * Created by Dimorinny on 12.02.16.
  */
 class NavigationActivity : PresentedActivity<NavigationPresenter>(),
-        ru.nbsp.pushka.presintation.navigation.NavigationView,
+        ru.nbsp.pushka.presentation.navigation.NavigationView,
         NavigationView.OnNavigationItemSelectedListener {
 
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)

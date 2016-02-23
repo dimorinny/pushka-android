@@ -7,9 +7,9 @@ import ru.nbsp.pushka.auth.social.SocialAuthManager
 import ru.nbsp.pushka.iteractor.IteractorModule
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.api.ApiPushkaService
-import ru.nbsp.pushka.presintation.BaseActivity
-import ru.nbsp.pushka.presintation.login.LoginActivity
-import ru.nbsp.pushka.presintation.navigation.NavigationActivity
+import ru.nbsp.pushka.presentation.BaseActivity
+import ru.nbsp.pushka.presentation.login.LoginActivity
+import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import javax.inject.Singleton
 
 /**

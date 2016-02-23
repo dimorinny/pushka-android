@@ -1,7 +1,7 @@
-package ru.nbsp.pushka.presintation.navigation
+package ru.nbsp.pushka.presentation.navigation
 
 import ru.nbsp.pushka.auth.Account
-import ru.nbsp.pushka.presintation.BaseView
+import ru.nbsp.pushka.presentation.BaseView
 
 /**
  * Created by Dimorinny on 22.02.16.

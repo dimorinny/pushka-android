@@ -1,12 +1,12 @@
-package ru.nbsp.pushka.presintation.login
+package ru.nbsp.pushka.presentation.login
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.annotation.UISched
 import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.presintation.BasePresenter
-import ru.nbsp.pushka.presintation.login.LoginView
+import ru.nbsp.pushka.presentation.BasePresenter
+import ru.nbsp.pushka.presentation.login.LoginView
 import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.StringUtils
 import rx.Observable

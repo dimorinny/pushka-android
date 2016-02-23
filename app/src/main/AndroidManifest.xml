@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presintation.login.LoginActivity"
+        <activity android:name=".presentation.login.LoginActivity"
             android:theme="@style/TranslucentStatusBarTheme">
         </activity>
         <activity android:name=".ui.navigation.NavigationActivity" android:label="@string/title_feed">
