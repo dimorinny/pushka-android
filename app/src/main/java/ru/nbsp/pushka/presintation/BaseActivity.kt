@@ -1,11 +1,11 @@
-package ru.nbsp.pushka.ui
+package ru.nbsp.pushka.presintation
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.auth.AccountManager
-import ru.nbsp.pushka.ui.login.LoginActivity
+import ru.nbsp.pushka.presintation.login.LoginActivity
 import javax.inject.Inject
 
 /**

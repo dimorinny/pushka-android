@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.ui.login
+package ru.nbsp.pushka.presintation.login
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -13,10 +13,10 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.social.SocialAuthListener
 import ru.nbsp.pushka.auth.social.SocialAuthManager
-import ru.nbsp.pushka.mvp.PresentedActivity
-import ru.nbsp.pushka.mvp.presenters.login.LoginPresenter
-import ru.nbsp.pushka.mvp.views.login.LoginView
-import ru.nbsp.pushka.ui.navigation.NavigationActivity
+import ru.nbsp.pushka.presintation.PresentedActivity
+import ru.nbsp.pushka.presintation.login.LoginPresenter
+import ru.nbsp.pushka.presintation.login.LoginView
+import ru.nbsp.pushka.presintation.navigation.NavigationActivity
 import ru.nbsp.pushka.util.AlertUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -80,7 +80,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     }
 
     private fun initFont() {
-        textLogo.typeface = Typeface.createFromAsset(assets, FONT_PATH)
+        textLogo.typeface = Typeface.createFromAsset(assets, ru.nbsp.pushka.presintation.LoginActivity.Companion.FONT_PATH)
     }
 
     override fun openVkLoginDialog() {

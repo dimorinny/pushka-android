@@ -1,6 +1,6 @@
-package ru.nbsp.pushka.mvp.views.login
+package ru.nbsp.pushka.presintation.login
 
-import ru.nbsp.pushka.mvp.views.BaseView
+import ru.nbsp.pushka.presintation.BaseView
 
 /**
  * Created by Dimorinny on 16.02.16.

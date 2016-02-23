@@ -1,6 +1,4 @@
-package ru.nbsp.pushka.mvp.presenters
-
-import ru.nbsp.pushka.mvp.views.BaseView
+package ru.nbsp.pushka.presintation
 
 /**
  * Created by Dimorinny on 11.02.16.

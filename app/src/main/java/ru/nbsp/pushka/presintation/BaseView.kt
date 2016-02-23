@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.mvp.views
+package ru.nbsp.pushka.presintation
 
 /**
  * Created by Dimorinny on 11.02.16.

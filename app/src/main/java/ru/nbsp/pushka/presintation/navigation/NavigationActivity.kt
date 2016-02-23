@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.ui.navigation
+package ru.nbsp.pushka.presintation.navigation
 
 import android.graphics.Color
 import android.os.Build
@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,10 +15,9 @@ import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.Account
-import ru.nbsp.pushka.mvp.PresentedActivity
-import ru.nbsp.pushka.mvp.presenters.navigation.NavigationPresenter
 import ru.nbsp.pushka.mvp.presenters.navigation.drawer.DisableToogleAnimation
-import ru.nbsp.pushka.ui.feed.FeedFragment
+import ru.nbsp.pushka.presintation.PresentedActivity
+import ru.nbsp.pushka.presintation.feed.FeedFragment
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -27,7 +25,7 @@ import javax.inject.Inject
  * Created by Dimorinny on 12.02.16.
  */
 class NavigationActivity : PresentedActivity<NavigationPresenter>(),
-        ru.nbsp.pushka.mvp.views.navigation.NavigationView,
+        ru.nbsp.pushka.presintation.navigation.NavigationView,
         NavigationView.OnNavigationItemSelectedListener {
 
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
@@ -133,7 +131,6 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun setAccount(account: Account) {
         headerName.text = account.firstName + " " + account.secondName
         // TODO: some placeholder
-        Log.v("qwe", account.photo)
         picasso.load(account.photo).into(headerPhoto)
     }
 

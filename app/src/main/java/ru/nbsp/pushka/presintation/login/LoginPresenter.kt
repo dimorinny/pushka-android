@@ -1,12 +1,12 @@
-package ru.nbsp.pushka.mvp.presenters.login
+package ru.nbsp.pushka.presintation.login
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.annotation.UISched
 import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.mvp.presenters.BasePresenter
-import ru.nbsp.pushka.mvp.views.login.LoginView
+import ru.nbsp.pushka.presintation.BasePresenter
+import ru.nbsp.pushka.presintation.login.LoginView
 import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.StringUtils
 import rx.Observable
@@ -20,11 +20,11 @@ import javax.inject.Inject
  */
 class LoginPresenter
     @Inject constructor(
-        @UISched val resultScheduler: Scheduler,
-        val accountManager: AccountManager,
-        val bus: RxBus,
-        val serviceManager: ServiceManager,
-        val stringUtils: StringUtils): BasePresenter {
+            @UISched val resultScheduler: Scheduler,
+            val accountManager: AccountManager,
+            val bus: RxBus,
+            val serviceManager: ServiceManager,
+            val stringUtils: StringUtils): BasePresenter {
 
     override var view: LoginView? = null
     private val subscription = CompositeSubscription()

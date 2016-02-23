@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.ui
+package ru.nbsp.pushka.presintation
 
 import android.support.v4.app.Fragment
 

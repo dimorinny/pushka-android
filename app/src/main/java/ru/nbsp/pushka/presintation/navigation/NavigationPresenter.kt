@@ -1,9 +1,8 @@
-package ru.nbsp.pushka.mvp.presenters.navigation
+package ru.nbsp.pushka.presintation.navigation
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.AccountManager
-import ru.nbsp.pushka.mvp.presenters.BasePresenter
-import ru.nbsp.pushka.mvp.views.navigation.NavigationView
+import ru.nbsp.pushka.presintation.BasePresenter
 import javax.inject.Inject
 
 /**

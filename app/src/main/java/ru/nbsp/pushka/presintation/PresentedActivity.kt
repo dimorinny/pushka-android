@@ -1,16 +1,16 @@
-package ru.nbsp.pushka.mvp
+package ru.nbsp.pushka.presintation
 
-import ru.nbsp.pushka.mvp.presenters.BasePresenter
-import ru.nbsp.pushka.ui.BaseFragment
+import ru.nbsp.pushka.presintation.BasePresenter
+import ru.nbsp.pushka.presintation.BaseActivity
 
 /**
  * Created by Dimorinny on 11.02.16.
  */
-open class PresentedFragment<T> : BaseFragment() where T : BasePresenter {
+open class PresentedActivity<T> : BaseActivity() where T : BasePresenter {
 
     private var presenter: T? = null
 
-    fun initPresenter(presenter: T) {
+    open fun initPresenter(presenter: T) {
         this.presenter = presenter
         presenter.onCreate()
     }
