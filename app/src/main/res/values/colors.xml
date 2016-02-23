@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Theme -->
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimary">#4896E4</color>
+    <color name="colorPrimaryDark">#3D86CE</color>
     <color name="colorPrimaryLight">#BBDEFB</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="colorAccent">#4896E4</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorDivider">#B6B6B6</color>
@@ -21,6 +21,7 @@
     <!-- Drawer -->
     <color name="drawer_selected_icon">#515151</color>
     <color name="drawer_selected_item">#e8e8e8</color>
+    <color name="drawer_header_background">#4587C9</color>
 
     <!-- Login -->
     <color name="login_vk_color">#597ca0</color>
