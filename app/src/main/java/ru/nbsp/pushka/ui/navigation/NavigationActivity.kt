@@ -1,13 +1,18 @@
 package ru.nbsp.pushka.ui.navigation
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.Account
@@ -28,10 +33,16 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
     val navigationView: NavigationView by bindView(R.id.navigation)
     val toolbar: Toolbar by bindView(R.id.toolbar)
+
     lateinit var headerName: TextView
+    lateinit var headerEmail: TextView
+    lateinit var headerPhoto: ImageView
 
     @Inject
     lateinit var presenter: NavigationPresenter
+
+    @Inject
+    lateinit var picasso: Picasso
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +53,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         BaseApplication.graph.inject(this)
         initPresenter(presenter)
 
+        initStatusBar()
         initToolbar()
         initViews()
         presenter.loadAccount()
@@ -56,6 +68,12 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         val toggle = DisableToogleAnimation(this, drawerLayout, toolbar)
         drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
+    }
+
+    private fun initStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = Color.TRANSPARENT;
+        }
     }
 
     override fun initPresenter(presenter: NavigationPresenter) {
@@ -77,7 +95,12 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 //                .setPositiveButton(getString(R.string.yes), dialogClickListener)
 //                .setNegativeButton(getString(R.string.no), dialogClickListener)
 //                .create()
-        headerName = navigationView.getHeaderView(0).findViewById(R.id.header_name) as TextView
+        val headerView = navigationView.getHeaderView(0)
+
+        headerName = headerView.findViewById(R.id.header_name) as TextView
+        headerEmail = headerView.findViewById(R.id.header_email) as TextView
+        headerPhoto = headerView.findViewById(R.id.header_photo) as ImageView
+
         navigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -109,6 +132,9 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
     override fun setAccount(account: Account) {
         headerName.text = account.firstName + " " + account.secondName
+        // TODO: some placeholder
+        Log.v("qwe", account.photo)
+        picasso.load(account.photo).into(headerPhoto)
     }
 
     override fun openExitDialog() {

@@ -15,7 +15,7 @@
             android:id="@+id/login_background_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/road"
+            android:src="@drawable/login_background"
             />
 
         <LinearLayout
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         >
 
         <!-- Vk button -->
@@ -60,7 +60,7 @@
             android:orientation="horizontal"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="6dp"
             android:elevation="2dp"
             android:clickable="true"
