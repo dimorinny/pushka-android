@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.base
+package ru.nbsp.pushka.presentation.core.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

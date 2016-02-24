@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBar
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.presentation.base.BaseActivity
+import ru.nbsp.pushka.presentation.core.base.BaseActivity
 import ru.nbsp.pushka.util.bindView
 
 /**

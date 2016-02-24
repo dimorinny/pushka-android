@@ -5,9 +5,10 @@
     <color name="colorPrimaryDark">#3D86CE</color>
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorAccent">#4896E4</color>
-    <color name="colorPrimaryText">#212121</color>
+    <color name="colorTitle">#000000</color>
+    <color name="colorPrimaryText">#313131</color>
     <color name="colorSecondaryText">#727272</color>
-    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorDivider">#E0E0E0</color>
 
     <!-- Common -->
     <color name="white">#FFF</color>

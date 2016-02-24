@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.presentation
 
-import ru.nbsp.pushka.presentation.base.BaseActivity
-import ru.nbsp.pushka.presentation.base.BasePresenter
+import ru.nbsp.pushka.presentation.core.base.BaseActivity
+import ru.nbsp.pushka.presentation.core.base.BasePresenter
 
 /**
  * Created by Dimorinny on 11.02.16.

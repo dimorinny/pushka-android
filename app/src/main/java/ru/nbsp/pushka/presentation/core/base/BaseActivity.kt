@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.base
+package ru.nbsp.pushka.presentation.core.base
 
 import android.content.Intent
 import android.os.Bundle

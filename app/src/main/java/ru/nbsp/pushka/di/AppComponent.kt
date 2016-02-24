@@ -5,8 +5,8 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.api.ApiModule
 import ru.nbsp.pushka.auth.social.SocialAuthManager
 import ru.nbsp.pushka.iteractor.IteractorModule
-import ru.nbsp.pushka.presentation.base.BaseActivity
-import ru.nbsp.pushka.presentation.base.OneFragmentActivity
+import ru.nbsp.pushka.presentation.core.base.BaseActivity
+import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.presentation.settings.SettingsFragment

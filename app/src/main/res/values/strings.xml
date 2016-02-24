@@ -32,4 +32,8 @@
     <string name="pref_logout_title">Выход</string>
     <string name="pref_logout_summary">Выход из приложения</string>
     <string name="pref_logout">pref_logout</string>
+
+    <!-- Placeholder -->
+    <string name="error_placeholder">Не удалось загрузить данные. Повторите попытку позже.</string>
+    <string name="empty_placeholder">Здесь пока пусто</string>
 </resources>

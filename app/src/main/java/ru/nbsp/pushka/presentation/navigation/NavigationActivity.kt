@@ -19,7 +19,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.mvp.presenters.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.PresentedActivity
-import ru.nbsp.pushka.presentation.feed.FeedFragment
+import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -98,7 +98,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     }
 
     override fun setFeedContent() {
-        setFragment(FeedFragment())
+        setFragment(AlertsFragment())
         navigationView.setCheckedItem(R.id.drawer_feed)
     }
 

@@ -2,7 +2,7 @@ package ru.nbsp.pushka.presentation.navigation
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.AccountManager
-import ru.nbsp.pushka.presentation.base.BasePresenter
+import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import javax.inject.Inject
 
 /**
