@@ -14,8 +14,6 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.social.SocialAuthListener
 import ru.nbsp.pushka.auth.social.SocialAuthManager
 import ru.nbsp.pushka.presentation.PresentedActivity
-import ru.nbsp.pushka.presentation.login.LoginPresenter
-import ru.nbsp.pushka.presentation.login.LoginView
 import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.util.AlertUtils
 import ru.nbsp.pushka.util.bindView
@@ -80,7 +78,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     }
 
     private fun initFont() {
-        textLogo.typeface = Typeface.createFromAsset(assets, ru.nbsp.pushka.presentation.LoginActivity.Companion.FONT_PATH)
+        textLogo.typeface = Typeface.createFromAsset(assets, FONT_PATH)
     }
 
     override fun openVkLoginDialog() {

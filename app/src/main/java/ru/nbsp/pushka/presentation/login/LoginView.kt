@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.login
 
-import ru.nbsp.pushka.presentation.BaseView
+import ru.nbsp.pushka.presentation.base.BaseView
 
 /**
  * Created by Dimorinny on 16.02.16.

@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation
+package ru.nbsp.pushka.presentation.base
 
 /**
  * Created by Dimorinny on 11.02.16.

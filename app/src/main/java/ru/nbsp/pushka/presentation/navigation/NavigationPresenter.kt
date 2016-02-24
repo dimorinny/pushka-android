@@ -2,7 +2,7 @@ package ru.nbsp.pushka.presentation.navigation
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.AccountManager
-import ru.nbsp.pushka.presentation.BasePresenter
+import ru.nbsp.pushka.presentation.base.BasePresenter
 import javax.inject.Inject
 
 /**
@@ -16,15 +16,11 @@ class NavigationPresenter
     fun onDrawerItemClicked(drawerItem: Int) {
         when (drawerItem) {
             R.id.drawer_feed -> view?.setFeedContent()
+            R.id.drawer_settings -> view?.setSettingsContent()
         }
     }
 
     fun loadAccount() {
         view?.setAccount(accountManager.getAccount()!!)
-    }
-
-    fun onExitDialogPositiveClicked() {
-        accountManager.clear()
-        view?.openLoginActivity()
     }
 }

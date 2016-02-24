@@ -1,9 +1,11 @@
-package ru.nbsp.pushka.presentation
+package ru.nbsp.pushka.presentation.base
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import ru.nbsp.pushka.BaseApplication
+import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
@@ -15,7 +17,6 @@ open class BaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var accountManager: AccountManager
-
     val exceptionActivities: Array<Class<*>> = arrayOf(LoginActivity::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,18 @@ open class BaseActivity : AppCompatActivity() {
 
         if (javaClass !in exceptionActivities && accountManager.getAccount() == null) {
             openLoginActivity()
+        }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        val toolbar = findViewById(R.id.toolbar) as Toolbar?
+        if (toolbar != null) {
+            setSupportActionBar(toolbar)
         }
     }
 

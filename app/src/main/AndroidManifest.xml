@@ -14,7 +14,11 @@
         <activity android:name=".presentation.login.LoginActivity"
             android:theme="@style/TranslucentStatusBarTheme">
         </activity>
-        <activity android:name=".ui.navigation.NavigationActivity" android:label="@string/title_feed">
+        <activity
+            android:name=".presentation.settings.SettingsActivity"
+            android:label="@string/title_settings"
+            />
+        <activity android:name=".presentation.navigation.NavigationActivity" android:label="@string/title_feed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

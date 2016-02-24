@@ -1,8 +1,10 @@
 package ru.nbsp.pushka.presentation.navigation
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -18,6 +20,7 @@ import ru.nbsp.pushka.auth.Account
 import ru.nbsp.pushka.mvp.presenters.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.feed.FeedFragment
+import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -27,6 +30,12 @@ import javax.inject.Inject
 class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         ru.nbsp.pushka.presentation.navigation.NavigationView,
         NavigationView.OnNavigationItemSelectedListener {
+
+    companion object {
+        private const val NAVDRAWER_LAUNCH_DELAY = 258L
+    }
+
+    val handler: Handler = Handler()
 
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
     val navigationView: NavigationView by bindView(R.id.navigation)
@@ -62,7 +71,6 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     }
 
     private fun initToolbar() {
-        setSupportActionBar(toolbar)
         val toggle = DisableToogleAnimation(this, drawerLayout, toolbar)
         drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
@@ -80,19 +88,6 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     }
 
     private fun initViews() {
-//        val builder = AlertDialog.Builder(this)
-//
-//        val dialogClickListener = DialogInterface.OnClickListener { dialogInterface, which ->
-//            if (which == DialogInterface.BUTTON_POSITIVE) {
-//                presenter.onExitDialogPositiveClicked()
-//            }
-//        }
-//
-//        exitDialog = builder.setMessage(getString(R.string.login_exit_question))
-//                .setTitle(getString(R.string.login_exit_message))
-//                .setPositiveButton(getString(R.string.yes), dialogClickListener)
-//                .setNegativeButton(getString(R.string.no), dialogClickListener)
-//                .create()
         val headerView = navigationView.getHeaderView(0)
 
         headerName = headerView.findViewById(R.id.header_name) as TextView
@@ -105,6 +100,13 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun setFeedContent() {
         setFragment(FeedFragment())
         navigationView.setCheckedItem(R.id.drawer_feed)
+    }
+
+    override fun setSettingsContent() {
+        handler.postDelayed({
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }, NAVDRAWER_LAUNCH_DELAY)
     }
 
     override fun onBackPressed() {
@@ -132,9 +134,5 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         headerName.text = account.firstName + " " + account.secondName
         // TODO: some placeholder
         picasso.load(account.photo).into(headerPhoto)
-    }
-
-    override fun openExitDialog() {
-
     }
 }
