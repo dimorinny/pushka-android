@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:layout_marginLeft="8dp"
@@ -21,6 +22,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="168dp"
+            android:layout_marginBottom="8dp"
             >
 
             <ImageView
@@ -42,7 +44,7 @@
                 android:paddingTop="16dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/shadow_view"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:maxLines="3"
                 android:text="Title title title"
