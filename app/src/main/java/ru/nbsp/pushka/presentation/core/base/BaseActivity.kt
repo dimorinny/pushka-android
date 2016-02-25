@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.auth.AccountManager
@@ -25,7 +24,6 @@ open class BaseActivity : AppCompatActivity() {
         BaseApplication.graph.inject(this)
 
         if (javaClass !in exceptionActivities && accountManager.getAccount() == null) {
-            Log.v("qwe", "qwe")
             openLoginActivity()
         }
     }
