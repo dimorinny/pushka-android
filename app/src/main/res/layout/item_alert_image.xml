@@ -33,7 +33,7 @@
                 />
 
             <TextView
-                android:id="@+id/item_alert_tite"
+                android:id="@+id/item_alert_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"

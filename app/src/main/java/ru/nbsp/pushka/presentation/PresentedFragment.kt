@@ -10,7 +10,7 @@ open class PresentedFragment<T> : BaseFragment() where T : BasePresenter {
 
     private var presenter: T? = null
 
-    fun initPresenter(presenter: T) {
+    open fun initPresenter(presenter: T) {
         this.presenter = presenter
         presenter.onCreate()
     }

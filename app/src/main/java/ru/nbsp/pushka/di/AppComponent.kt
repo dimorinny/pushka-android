@@ -5,6 +5,7 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.api.ApiModule
 import ru.nbsp.pushka.auth.social.SocialAuthManager
 import ru.nbsp.pushka.iteractor.IteractorModule
+import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.core.base.BaseActivity
 import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
 import ru.nbsp.pushka.presentation.login.LoginActivity
@@ -28,10 +29,11 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(application: BaseApplication)
     fun inject(pushkaService: ApiPushkaService)
+    fun inject(baseActivity: BaseActivity)
     fun inject(loginActivity: LoginActivity)
     fun inject(socialAuthManager: SocialAuthManager)
-    fun inject(baseActivity: BaseActivity)
     fun inject(navigationActivity: NavigationActivity)
     fun inject(oneFragmentActivity: OneFragmentActivity)
     fun inject(settingsFragment: SettingsFragment)
+    fun inject(alertsFragment: AlertsFragment)
 }

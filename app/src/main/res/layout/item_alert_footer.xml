@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textColor="@color/colorPrimaryText"
         android:text="rkework wkeoprk pweokrp owepor pwekrpowkpokep rkework wkeoprk pweokrp owepor pwekrpowkpokep rkework wkeoprk pweokrp owepor pwekrpowkpokep owkpowk proewk wprkwep orkwper kpwoekr pwo"
         />

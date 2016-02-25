@@ -6,6 +6,8 @@ import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
+import ru.nbsp.pushka.repository.alert.AlertsRepository
+import ru.nbsp.pushka.repository.alert.FakeAlertsRepository
 import javax.inject.Singleton
 
 /**
@@ -19,5 +21,11 @@ class RepositoryModule {
     @Provides
     fun provideAccountRepository(gson: Gson, sharedPreferences: SharedPreferences): AccountRepository {
         return PreferencesAccountRepository(gson, sharedPreferences)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAlertsRepository(): AlertsRepository {
+        return FakeAlertsRepository()
     }
 }
