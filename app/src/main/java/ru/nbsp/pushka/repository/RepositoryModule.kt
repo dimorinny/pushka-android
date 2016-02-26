@@ -10,6 +10,8 @@ import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.repository.alert.FakeAlertsRepository
 import ru.nbsp.pushka.repository.source.FakeSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
+import ru.nbsp.pushka.repository.subscription.FakeSubscriptionsRepository
+import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
 import javax.inject.Singleton
 
 /**
@@ -33,7 +35,13 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideSourcesRepository(): SourcesRepository{
+    fun provideSourcesRepository(): SourcesRepository {
         return FakeSourcesRepository()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSubscriptionsRepository(): SubscriptionsRepository {
+        return FakeSubscriptionsRepository()
     }
 }

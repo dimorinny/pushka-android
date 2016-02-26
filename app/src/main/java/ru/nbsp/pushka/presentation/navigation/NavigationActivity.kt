@@ -22,6 +22,7 @@ import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
+import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsFragment
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -106,6 +107,11 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun setSourcesContent() {
         setFragment(SourcesFragment())
         navigationView.setCheckedItem(R.id.drawer_sources)
+    }
+
+    override fun setSubscriptionsContent() {
+        setFragment(SubscriptionsFragment())
+        navigationView.setCheckedItem(R.id.drawer_subscriptions)
     }
 
     override fun setSettingsContent() {
