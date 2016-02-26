@@ -11,6 +11,7 @@ import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.presentation.settings.SettingsFragment
+import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.api.ApiPushkaService
 import javax.inject.Singleton
@@ -36,4 +37,5 @@ interface AppComponent {
     fun inject(oneFragmentActivity: OneFragmentActivity)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(alertsFragment: AlertsFragment)
+    fun inject(sourcesFragment: SourcesFragment)
 }

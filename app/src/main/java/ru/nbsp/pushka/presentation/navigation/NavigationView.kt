@@ -9,5 +9,6 @@ import ru.nbsp.pushka.presentation.core.base.BaseView
 interface NavigationView : BaseView {
     fun setFeedContent()
     fun setSettingsContent()
+    fun setSourcesContent()
     fun setAccount(account: Account)
 }

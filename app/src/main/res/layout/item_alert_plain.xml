@@ -28,7 +28,6 @@
             android:layout_marginRight="16dp"
             android:textSize="20sp"
             android:textColor="@color/colorPrimaryText"
-            android:text="Заголовок"
             />
 
         <include layout="@layout/item_alert_footer"/>

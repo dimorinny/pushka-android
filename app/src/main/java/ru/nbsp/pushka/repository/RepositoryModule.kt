@@ -8,6 +8,8 @@ import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.repository.alert.FakeAlertsRepository
+import ru.nbsp.pushka.repository.source.FakeSourcesRepository
+import ru.nbsp.pushka.repository.source.SourcesRepository
 import javax.inject.Singleton
 
 /**
@@ -27,5 +29,11 @@ class RepositoryModule {
     @Provides
     fun provideAlertsRepository(): AlertsRepository {
         return FakeAlertsRepository()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSourcesRepository(): SourcesRepository{
+        return FakeSourcesRepository()
     }
 }

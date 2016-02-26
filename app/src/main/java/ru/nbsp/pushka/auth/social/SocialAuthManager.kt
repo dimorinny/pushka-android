@@ -80,11 +80,11 @@ class SocialAuthManager(val authListener: SocialAuthListener) : GoogleApiClient.
         }
 
         var vkData = data
-        if (resultCode == Activity.RESULT_OK) {
+        if (vkData == null) {
             vkData = Intent()
         }
 
-        VKSdk.onActivityResult(requestCode, resultCode, vkData!!, object : VKCallback<VKAccessToken> {
+        VKSdk.onActivityResult(requestCode, resultCode, vkData, object : VKCallback<VKAccessToken> {
             override fun onResult(token: VKAccessToken) {
                 authListener.onSocialLoginSuccess(DRIVER_VK, token.accessToken)
             }
