@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.feed
 
-import ru.nbsp.pushka.api.model.subscription.Subscription
+import ru.nbsp.pushka.network.model.subscription.Subscription
 import ru.nbsp.pushka.presentation.core.base.BaseView
 
 /**

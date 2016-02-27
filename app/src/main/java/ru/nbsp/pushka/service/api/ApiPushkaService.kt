@@ -4,11 +4,11 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.auth.Account
-import ru.nbsp.pushka.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.iteractor.user.UserIteractor
+import ru.nbsp.pushka.interactor.user.UserInteractor
+import ru.nbsp.pushka.network.auth.Account
+import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -23,7 +23,7 @@ class ApiPushkaService : Service() {
     lateinit var bus: RxBus
 
     @Inject
-    lateinit var userIteractor: UserIteractor
+    lateinit var userIteractor: UserInteractor
 
     @Inject
     lateinit var accountManager: AccountManager

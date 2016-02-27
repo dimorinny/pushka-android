@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.navigation
 
-import ru.nbsp.pushka.auth.Account
+import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.presentation.core.base.BaseView
 
 /**

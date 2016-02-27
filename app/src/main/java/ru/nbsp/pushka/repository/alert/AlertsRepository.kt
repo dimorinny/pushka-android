@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.repository.alert
 
-import ru.nbsp.pushka.api.model.alert.Alert
+import ru.nbsp.pushka.network.model.alert.Alert
 import rx.Observable
 
 /**

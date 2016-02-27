@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.model.alert.Alert
+import ru.nbsp.pushka.network.model.alert.Alert
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView

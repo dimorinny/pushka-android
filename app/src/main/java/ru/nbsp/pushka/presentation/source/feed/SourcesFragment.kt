@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.model.source.Source
+import ru.nbsp.pushka.network.model.source.Source
 import ru.nbsp.pushka.presentation.PresentedFragment
+import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
 import ru.nbsp.pushka.util.bindView
@@ -64,6 +65,12 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.setState(StateRecyclerView.State.STATE_PROGRESS)
 
         sourcesAdapter = SourcesAdapter()
+        sourcesAdapter.itemClickListener = object : OnItemClickListener {
+            override fun onItemClicked(index: Int, view: View) {
+                presenter.onSourceClicked()
+            }
+        }
+
         recyclerView.adapter = sourcesAdapter
     }
 

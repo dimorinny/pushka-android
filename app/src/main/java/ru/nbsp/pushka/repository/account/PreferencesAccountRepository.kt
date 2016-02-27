@@ -3,7 +3,7 @@ package ru.nbsp.pushka.repository.account
 import android.content.SharedPreferences
 import com.github.salomonbrys.kotson.fromJson
 import com.google.gson.Gson
-import ru.nbsp.pushka.auth.Account
+import ru.nbsp.pushka.network.auth.Account
 
 /**
  * Created by Dimorinny on 20.02.16.

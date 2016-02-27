@@ -16,10 +16,10 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.auth.Account
-import ru.nbsp.pushka.mvp.presenters.navigation.drawer.DisableToogleAnimation
+import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
+import ru.nbsp.pushka.presentation.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsFragment

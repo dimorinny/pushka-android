@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.model.subscription.Subscription
+import ru.nbsp.pushka.network.model.subscription.Subscription
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter

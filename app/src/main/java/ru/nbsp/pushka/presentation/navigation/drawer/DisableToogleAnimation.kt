@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.mvp.presenters.navigation.drawer
+package ru.nbsp.pushka.presentation.navigation.drawer
 
 import android.app.Activity
 import android.support.v4.widget.DrawerLayout
@@ -17,6 +17,6 @@ class DisableToogleAnimation(activity: Activity?,
     : ActionBarDrawerToggle(activity, drawerLayout, toolbar,
         R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
     
-    override fun onDrawerSlide(drawerView: View?, slideOffset: Float) 
+    override fun onDrawerSlide(drawerView: View?, slideOffset: Float)
             = super.onDrawerSlide(drawerView, 0F)
 }

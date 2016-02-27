@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.repository.source
 
-import ru.nbsp.pushka.api.model.source.Param
-import ru.nbsp.pushka.api.model.source.Source
+import ru.nbsp.pushka.network.model.source.Param
+import ru.nbsp.pushka.network.model.source.Source
 import rx.Observable
 import java.util.*
 

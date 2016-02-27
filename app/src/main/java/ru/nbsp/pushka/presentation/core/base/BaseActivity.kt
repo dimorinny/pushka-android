@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.auth.AccountManager
+import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
 

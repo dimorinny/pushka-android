@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.api.model.alert.Alert
+import ru.nbsp.pushka.network.model.alert.Alert
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.util.bindView
 import java.util.*

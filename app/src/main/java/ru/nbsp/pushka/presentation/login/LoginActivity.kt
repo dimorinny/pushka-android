@@ -11,8 +11,8 @@ import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.auth.social.SocialAuthListener
-import ru.nbsp.pushka.auth.social.SocialAuthManager
+import ru.nbsp.pushka.network.auth.social.SocialAuthListener
+import ru.nbsp.pushka.network.auth.social.SocialAuthManager
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.util.AlertUtils

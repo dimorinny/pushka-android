@@ -2,9 +2,9 @@ package ru.nbsp.pushka.di
 
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.api.ApiModule
-import ru.nbsp.pushka.auth.social.SocialAuthManager
-import ru.nbsp.pushka.iteractor.IteractorModule
+import ru.nbsp.pushka.interactor.InteractorModule
+import ru.nbsp.pushka.network.ApiModule
+import ru.nbsp.pushka.network.auth.social.SocialAuthManager
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.core.base.BaseActivity
 import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
@@ -26,7 +26,7 @@ import javax.inject.Singleton
         ApiModule::class,
         SchedulerModule::class,
         RepositoryModule::class,
-        IteractorModule::class
+        InteractorModule::class
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)
