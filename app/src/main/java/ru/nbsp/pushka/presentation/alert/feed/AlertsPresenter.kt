@@ -14,8 +14,14 @@ class AlertsPresenter
 
     override var view: AlertsView? = null
 
+    lateinit var alerts: List<Alert>
+
     fun loadAlertsFromCache() {
         alertsRepository.getAlerts().subscribe(LoadAlertsSubscriber())
+    }
+
+    fun onAlertClicked(index: Int) {
+        view?.openUrl(alerts[index].shareLink)
     }
 
     inner class LoadAlertsSubscriber : Subscriber<List<Alert>>() {
@@ -25,8 +31,9 @@ class AlertsPresenter
             t.printStackTrace()
         }
 
-        override fun onNext(alerts: List<Alert>) {
-            view?.setAlerts(alerts)
+        override fun onNext(result: List<Alert>) {
+            alerts = result
+            view?.setAlerts(result)
         }
     }
 }

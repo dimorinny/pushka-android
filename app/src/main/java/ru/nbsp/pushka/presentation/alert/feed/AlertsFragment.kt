@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.presentation.alert.feed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.model.alert.Alert
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
+import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -69,10 +72,22 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
         alertsAdapter = AlertsAdapter(picasso)
         recyclerView.adapter = alertsAdapter
+
+        alertsAdapter.itemClickListener = object : OnItemClickListener {
+            override fun onItemClicked(index: Int, view: View) {
+                presenter.onAlertClicked(index)
+            }
+        }
     }
 
     override fun setAlerts(alerts: List<Alert>) {
         alertsAdapter.alerts = alerts
         recyclerView.setState(if (alerts.isEmpty()) StateRecyclerView.State.STATE_EMPTY else StateRecyclerView.State.STATE_NORMAL)
+    }
+
+    override fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 }

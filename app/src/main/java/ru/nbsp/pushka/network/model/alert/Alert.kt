@@ -1,13 +1,15 @@
 package ru.nbsp.pushka.network.model.alert
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Created by Dimorinny on 25.02.16.
  */
 data class Alert(
-        val title: String,
-        val text: String,
-        val photo: String?,
+        @SerializedName("title") val title: String,
+        @SerializedName("description") val text: String,
+        @SerializedName("thumbnail_url") val photo: String?,
         val sourceImage: String,
         val sourceTitle: String,
-        val shareLink: String
+        @SerializedName("url") val shareLink: String
 )

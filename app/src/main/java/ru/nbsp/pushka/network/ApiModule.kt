@@ -10,6 +10,7 @@ import retrofit.client.OkClient
 import retrofit.converter.GsonConverter
 import ru.nbsp.pushka.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
+import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import javax.inject.Singleton
@@ -82,5 +83,11 @@ class ApiModule {
     @Provides
     fun providePushkaSourceService(@AuthRequired restAdapter: RestAdapter): PushkaSourceService {
         return restAdapter.create(PushkaSourceService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePushkaAlertsService(@AuthRequired restAdapter: RestAdapter): PushkaAlertsService {
+        return restAdapter.create(PushkaAlertsService::class.java)
     }
 }

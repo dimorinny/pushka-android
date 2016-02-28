@@ -4,11 +4,12 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
 import ru.nbsp.pushka.repository.alert.AlertsRepository
-import ru.nbsp.pushka.repository.alert.FakeAlertsRepository
+import ru.nbsp.pushka.repository.alert.ServerAlertsRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.subscription.FakeSubscriptionsRepository
@@ -31,8 +32,8 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideAlertsRepository(): AlertsRepository {
-        return FakeAlertsRepository()
+    fun provideAlertsRepository(apiPushka: PushkaAlertsService, schedulersUtils: SchedulersUtils): AlertsRepository {
+        return ServerAlertsRepository(apiPushka, schedulersUtils)
     }
 
     @Singleton

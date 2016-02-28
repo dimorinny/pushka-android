@@ -36,7 +36,7 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     open inner class PlainItem(val holderView: View) : RecyclerView.ViewHolder(holderView) {
-        val alertContainer: ImageView by bindView(R.id.item_alert_container)
+        val alertContainer: ViewGroup by bindView(R.id.item_alert_container)
         val alertTitle: TextView by bindView(R.id.item_alert_title)
         val alertText: TextView by bindView(R.id.item_alert_text)
         val sourceTitle: TextView by bindView(R.id.item_alert_source_title)
@@ -58,9 +58,9 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
 
         holderItem.alertTitle.text = alert.title
         holderItem.alertText.text = alert.text
-        holderItem.sourceTitle.text = alert.sourceTitle
+//        holderItem.sourceTitle.text = alert.sourceTitle
 
-        picasso.load(alert.sourceImage).into(holderItem.sourceImage)
+//        picasso.load(alert.sourceImage).into(holderItem.sourceImage)
 
         if (holder is ImageItem) {
             picasso.load(alert.photo).into(holder.alertImage)

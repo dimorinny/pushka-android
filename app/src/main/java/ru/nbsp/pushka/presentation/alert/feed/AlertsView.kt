@@ -8,4 +8,5 @@ import ru.nbsp.pushka.presentation.core.base.BaseView
  */
 interface AlertsView : BaseView {
     fun setAlerts(alerts: List<Alert>)
+    fun openUrl(url: String)
 }
