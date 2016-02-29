@@ -3,9 +3,7 @@ package ru.nbsp.pushka.presentation.core.base
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
@@ -28,16 +26,16 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+//    private fun initToolbar() {
+//        val toolbar = findViewById(R.id.toolbar) as Toolbar?
+//        if (toolbar != null) {
+//            setSupportActionBar(toolbar)
+//        }
+//    }
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        initToolbar()
-    }
-
-    private fun initToolbar() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar?
-        if (toolbar != null) {
-            setSupportActionBar(toolbar)
-        }
+//        initToolbar()
     }
 
     open fun openLoginActivity() {

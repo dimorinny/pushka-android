@@ -73,6 +73,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     }
 
     private fun initToolbar() {
+        setSupportActionBar(toolbar)
         val toggle = DisableToogleAnimation(this, drawerLayout, toolbar)
         drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
