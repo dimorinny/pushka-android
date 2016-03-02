@@ -4,11 +4,16 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
+import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.LoadAlertsEvent
 import ru.nbsp.pushka.bus.event.LoginEvent
+import ru.nbsp.pushka.data.entity.Alert
+import ru.nbsp.pushka.interactor.alert.AlertInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager
+import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -23,7 +28,13 @@ class ApiPushkaService : Service() {
     lateinit var bus: RxBus
 
     @Inject
-    lateinit var userIteractor: UserInteractor
+    lateinit var userInteractor: UserInteractor
+
+    @field:[Inject ApiRepository]
+    lateinit var apiAlertsRepository: AlertsRepository
+
+    @Inject
+    lateinit var storageAlertInteractor: AlertInteractor
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -38,6 +49,7 @@ class ApiPushkaService : Service() {
         const val ARG_LOGIN_PROVIDER = "arg_provider"
         const val ARG_LOGIN_TOKEN = "arg_token"
         const val COMMAND_LOGIN = "command_login"
+        const val COMMAND_LOAD_ALERTS = "command_load_alerts"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -63,16 +75,27 @@ class ApiPushkaService : Service() {
             COMMAND_LOGIN -> {
                 handleLoginCommand(intent, startId)
             }
+            COMMAND_LOAD_ALERTS -> {
+                handleLoadAlertsCommand(startId)
+            }
         }
 
         return START_NOT_STICKY
+    }
+
+    private fun handleLoadAlertsCommand(startId: Int) {
+        apiAlertsRepository.getAlerts()
+                .flatMap {
+                    storageAlertInteractor.saveAlerts(it)
+                }
+                .subscribe(LoadAlertsSubscriber(startId))
     }
 
     private fun handleLoginCommand(intent: Intent, startId: Int) {
         val token = intent.getStringExtra(ARG_LOGIN_TOKEN)
         val provider = intent.getStringExtra(ARG_LOGIN_PROVIDER)
 
-        userIteractor.login(provider, token)
+        userInteractor.login(provider, token)
                 .map {
                     val user = it.user
                     val identity = it.identity
@@ -96,6 +119,20 @@ class ApiPushkaService : Service() {
 
         override fun onNext(account: Account) {
             bus.post(LoginEvent.Success() as LoginEvent)
+            stopSelf(startId)
+        }
+    }
+
+    inner class LoadAlertsSubscriber(val startId: Int) : Subscriber<List<Alert>>() {
+        override fun onCompleted() {}
+
+        override fun onError(t: Throwable) {
+            bus.post(LoadAlertsEvent.Error(t) as LoadAlertsEvent)
+            stopSelf(startId)
+        }
+
+        override fun onNext(alerts: List<Alert>) {
+            bus.post(LoadAlertsEvent.Success() as LoadAlertsEvent)
             stopSelf(startId)
         }
     }

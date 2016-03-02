@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.repository.alert
 
-import ru.nbsp.pushka.network.model.alert.Alert
+import ru.nbsp.pushka.data.entity.Alert
 import rx.Observable
 
 /**
@@ -15,9 +15,9 @@ class FakeAlertsRepository : AlertsRepository {
 
     override fun getAlerts(): Observable<List<Alert>> {
         return Observable.just(listOf(
-                Alert("Заголовок тут", FAKE_TEXT, null, FAKE_IMAGE, "Газета.ру", "qwe"),
+                Alert("Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
                 Alert("Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe"),
-                Alert("Заголовок тут", FAKE_TEXT, null, FAKE_IMAGE, "Газета.ру", "qwe"),
+                Alert("Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
                 Alert("Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe")
         ))
     }

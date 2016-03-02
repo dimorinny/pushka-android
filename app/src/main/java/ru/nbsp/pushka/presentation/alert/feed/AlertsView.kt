@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.alert.feed
 
-import ru.nbsp.pushka.network.model.alert.Alert
+import ru.nbsp.pushka.data.entity.Alert
 import ru.nbsp.pushka.presentation.core.base.BaseView
 
 /**
@@ -8,5 +8,6 @@ import ru.nbsp.pushka.presentation.core.base.BaseView
  */
 interface AlertsView : BaseView {
     fun setAlerts(alerts: List<Alert>)
+    fun setErrorState()
     fun openUrl(url: String)
 }

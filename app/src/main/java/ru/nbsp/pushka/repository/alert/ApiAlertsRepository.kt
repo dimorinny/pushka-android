@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.repository.alert
 
-import ru.nbsp.pushka.network.model.alert.Alert
+import ru.nbsp.pushka.data.entity.Alert
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.util.SchedulersUtils
 import rx.Observable
@@ -8,7 +8,7 @@ import rx.Observable
 /**
  * Created by Dimorinny on 28.02.16.
  */
-class ServerAlertsRepository(
+class ApiAlertsRepository(
         val apiPushka: PushkaAlertsService,
         val schedulersUtils: SchedulersUtils) : AlertsRepository {
 

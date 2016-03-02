@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.di
 
+import com.dimorinny.vscale.db.DataModule
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.interactor.InteractorModule
@@ -26,7 +27,8 @@ import javax.inject.Singleton
         ApiModule::class,
         SchedulerModule::class,
         RepositoryModule::class,
-        InteractorModule::class
+        InteractorModule::class,
+        DataModule::class
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)

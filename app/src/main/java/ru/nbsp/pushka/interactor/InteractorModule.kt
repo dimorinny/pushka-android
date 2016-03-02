@@ -2,6 +2,9 @@ package ru.nbsp.pushka.interactor
 
 import dagger.Module
 import dagger.Provides
+import ru.nbsp.pushka.data.DataManager
+import ru.nbsp.pushka.interactor.alert.AlertInteractor
+import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
 import ru.nbsp.pushka.interactor.source.SourceInteractor
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
@@ -28,5 +31,11 @@ class InteractorModule {
     @Provides
     fun provideSourceInteractor(api: PushkaSourceService, schedulersUtils: SchedulersUtils): SourceInteractor {
         return ApiSourceInteractor(api, schedulersUtils)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAlertInteractor(dataManager: DataManager, schedulersUtils: SchedulersUtils): AlertInteractor {
+        return StorageAlertInteractor(dataManager, schedulersUtils)
     }
 }

@@ -28,6 +28,7 @@ kapt {
 }
 
 def appcompatVersion = "23.1.1"
+def realmVersion = '0.87.5'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -65,6 +66,11 @@ dependencies {
     compile('com.github.afollestad:sectioned-recyclerview:0.2.0') {
         transitive = true
     }
+
+    // Data
+    compile 'com.pushtorefresh.storio:sqlite:1.7.0'
+    compile 'com.pushtorefresh.storio:sqlite-annotations:1.7.0'
+    kapt 'com.pushtorefresh.storio:sqlite-annotations-processor:1.7.0'
 
     // Di
     compile 'com.google.dagger:dagger:2.0.2'

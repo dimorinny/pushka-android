@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.network.model.alert.Alert
+import ru.nbsp.pushka.data.entity.Alert
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
@@ -51,6 +51,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         initPresenter(presenter)
         initRecyclerView()
         presenter.loadAlertsFromCache()
+        presenter.loadAlertsFromServer()
     }
 
     private fun initViews() {
@@ -83,6 +84,10 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     override fun setAlerts(alerts: List<Alert>) {
         alertsAdapter.alerts = alerts
         recyclerView.setState(if (alerts.isEmpty()) StateRecyclerView.State.STATE_EMPTY else StateRecyclerView.State.STATE_NORMAL)
+    }
+
+    override fun setErrorState() {
+        recyclerView.setState(StateRecyclerView.State.STATE_ERROR)
     }
 
     override fun openUrl(url: String) {
