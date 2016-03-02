@@ -1,4 +1,4 @@
-package com.dimorinny.vscale.db
+package ru.nbsp.pushka.data
 
 import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper

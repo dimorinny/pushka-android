@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.di
 
-import com.dimorinny.vscale.db.DataModule
+import ru.nbsp.pushka.data.DataModule
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.interactor.InteractorModule
