@@ -1,8 +1,8 @@
 package ru.nbsp.pushka.network.service
 
-import retrofit.http.Field
-import retrofit.http.FormUrlEncoded
-import retrofit.http.POST
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 import ru.nbsp.pushka.network.response.LoginResponse
 import rx.Observable
 
@@ -11,7 +11,7 @@ import rx.Observable
  */
 interface PushkaAuthService {
     @FormUrlEncoded
-    @POST("/auth/social")
+    @POST("auth/social")
     fun login(@Field("provider") provider: String,
               @Field("token") token: String): Observable<LoginResponse>
 }

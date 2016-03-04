@@ -119,4 +119,12 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
         socialAuthManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (progressDialog.isShowing) {
+            progressDialog.dismiss()
+        }
+    }
 }

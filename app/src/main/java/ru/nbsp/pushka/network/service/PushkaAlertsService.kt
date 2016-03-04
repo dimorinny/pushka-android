@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.network.service
 
-import retrofit.http.GET
+import retrofit2.http.GET
 import ru.nbsp.pushka.network.response.AlertsResponse
 import rx.Observable
 
@@ -8,6 +8,6 @@ import rx.Observable
  * Created by Dimorinny on 28.02.16.
  */
 interface PushkaAlertsService {
-    @GET("/feed/")
+    @GET("feed/")
     fun getAlerts(): Observable<AlertsResponse>
 }

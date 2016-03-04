@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.network.auth
 
-import com.squareup.okhttp.Interceptor
-import com.squareup.okhttp.Response
+import okhttp3.Interceptor
+import okhttp3.Response
 import ru.nbsp.pushka.repository.account.AccountRepository
 import javax.inject.Inject
 

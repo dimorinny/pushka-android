@@ -32,6 +32,7 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
         }
 
     inner class ImageItem(holderView: View) : PlainItem(holderView) {
+        val alertImageContainer: ViewGroup by bindView(R.id.item_alert_image_container)
         val alertImage: ImageView by bindView(R.id.item_alert_image)
     }
 
@@ -63,7 +64,11 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
 //        picasso.load(alert.sourceImage).into(holderItem.sourceImage)
 
         if (holder is ImageItem) {
-            picasso.load(alert.photo).into(holder.alertImage)
+            picasso
+                    .load(alert.photo)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.alertImage)
         }
     }
 

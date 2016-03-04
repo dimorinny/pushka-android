@@ -1,8 +1,8 @@
 package ru.nbsp.pushka.di
 
-import ru.nbsp.pushka.data.DataModule
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
+import ru.nbsp.pushka.data.DataModule
 import ru.nbsp.pushka.interactor.InteractorModule
 import ru.nbsp.pushka.network.ApiModule
 import ru.nbsp.pushka.network.auth.social.SocialAuthManager
@@ -23,8 +23,8 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = arrayOf(
-        AppModule::class,
         ApiModule::class,
+        AppModule::class,
         SchedulerModule::class,
         RepositoryModule::class,
         InteractorModule::class,

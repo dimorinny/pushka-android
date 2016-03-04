@@ -2,6 +2,7 @@ package ru.nbsp.pushka
 
 import android.app.Application
 import android.os.StrictMode
+import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import com.vk.sdk.VKSdk
 import ru.nbsp.pushka.di.AppComponent
@@ -23,7 +24,12 @@ class BaseApplication : Application() {
         StrictMode.enableDefaults()
 
         initSocial()
+        initStetho()
         initAppComponent()
+    }
+
+    private fun initStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 
     private fun initSocial() {
