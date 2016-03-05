@@ -8,7 +8,7 @@ import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadAlertsEvent
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.data.entity.Alert
+import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.interactor.alert.AlertInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account

@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.data.entity
+package ru.nbsp.pushka.data.model.alert
 
 import com.google.gson.annotations.SerializedName
 import com.pushtorefresh.storio.sqlite.annotations.StorIOSQLiteColumn

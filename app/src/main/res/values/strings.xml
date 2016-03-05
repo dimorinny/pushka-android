@@ -9,6 +9,10 @@
     <string name="title_feed">Лента</string>
     <string name="title_subscription">Подписки</string>
     <string name="title_settings">Настройки</string>
+    <string name="title_sources">Источники</string>
+
+    <string name="title_loading">Загрузка…</string>
+    <string name="title_error">Ошибка загрузки</string>
 
     <!-- Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

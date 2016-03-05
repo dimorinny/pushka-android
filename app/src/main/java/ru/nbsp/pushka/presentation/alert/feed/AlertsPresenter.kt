@@ -4,8 +4,9 @@ import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadAlertsEvent
-import ru.nbsp.pushka.data.entity.Alert
+import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.service.ServiceManager
 import rx.Observable
@@ -36,14 +37,16 @@ class AlertsPresenter
                         is LoadAlertsEvent.Success -> storageAlertsRepository.getAlerts()
                         is LoadAlertsEvent.Error -> Observable.error(it.t)
                     }
-                }.subscribe(LoadAlertsSubscriber()))
+                }.subscribe(LoadAlertsNetworkSubscriber()))
     }
 
     fun loadAlertsFromCache() {
-        subscription.add(storageAlertsRepository.getAlerts().subscribe(LoadAlertsSubscriber()))
+        subscription.add(storageAlertsRepository.getAlerts().subscribe(LoadAlertsCacheSubscriber()))
     }
 
     fun loadAlertsFromServer() {
+        view?.setState(State.STATE_PROGRESS)
+        view?.setToolbarState(State.STATE_PROGRESS)
         serviceManager.loadAlerts()
     }
 
@@ -51,19 +54,41 @@ class AlertsPresenter
         view?.openUrl(alerts[index].shareLink)
     }
 
-    inner class LoadAlertsSubscriber : Subscriber<List<Alert>>() {
+    inner class LoadAlertsCacheSubscriber : Subscriber<List<Alert>>() {
+        override fun onCompleted() {}
+
+        override fun onError(t: Throwable) {
+            t.printStackTrace()
+        }
+
+        override fun onNext(result: List<Alert>) {
+            alerts = result
+
+            if (!result.isEmpty()) {
+                view?.setState(State.STATE_NORMAL)
+            }
+
+            view?.setAlerts(result)
+        }
+    }
+
+    inner class LoadAlertsNetworkSubscriber : Subscriber<List<Alert>>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
 
             if (alerts.size == 0) {
-                view?.setErrorState()
+                view?.setState(State.STATE_ERROR)
+            } else {
+                view?.setToolbarState(State.STATE_ERROR)
             }
         }
 
         override fun onNext(result: List<Alert>) {
             alerts = result
+            view?.setToolbarState(State.STATE_NORMAL)
+            view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setAlerts(result)
         }
     }

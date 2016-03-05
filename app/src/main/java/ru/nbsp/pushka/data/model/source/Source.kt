@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.network.model.source
+package ru.nbsp.pushka.data.model.source
 
 import com.google.gson.annotations.SerializedName
 

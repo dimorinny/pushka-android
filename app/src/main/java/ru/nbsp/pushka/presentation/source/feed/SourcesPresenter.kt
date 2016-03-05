@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.presentation.source.feed
 
 import ru.nbsp.pushka.interactor.source.SourceInteractor
-import ru.nbsp.pushka.network.model.source.Source
+import ru.nbsp.pushka.data.model.source.Source
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.repository.source.SourcesRepository

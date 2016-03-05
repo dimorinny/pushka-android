@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.network.response
 
 import com.google.gson.annotations.SerializedName
-import ru.nbsp.pushka.network.model.source.Source
+import ru.nbsp.pushka.data.model.source.Source
 
 /**
  * Created by Dimorinny on 26.02.16.

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.StringRes
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -19,6 +20,8 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
+import ru.nbsp.pushka.presentation.core.state.State
+import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
@@ -31,12 +34,15 @@ import javax.inject.Inject
  */
 class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         ru.nbsp.pushka.presentation.navigation.NavigationView,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        StateManager {
 
     companion object {
         private const val NAVDRAWER_LAUNCH_DELAY = 258L
+        private const val STATE_TITLE = "state_title"
     }
 
+    lateinit var currentFragmentTitle: String
     val handler: Handler = Handler()
 
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
@@ -62,6 +68,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         BaseApplication.graph.inject(this)
         initPresenter(presenter)
 
+        initState(savedInstanceState)
         initStatusBar()
         initToolbar()
         initViews()
@@ -69,13 +76,23 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
         if (savedInstanceState == null) {
             setFeedContent()
+        } else {
+            title = currentFragmentTitle
+        }
+    }
+
+    private fun initState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(STATE_TITLE)) {
+                currentFragmentTitle = savedInstanceState.getString(STATE_TITLE)
+            }
         }
     }
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)
         val toggle = DisableToogleAnimation(this, drawerLayout, toolbar)
-        drawerLayout.setDrawerListener(toggle)
+        drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
 
@@ -101,16 +118,19 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     }
 
     override fun setFeedContent() {
+        titleFromStringRes(R.string.title_feed)
         setFragment(AlertsFragment())
         navigationView.setCheckedItem(R.id.drawer_feed)
     }
 
     override fun setSourcesContent() {
+        titleFromStringRes(R.string.title_sources)
         setFragment(SourcesFragment())
         navigationView.setCheckedItem(R.id.drawer_sources)
     }
 
     override fun setSubscriptionsContent() {
+        titleFromStringRes(R.string.title_subscription)
         setFragment(SubscriptionsFragment())
         navigationView.setCheckedItem(R.id.drawer_subscriptions)
     }
@@ -120,6 +140,14 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }, NAVDRAWER_LAUNCH_DELAY)
+    }
+
+    override fun setState(state: State) {
+        title = when (state) {
+            State.STATE_NORMAL, State.STATE_EMPTY -> currentFragmentTitle
+            State.STATE_PROGRESS -> resources.getString(R.string.title_loading)
+            State.STATE_ERROR -> resources.getString(R.string.title_error)
+        }
     }
 
     override fun onBackPressed() {
@@ -143,9 +171,21 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
                 .commitAllowingStateLoss()
     }
 
+    private fun titleFromStringRes(@StringRes res: Int) {
+        title = resources.getString(res)
+        currentFragmentTitle = title.toString()
+    }
+
     override fun setAccount(account: Account) {
         headerName.text = account.firstName + " " + account.secondName
         // TODO: some placeholder
         picasso.load(account.photo).into(headerPhoto)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (title != null) {
+            outState.putString(STATE_TITLE, currentFragmentTitle)
+        }
+        super.onSaveInstanceState(outState)
     }
 }

@@ -7,17 +7,10 @@ import android.view.View;
 
 public class StateRecyclerView extends RecyclerView {
 
-    public enum State {
-        STATE_NORMAL,
-        STATE_PROGRESS,
-        STATE_EMPTY,
-        STATE_ERROR
-    }
-
     private View mEmptyView;
     private View mErrorView;
     private View mProgressView;
-    private State mCurrentState = State.STATE_NORMAL;
+    private ru.nbsp.pushka.presentation.core.state.State mCurrentState = ru.nbsp.pushka.presentation.core.state.State.STATE_NORMAL;
 
     public StateRecyclerView(Context context) {
         super(context);
@@ -50,13 +43,13 @@ public class StateRecyclerView extends RecyclerView {
         }
     }
 
-    private void updateState(State newState) {
+    private void updateState(ru.nbsp.pushka.presentation.core.state.State newState) {
         setCurrentViewVisibility(GONE);
         mCurrentState = newState;
         setCurrentViewVisibility(VISIBLE);
     }
 
-    public void setState(State newState) {
+    public void setState(ru.nbsp.pushka.presentation.core.state.State newState) {
         if (newState != mCurrentState) {
             updateState(newState);
         }

@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.alert.feed
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,10 +12,12 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.data.entity.Alert
+import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.state.State
+import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -38,6 +41,17 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     lateinit var picasso: Picasso
 
     lateinit var alertsAdapter: AlertsAdapter
+    var toolbarStateManager: StateManager? = null
+
+    override fun onAttach(context: Context?) {
+        toolbarStateManager = activity as StateManager
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        toolbarStateManager = null
+        super.onDetach()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_alerts, container, false)
@@ -69,7 +83,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         recyclerView.setEmptyView(emptyPlaceholder)
         recyclerView.setErrorView(errorPlaceholder)
         recyclerView.setProgressView(progressPlaceholder)
-        recyclerView.setState(StateRecyclerView.State.STATE_PROGRESS)
+        recyclerView.setState(State.STATE_PROGRESS)
 
         alertsAdapter = AlertsAdapter(picasso)
         recyclerView.adapter = alertsAdapter
@@ -83,11 +97,14 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     override fun setAlerts(alerts: List<Alert>) {
         alertsAdapter.alerts = alerts
-        recyclerView.setState(if (alerts.isEmpty()) StateRecyclerView.State.STATE_EMPTY else StateRecyclerView.State.STATE_NORMAL)
     }
 
-    override fun setErrorState() {
-        recyclerView.setState(StateRecyclerView.State.STATE_ERROR)
+    override fun setState(state: State) {
+        recyclerView.setState(state)
+    }
+
+    override fun setToolbarState(state: State) {
+        toolbarStateManager?.setState(state)
     }
 
     override fun openUrl(url: String) {

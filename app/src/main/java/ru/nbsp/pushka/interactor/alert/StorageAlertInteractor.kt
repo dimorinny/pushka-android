@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.interactor.alert
 
 import ru.nbsp.pushka.data.DataManager
-import ru.nbsp.pushka.data.entity.Alert
+import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.util.SchedulersUtils
 import rx.Observable
 

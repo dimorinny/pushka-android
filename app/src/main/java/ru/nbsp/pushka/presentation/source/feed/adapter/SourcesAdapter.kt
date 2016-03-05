@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.network.model.source.Source
+import ru.nbsp.pushka.data.model.source.Source
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.util.bindView
 import java.util.*

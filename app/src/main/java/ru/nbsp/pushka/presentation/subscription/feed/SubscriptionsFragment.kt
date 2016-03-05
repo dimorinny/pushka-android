@@ -10,6 +10,7 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.model.subscription.Subscription
 import ru.nbsp.pushka.presentation.PresentedFragment
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
 import ru.nbsp.pushka.util.bindView
@@ -61,7 +62,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.setEmptyView(emptyPlaceholder)
         recyclerView.setErrorView(errorPlaceholder)
         recyclerView.setProgressView(progressPlaceholder)
-        recyclerView.setState(StateRecyclerView.State.STATE_PROGRESS)
+        recyclerView.setState(State.STATE_PROGRESS)
 
         subscriptionsAdapter = SubscriptionsAdapter()
         recyclerView.adapter = subscriptionsAdapter
@@ -69,6 +70,6 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
     override fun setSubscriptions(subscriptions: List<Subscription>) {
         subscriptionsAdapter.subscriptions = subscriptions
-        recyclerView.setState(if (subscriptions.isEmpty()) StateRecyclerView.State.STATE_EMPTY else StateRecyclerView.State.STATE_NORMAL)
+        recyclerView.setState(if (subscriptions.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }
 }

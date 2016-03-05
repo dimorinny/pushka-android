@@ -7,10 +7,10 @@ import com.pushtorefresh.storio.sqlite.StorIOSQLite
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite
 import dagger.Module
 import dagger.Provides
-import ru.nbsp.pushka.data.entity.Alert
-import ru.nbsp.pushka.data.entity.AlertStorIOSQLiteDeleteResolver
-import ru.nbsp.pushka.data.entity.AlertStorIOSQLiteGetResolver
-import ru.nbsp.pushka.data.entity.AlertStorIOSQLitePutResolver
+import ru.nbsp.pushka.data.model.alert.Alert
+import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLiteDeleteResolver
+import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLiteGetResolver
+import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLitePutResolver
 import javax.inject.Singleton
 
 /**
