@@ -108,9 +108,9 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun providePicasso(context: Context, client: OkHttpClient): Picasso {
+    fun providePicasso(context: Context): Picasso {
         return Picasso.Builder(context)
-                .downloader(OkHttp3Downloader(client))
+                .downloader(OkHttp3Downloader(context, 1024 * 1024 * 25))
                 .build()
     }
 }
