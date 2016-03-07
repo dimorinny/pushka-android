@@ -1,9 +1,9 @@
 package ru.nbsp.pushka.presentation.source.feed
 
 import ru.nbsp.pushka.interactor.source.SourceInteractor
-import ru.nbsp.pushka.data.model.source.Source
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
+import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import rx.Subscriber
 import javax.inject.Inject
@@ -27,14 +27,14 @@ class SourcesPresenter
                 .subscribe(SubscribeSourceSubscriber())
     }
 
-    inner class LoadSourcesSubscriber : Subscriber<List<Source>>() {
+    inner class LoadSourcesSubscriber : Subscriber<List<PresentationSource>>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
         }
 
-        override fun onNext(alerts: List<Source>) {
+        override fun onNext(alerts: List<PresentationSource>) {
             view?.setSources(alerts)
         }
     }

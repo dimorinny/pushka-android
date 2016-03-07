@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.repository.subscription
 
-import ru.nbsp.pushka.network.model.subscription.Subscription
+import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import rx.Observable
 
 /**
@@ -19,17 +19,17 @@ class FakeSubscriptionsRepository : SubscriptionsRepository {
         private const val SUBSCRIPTION_SUBTITLE3 = "Выход фильма: \"Великолепная пятерка\""
     }
 
-    override fun getSubscriptions(): Observable<List<Subscription>> {
+    override fun getSubscriptions(): Observable<List<PresentationSubscription>> {
         return Observable.just(listOf(
-                Subscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
-                Subscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
-                Subscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3),
-                Subscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
-                Subscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
-                Subscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3),
-                Subscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
-                Subscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
-                Subscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3)
+                PresentationSubscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
+                PresentationSubscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
+                PresentationSubscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3),
+                PresentationSubscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
+                PresentationSubscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
+                PresentationSubscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3),
+                PresentationSubscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
+                PresentationSubscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
+                PresentationSubscription(SUBSCRIPTION_TITLE3, SUBSCRIPTION_SUBTITLE3)
         ))
     }
 }

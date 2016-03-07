@@ -1,14 +1,14 @@
-package ru.nbsp.pushka.data.model.source
+package ru.nbsp.pushka.network.model.source
 
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-data class Source(
+data class NetworkSource(
         @SerializedName("_id") val id: String,
-        @SerializedName("params") val params: List<Param>,
+        @SerializedName("params") val params: List<NetworkParam>,
         @SerializedName("name") val name: String,
         @SerializedName("description") val description: String,
-        @SerializedName("handler_id") val handlerId: String
+        @SerializedName("category") val category: String
 )

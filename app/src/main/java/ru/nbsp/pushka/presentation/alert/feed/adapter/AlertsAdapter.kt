@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
@@ -25,8 +25,8 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
 
     var itemClickListener: OnItemClickListener? = null
 
-    var alerts: List<Alert> = ArrayList()
-        set(s : List<Alert>) {
+    var alerts: List<PresentationAlert> = ArrayList()
+        set(s : List<PresentationAlert>) {
             field = s
             notifyDataSetChanged()
         }

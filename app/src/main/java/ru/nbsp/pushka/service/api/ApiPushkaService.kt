@@ -8,11 +8,11 @@ import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadAlertsEvent
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.interactor.alert.AlertInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager
+import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
@@ -123,7 +123,7 @@ class ApiPushkaService : Service() {
         }
     }
 
-    inner class LoadAlertsSubscriber(val startId: Int) : Subscriber<List<Alert>>() {
+    inner class LoadAlertsSubscriber(val startId: Int) : Subscriber<List<PresentationAlert>>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
@@ -131,7 +131,7 @@ class ApiPushkaService : Service() {
             stopSelf(startId)
         }
 
-        override fun onNext(alerts: List<Alert>) {
+        override fun onNext(alerts: List<PresentationAlert>) {
             bus.post(LoadAlertsEvent.Success() as LoadAlertsEvent)
             stopSelf(startId)
         }

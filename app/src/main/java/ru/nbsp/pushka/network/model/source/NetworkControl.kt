@@ -1,13 +1,13 @@
-package ru.nbsp.pushka.data.model.source
+package ru.nbsp.pushka.network.model.source
 
-import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Dimorinny on 05.03.16.
  */
-data class Control(
+data class NetworkControl(
         @SerializedName("type") val type: String,
         @SerializedName("title") val title: String,
-        @SerializedName("options") val options: JsonArray
+        @SerializedName("attributes") val options: JsonObject
 )

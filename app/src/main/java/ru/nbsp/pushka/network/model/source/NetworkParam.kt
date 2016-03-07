@@ -1,12 +1,12 @@
-package ru.nbsp.pushka.data.model.source
+package ru.nbsp.pushka.network.model.source
 
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-data class Param(
+data class NetworkParam(
         @SerializedName("name") val name: String,
         @SerializedName("required") val required: Boolean,
-        @SerializedName("control") val control: Control
+        @SerializedName("control") val control: NetworkControl
 )

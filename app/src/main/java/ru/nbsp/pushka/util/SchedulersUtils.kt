@@ -17,7 +17,7 @@ class SchedulersUtils
             @IOSched val ioScheduler: Scheduler,
             @UISched val uiScheduler: Scheduler) {
 
-    fun <T>applySchedulers(): Observable.Transformer<T, T>  {
+    fun <T> applySchedulers(): Observable.Transformer<T, T>  {
         return Observable.Transformer {
             it.subscribeOn(ioScheduler).observeOn(uiScheduler)
         }

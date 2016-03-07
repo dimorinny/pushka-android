@@ -1,41 +1,59 @@
 package ru.nbsp.pushka.data
 
-import com.pushtorefresh.storio.sqlite.StorIOSQLite
-import com.pushtorefresh.storio.sqlite.queries.DeleteQuery
-import com.pushtorefresh.storio.sqlite.queries.Query
-import ru.nbsp.pushka.data.model.alert.Alert
-import ru.nbsp.pushka.data.table.AlertTable
+import io.realm.Realm
+import io.realm.RealmObject
+import ru.nbsp.pushka.data.model.alert.DataAlert
+import ru.nbsp.pushka.data.model.source.DataSource
 import rx.Observable
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
  * Created by Dimorinny on 02.03.16.
  */
 @Singleton
-class DataManager @Inject constructor(val storIO: StorIOSQLite) {
+class DataManager
+    @Inject constructor(val realmProvider: Provider<Realm>) {
 
-    fun getAletsObservable() : Observable<List<Alert>> {
-        return storIO.get()
-                .listOfObjects(Alert::class.java)
-                .withQuery(Query.builder()
-                        .table(AlertTable.TABLE)
-                        .build())
-                .prepare()
-                .createObservable()
+    fun getAlertsObservable(): Observable<List<DataAlert>> {
+        return getListObservable(DataAlert::class.java)
     }
 
     fun clearAlerts() {
-        storIO.delete()
-                .byQuery(DeleteQuery.builder().table(AlertTable.TABLE).build())
-                .prepare()
-                .executeAsBlocking()
+        realmProvider.get().executeTransaction {
+            it.clear(DataAlert::class.java)
+        }
     }
 
-    fun putAlerts(servers: List<Alert>) {
-        storIO.put()
-                .objects(servers)
-                .prepare()
-                .executeAsBlocking()
+    fun putAlerts(alerts: List<DataAlert>) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(alerts)
+        }
+    }
+
+    fun getSourcesObservable(): Observable<List<DataSource>> {
+        return getListObservable(DataSource::class.java)
+    }
+
+    fun clearSources() {
+        realmProvider.get().executeTransaction {
+            it.clear(DataSource::class.java)
+        }
+    }
+
+    fun putSources(sources: List<DataSource>) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(sources)
+        }
+    }
+
+    private fun <T : RealmObject> getListObservable(type: Class<T>): Observable<List<T>> {
+        return realmProvider.get().where(type)
+                .findAllAsync()
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
     }
 }

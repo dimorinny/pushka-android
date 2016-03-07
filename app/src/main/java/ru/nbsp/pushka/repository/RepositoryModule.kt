@@ -7,6 +7,8 @@ import dagger.Provides
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.data.DataManager
+import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
+import ru.nbsp.pushka.mapper.presentation.source.PresentationSourceMapper
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import ru.nbsp.pushka.repository.account.AccountRepository
@@ -37,21 +39,21 @@ class RepositoryModule {
     @ApiRepository
     @Singleton
     @Provides
-    fun provideApiAlertsRepository(apiPushka: PushkaAlertsService, schedulersUtils: SchedulersUtils): AlertsRepository {
-        return ApiAlertsRepository(apiPushka, schedulersUtils)
+    fun provideApiAlertsRepository(apiPushka: PushkaAlertsService, alertMapper: PresentationAlertMapper, schedulersUtils: SchedulersUtils): AlertsRepository {
+        return ApiAlertsRepository(apiPushka, alertMapper, schedulersUtils)
     }
 
     @StorageRepository
     @Singleton
     @Provides
-    fun provideStorageAlertsRepository(dataManager: DataManager, schedulersUtils: SchedulersUtils): AlertsRepository {
-        return StorageAlertsRepository(dataManager, schedulersUtils)
+    fun provideStorageAlertsRepository(dataManager: DataManager, alertMapper: PresentationAlertMapper): AlertsRepository {
+        return StorageAlertsRepository(dataManager, alertMapper)
     }
 
     @Singleton
     @Provides
-    fun provideSourcesRepository(apiPushka: PushkaSourceService, schedulersUtils: SchedulersUtils): SourcesRepository {
-        return ServerSourcesRepository(apiPushka, schedulersUtils)
+    fun provideSourcesRepository(apiPushka: PushkaSourceService, presentationSourceMapper: PresentationSourceMapper, schedulersUtils: SchedulersUtils): SourcesRepository {
+        return ServerSourcesRepository(apiPushka, presentationSourceMapper, schedulersUtils)
     }
 
     @Singleton

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.network.model.subscription.Subscription
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
@@ -18,8 +18,8 @@ import java.util.*
 class SubscriptionsAdapter : RecyclerView.Adapter<SubscriptionsAdapter.ViewHolder>(){
     var itemClickListener: OnItemClickListener? = null
 
-    var subscriptions: List<Subscription> = ArrayList()
-        set(s : List<Subscription>) {
+    var subscriptions: List<PresentationSubscription> = ArrayList()
+        set(s : List<PresentationSubscription>) {
             field = s
             notifyDataSetChanged()
         }

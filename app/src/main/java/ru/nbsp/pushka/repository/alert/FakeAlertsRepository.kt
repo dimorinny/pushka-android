@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.repository.alert
 
-import ru.nbsp.pushka.data.model.alert.Alert
+import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import rx.Observable
 
 /**
@@ -13,12 +13,12 @@ class FakeAlertsRepository : AlertsRepository {
         private const val FAKE_TEXT = "Быстрый рост числа кибератак и нарушений конфиденциальности персональных данных делает критически важной защиту финансовых операций."
     }
 
-    override fun getAlerts(): Observable<List<Alert>> {
+    override fun getAlerts(): Observable<List<PresentationAlert>> {
         return Observable.just(listOf(
-                Alert("Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
-                Alert("Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe"),
-                Alert("Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
-                Alert("Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe")
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe"),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe")
         ))
     }
 }

@@ -1,16 +1,10 @@
 package ru.nbsp.pushka.data
 
 import android.content.Context
-import android.database.sqlite.SQLiteOpenHelper
-import com.pushtorefresh.storio.sqlite.SQLiteTypeMapping
-import com.pushtorefresh.storio.sqlite.StorIOSQLite
-import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite
 import dagger.Module
 import dagger.Provides
-import ru.nbsp.pushka.data.model.alert.Alert
-import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLiteDeleteResolver
-import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLiteGetResolver
-import ru.nbsp.pushka.data.model.alert.AlertStorIOSQLitePutResolver
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import javax.inject.Singleton
 
 /**
@@ -22,20 +16,13 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideStoreIOSQLite(sqLiteOpenHelper: SQLiteOpenHelper): StorIOSQLite {
-        return DefaultStorIOSQLite.builder()
-                .sqliteOpenHelper(sqLiteOpenHelper)
-                .addTypeMapping(Alert::class.java, SQLiteTypeMapping.builder<Alert>()
-                        .putResolver(AlertStorIOSQLitePutResolver())
-                        .getResolver(AlertStorIOSQLiteGetResolver())
-                        .deleteResolver(AlertStorIOSQLiteDeleteResolver())
-                        .build())
-                .build();
+    fun provideRealm(realmConfiguration: RealmConfiguration): Realm {
+        return Realm.getInstance(realmConfiguration)
     }
 
     @Singleton
     @Provides
-    fun provideSQLiteOpenHelper(context: Context): SQLiteOpenHelper {
-        return DbOpenHelper(context)
+    fun provideRealmConfiguration(context: Context): RealmConfiguration {
+        return RealmConfiguration.Builder(context).deleteRealmIfMigrationNeeded().build()
     }
 }

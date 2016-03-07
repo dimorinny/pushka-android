@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.network.model.subscription.Subscription
 import ru.nbsp.pushka.presentation.PresentedFragment
+import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
@@ -68,7 +68,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.adapter = subscriptionsAdapter
     }
 
-    override fun setSubscriptions(subscriptions: List<Subscription>) {
+    override fun setSubscriptions(subscriptions: List<PresentationSubscription>) {
         subscriptionsAdapter.subscriptions = subscriptions
         recyclerView.setState(if (subscriptions.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }

@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.data.model.source.Source
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
@@ -75,7 +75,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.adapter = sourcesAdapter
     }
 
-    override fun setSources(sources: List<Source>) {
+    override fun setSources(sources: List<PresentationSource>) {
         sourcesAdapter.sources = sources
         recyclerView.setState(if (sources.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }

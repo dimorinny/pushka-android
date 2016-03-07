@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.data.model.source.Source
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
@@ -20,8 +20,8 @@ class SourcesAdapter : SectionedRecyclerViewAdapter<SourcesAdapter.SourceItemVie
 
     var itemClickListener: OnItemClickListener? = null
 
-    var sources: List<Source> = ArrayList()
-        set(s : List<Source>) {
+    var sources: List<PresentationSource> = ArrayList()
+        set(s : List<PresentationSource>) {
             field = s
             notifyDataSetChanged()
         }

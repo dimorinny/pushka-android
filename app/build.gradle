@@ -73,9 +73,9 @@ dependencies {
     }
 
     // Data
-    compile 'com.pushtorefresh.storio:sqlite:1.7.0'
-    compile 'com.pushtorefresh.storio:sqlite-annotations:1.7.0'
-    kapt 'com.pushtorefresh.storio:sqlite-annotations-processor:1.7.0'
+    compile 'io.realm:realm-android:0.87.5'
+    kapt "io.realm:realm-annotations-processor:0.87.5"
+    kapt "io.realm:realm-annotations:0.87.5"
 
     // Di
     compile 'com.google.dagger:dagger:2.0.2'

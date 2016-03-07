@@ -9,6 +9,7 @@ import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
 import ru.nbsp.pushka.interactor.source.SourceInteractor
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
+import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import ru.nbsp.pushka.util.SchedulersUtils
@@ -35,7 +36,7 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideAlertInteractor(dataManager: DataManager, schedulersUtils: SchedulersUtils): AlertInteractor {
-        return StorageAlertInteractor(dataManager, schedulersUtils)
+    fun provideAlertInteractor(dataManager: DataManager, dataAlertMapper: DataAlertMapper, schedulersUtils: SchedulersUtils): AlertInteractor {
+        return StorageAlertInteractor(dataManager, dataAlertMapper, schedulersUtils)
     }
 }

@@ -12,10 +12,10 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.data.model.alert.Alert
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
@@ -95,7 +95,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         }
     }
 
-    override fun setAlerts(alerts: List<Alert>) {
+    override fun setAlerts(alerts: List<PresentationAlert>) {
         alertsAdapter.alerts = alerts
     }
 

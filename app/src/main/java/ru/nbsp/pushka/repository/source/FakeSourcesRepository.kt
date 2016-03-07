@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.repository.source
 
-import ru.nbsp.pushka.data.model.source.Param
-import ru.nbsp.pushka.data.model.source.Source
+import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
+import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import rx.Observable
 import java.util.*
 
@@ -24,15 +24,15 @@ class FakeSourcesRepository : SourcesRepository {
         private const val FAKE_HANDLER_ID = "some_handler_id"
     }
 
-    override fun getSources(): Observable<List<Source>> {
+    override fun getSources(): Observable<List<PresentationSource>> {
         return Observable.just(listOf(
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE2, FAKE_SOURCE_SUBTITLE2, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE3, FAKE_SOURCE_SUBTITLE3, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE2, FAKE_SOURCE_SUBTITLE2, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE3, FAKE_SOURCE_SUBTITLE3, FAKE_HANDLER_ID),
-                Source(FAKE_ID, ArrayList<Param>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID)
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE2, FAKE_SOURCE_SUBTITLE2, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE3, FAKE_SOURCE_SUBTITLE3, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE2, FAKE_SOURCE_SUBTITLE2, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE3, FAKE_SOURCE_SUBTITLE3, FAKE_HANDLER_ID),
+                PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID)
         ))
     }
 }
