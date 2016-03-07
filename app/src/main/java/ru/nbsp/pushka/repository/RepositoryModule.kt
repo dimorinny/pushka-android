@@ -18,6 +18,7 @@ import ru.nbsp.pushka.repository.alert.ApiAlertsRepository
 import ru.nbsp.pushka.repository.alert.StorageAlertsRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
+import ru.nbsp.pushka.repository.source.StorageSourcesRepository
 import ru.nbsp.pushka.repository.subscription.FakeSubscriptionsRepository
 import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
 import ru.nbsp.pushka.util.SchedulersUtils
@@ -50,10 +51,18 @@ class RepositoryModule {
         return StorageAlertsRepository(dataManager, alertMapper)
     }
 
+    @ApiRepository
     @Singleton
     @Provides
-    fun provideSourcesRepository(apiPushka: PushkaSourceService, presentationSourceMapper: PresentationSourceMapper, schedulersUtils: SchedulersUtils): SourcesRepository {
+    fun provideApiSourcesRepository(apiPushka: PushkaSourceService, presentationSourceMapper: PresentationSourceMapper, schedulersUtils: SchedulersUtils): SourcesRepository {
         return ServerSourcesRepository(apiPushka, presentationSourceMapper, schedulersUtils)
+    }
+
+    @StorageRepository
+    @Singleton
+    @Provides
+    fun provideStorageSourcesRepository(dataManager: DataManager, presentationSourceMapper: PresentationSourceMapper): SourcesRepository {
+        return StorageSourcesRepository(dataManager, presentationSourceMapper)
     }
 
     @Singleton

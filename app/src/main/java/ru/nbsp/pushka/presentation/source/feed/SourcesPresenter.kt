@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.presentation.source.feed
 
-import ru.nbsp.pushka.interactor.source.SourceInteractor
+import ru.nbsp.pushka.annotation.ApiRepository
+import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
@@ -12,8 +13,8 @@ import javax.inject.Inject
  * Created by Dimorinny on 24.02.16.
  */
 class SourcesPresenter
-    @Inject constructor(val sourcesRepository: SourcesRepository,
-                        val sourceInteractor: SourceInteractor) : BasePresenter {
+    @Inject constructor(@ApiRepository val sourcesRepository: SourcesRepository,
+                        val sourceInteractor: ApiSourceInteractor) : BasePresenter {
 
     override var view: SourceView? = null
 

@@ -44,7 +44,6 @@ class AlertsPresenter
     }
 
     fun loadAlertsFromServer() {
-        view?.setState(State.STATE_PROGRESS)
         view?.setToolbarState(State.STATE_PROGRESS)
         serviceManager.loadAlerts()
     }

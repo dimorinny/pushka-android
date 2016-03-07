@@ -8,12 +8,13 @@ import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadAlertsEvent
 import ru.nbsp.pushka.bus.event.LoginEvent
-import ru.nbsp.pushka.interactor.alert.AlertInteractor
+import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.repository.alert.AlertsRepository
+import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -34,7 +35,10 @@ class ApiPushkaService : Service() {
     lateinit var apiAlertsRepository: AlertsRepository
 
     @Inject
-    lateinit var storageAlertInteractor: AlertInteractor
+    lateinit var storageAlertInteractor: StorageAlertInteractor
+
+    @field:[Inject ApiRepository]
+    lateinit var apiSourcesRepository: SourcesRepository
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -50,6 +54,7 @@ class ApiPushkaService : Service() {
         const val ARG_LOGIN_TOKEN = "arg_token"
         const val COMMAND_LOGIN = "command_login"
         const val COMMAND_LOAD_ALERTS = "command_load_alerts"
+        const val COMMAND_LOAD_SOURCES = "command_load_sources"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -78,6 +83,9 @@ class ApiPushkaService : Service() {
             COMMAND_LOAD_ALERTS -> {
                 handleLoadAlertsCommand(startId)
             }
+            COMMAND_LOAD_SOURCES -> {
+                handleLoadSourcesCommand(startId)
+            }
         }
 
         return START_NOT_STICKY
@@ -89,6 +97,14 @@ class ApiPushkaService : Service() {
                     storageAlertInteractor.saveAlerts(it)
                 }
                 .subscribe(LoadAlertsSubscriber(startId))
+    }
+
+    private fun handleLoadSourcesCommand(startId: Int) {
+        // TODO: handle
+//        apiSourcesRepository.getSources()
+//                .flatMap {
+//
+//                }
     }
 
     private fun handleLoginCommand(intent: Intent, startId: Int) {

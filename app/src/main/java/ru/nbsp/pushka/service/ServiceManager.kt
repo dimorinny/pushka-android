@@ -26,4 +26,10 @@ class ServiceManager
         intent.putExtra(ApiPushkaService.ARG_SERVICE_COMMAND, ApiPushkaService.COMMAND_LOAD_ALERTS)
         context.startService(intent)
     }
+
+    fun loadSources() {
+        val intent = Intent(context, ApiPushkaService::class.java)
+        intent.putExtra(ApiPushkaService.ARG_SERVICE_COMMAND, ApiPushkaService.COMMAND_LOAD_SOURCES)
+        context.startService(intent)
+    }
 }

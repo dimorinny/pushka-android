@@ -50,7 +50,7 @@ class DataManager
 
     private fun <T : RealmObject> getListObservable(type: Class<T>): Observable<List<T>> {
         return realmProvider.get().where(type)
-                .findAllAsync()
+                .findAll()
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)

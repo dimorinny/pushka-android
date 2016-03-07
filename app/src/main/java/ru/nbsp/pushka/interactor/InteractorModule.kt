@@ -3,10 +3,12 @@ package ru.nbsp.pushka.interactor
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.data.DataManager
-import ru.nbsp.pushka.interactor.alert.AlertInteractor
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
+import ru.nbsp.pushka.interactor.alert.StorageAlertInteractorImpl
 import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
-import ru.nbsp.pushka.interactor.source.SourceInteractor
+import ru.nbsp.pushka.interactor.source.ApiSourceInteractorImpl
+import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
+import ru.nbsp.pushka.interactor.source.StorageSourceInteractorImpl
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
@@ -24,19 +26,25 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideUserIteractor(api: PushkaAuthService, schedulersUtils: SchedulersUtils): UserInteractor {
+    fun provideUserInteractor(api: PushkaAuthService, schedulersUtils: SchedulersUtils): UserInteractor {
         return ApiUserInteractor(api, schedulersUtils)
     }
 
     @Singleton
     @Provides
-    fun provideSourceInteractor(api: PushkaSourceService, schedulersUtils: SchedulersUtils): SourceInteractor {
-        return ApiSourceInteractor(api, schedulersUtils)
+    fun provideApiSourceInteractor(api: PushkaSourceService, schedulersUtils: SchedulersUtils): ApiSourceInteractor {
+        return ApiSourceInteractorImpl(api, schedulersUtils)
     }
 
     @Singleton
     @Provides
-    fun provideAlertInteractor(dataManager: DataManager, dataAlertMapper: DataAlertMapper, schedulersUtils: SchedulersUtils): AlertInteractor {
-        return StorageAlertInteractor(dataManager, dataAlertMapper, schedulersUtils)
+    fun provideStorageSourceInteractor(dataManager: DataManager): StorageSourceInteractor {
+        return StorageSourceInteractorImpl(dataManager)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStorageAlertInteractor(dataManager: DataManager, dataAlertMapper: DataAlertMapper): StorageAlertInteractor {
+        return StorageAlertInteractorImpl(dataManager, dataAlertMapper)
     }
 }
