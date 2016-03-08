@@ -16,6 +16,8 @@ import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.repository.alert.ApiAlertsRepository
 import ru.nbsp.pushka.repository.alert.StorageAlertsRepository
+import ru.nbsp.pushka.repository.category.CategoriesRepository
+import ru.nbsp.pushka.repository.category.FakeCategoriesRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
@@ -69,5 +71,11 @@ class RepositoryModule {
     @Provides
     fun provideSubscriptionsRepository(): SubscriptionsRepository {
         return FakeSubscriptionsRepository()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCategoriesRepository(): CategoriesRepository {
+        return FakeCategoriesRepository()
     }
 }

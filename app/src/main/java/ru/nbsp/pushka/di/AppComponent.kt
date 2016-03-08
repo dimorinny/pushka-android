@@ -7,6 +7,7 @@ import ru.nbsp.pushka.interactor.InteractorModule
 import ru.nbsp.pushka.network.ApiModule
 import ru.nbsp.pushka.network.auth.social.SocialAuthManager
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
+import ru.nbsp.pushka.presentation.category.feed.CategoriesFragment
 import ru.nbsp.pushka.presentation.core.base.BaseActivity
 import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
 import ru.nbsp.pushka.presentation.login.LoginActivity
@@ -42,4 +43,5 @@ interface AppComponent {
     fun inject(alertsFragment: AlertsFragment)
     fun inject(sourcesFragment: SourcesFragment)
     fun inject(subscriptionsFragment: SubscriptionsFragment)
+    fun inject(categoriesFragment: CategoriesFragment)
 }

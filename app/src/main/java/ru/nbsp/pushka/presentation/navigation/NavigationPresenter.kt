@@ -16,7 +16,7 @@ class NavigationPresenter
     fun onDrawerItemClicked(drawerItem: Int) {
         when (drawerItem) {
             R.id.drawer_feed -> view?.setFeedContent()
-            R.id.drawer_sources -> view?.setSourcesContent()
+            R.id.drawer_sources -> view?.setCategoriesContent()
             R.id.drawer_subscriptions -> view?.setSubscriptionsContent()
             R.id.drawer_settings -> view?.setSettingsContent()
         }

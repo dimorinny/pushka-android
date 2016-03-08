@@ -20,6 +20,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
+import ru.nbsp.pushka.presentation.category.feed.CategoriesFragment
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.navigation.drawer.DisableToogleAnimation
@@ -126,6 +127,12 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun setSourcesContent() {
         titleFromStringRes(R.string.title_sources)
         setFragment(SourcesFragment())
+        navigationView.setCheckedItem(R.id.drawer_sources)
+    }
+
+    override fun setCategoriesContent() {
+        titleFromStringRes(R.string.title_sources)
+        setFragment(CategoriesFragment())
         navigationView.setCheckedItem(R.id.drawer_sources)
     }
 

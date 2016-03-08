@@ -11,5 +11,6 @@ interface NavigationView : BaseView {
     fun setSettingsContent()
     fun setSourcesContent()
     fun setSubscriptionsContent()
+    fun setCategoriesContent()
     fun setAccount(account: Account)
 }
