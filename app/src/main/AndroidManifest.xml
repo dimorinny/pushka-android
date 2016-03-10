@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.login.LoginActivity"
-            android:theme="@style/TranslucentStatusBarTheme">
-        </activity>
+            android:theme="@style/TranslucentStatusBarTheme"
+            />
         <activity
             android:name=".presentation.settings.SettingsActivity"
             android:label="@string/title_settings"
@@ -28,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"

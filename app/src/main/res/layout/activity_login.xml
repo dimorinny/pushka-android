@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,6 +31,7 @@
                 android:layout_height="96dp"
                 android:src="@drawable/logo"
                 android:layout_gravity="center"
+                android:contentDescription="@string/description_logo_icon"
                 />
 
             <TextView
@@ -54,17 +56,18 @@
         <!-- Vk button -->
         <LinearLayout
             android:id="@+id/login_vk_button"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="6dp"
-            android:elevation="2dp"
             android:clickable="true"
             android:background="@drawable/login_vk_button"
+            android:elevation="2dp"
+            tools:ignore="UnusedAttribute"
             >
 
             <ImageView
@@ -72,6 +75,7 @@
                 android:layout_height="34dp"
                 android:layout_margin="6dp"
                 android:src="@drawable/ic_vk"
+                android:contentDescription="@string/description_vk_icon"
                 />
 
             <TextView
@@ -89,17 +93,18 @@
         <!-- Google button -->
         <LinearLayout
             android:id="@+id/login_google_button"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="16dp"
             android:clickable="true"
-            android:elevation="2dp"
             android:background="@drawable/login_google_button"
+            android:elevation="2dp"
+            tools:ignore="UnusedAttribute"
             >
 
             <ImageView
@@ -107,6 +112,7 @@
                 android:layout_height="30dp"
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_google"
+                android:contentDescription="@string/description_google_icon"
                 />
 
             <TextView

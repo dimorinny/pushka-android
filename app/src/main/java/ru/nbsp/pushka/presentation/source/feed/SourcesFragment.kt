@@ -1,7 +1,6 @@
 package ru.nbsp.pushka.presentation.source.feed
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,6 @@ import javax.inject.Inject
 class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
 
     val recyclerView: StateRecyclerView by bindView(R.id.sources_recycler_view)
-    val refreshLayout: SwipeRefreshLayout by bindView(R.id.sources_refresh_layout)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
@@ -42,14 +40,9 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         super.onViewCreated(view, savedInstanceState)
         BaseApplication.graph.inject(this)
 
-        initViews()
         initPresenter(presenter)
         initRecyclerView()
         presenter.loadSourcesFromCache()
-    }
-
-    private fun initViews() {
-        refreshLayout.setOnRefreshListener { refreshLayout.isRefreshing = false }
     }
 
     override fun initPresenter(presenter: SourcesPresenter) {

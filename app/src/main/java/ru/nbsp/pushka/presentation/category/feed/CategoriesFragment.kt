@@ -1,7 +1,10 @@
 package ru.nbsp.pushka.presentation.category.feed
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
@@ -71,7 +74,9 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         adapter = CategoriesAdapter(picasso)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
-                presenter.onCategoryClicked(index)
+                // TODO: think about passing view over presenter
+//                presenter.onCategoryClicked(index)
+                openCategoryScreen(view)
             }
         }
 
@@ -89,5 +94,20 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     override fun openCategoryScreen() {
         val intent = Intent(activity, SourcesActivity::class.java)
         startActivity(intent)
+    }
+
+    fun openCategoryScreen(view: View) {
+        startCategoryActivity(view)
+    }
+
+    fun startCategoryActivity(image: View) {
+        val intent = Intent(activity, SourcesActivity::class.java)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, image.transitionName)
+            ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
+        } else {
+            startActivity(intent)
+        }
     }
 }

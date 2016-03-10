@@ -13,6 +13,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_error_grey_48dp"
+        android:contentDescription="@string/description_error_icon"
         />
 
     <TextView

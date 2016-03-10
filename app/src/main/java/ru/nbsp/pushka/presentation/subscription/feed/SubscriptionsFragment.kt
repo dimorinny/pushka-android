@@ -21,8 +21,8 @@ import javax.inject.Inject
  */
 class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), SubscriptionsView {
 
-    val recyclerView: StateRecyclerView by bindView(R.id.sources_recycler_view)
-    val refreshLayout: SwipeRefreshLayout by bindView(R.id.sources_refresh_layout)
+    val recyclerView: StateRecyclerView by bindView(R.id.subscriptions_recycler_view)
+    val refreshLayout: SwipeRefreshLayout by bindView(R.id.subscriptions_refresh_layout)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
@@ -34,7 +34,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     lateinit var subscriptionsAdapter: SubscriptionsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sources, container, false)
+        return inflater.inflate(R.layout.fragment_subscriptions, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

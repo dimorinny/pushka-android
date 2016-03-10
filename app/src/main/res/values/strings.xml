@@ -5,6 +5,20 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
 
+    <!-- Transitions -->
+    <string name="transition_category_source_circle">category_source_circle_transition</string>
+
+    <!-- Descriptions -->
+    <string name="description_category_image">Изображение категории</string>
+    <string name="description_source_image">Изображение источника</string>
+    <string name="description_alert_image">Изображение уведомления</string>
+    <string name="description_share_icon">Иконка расшаривания уведомления</string>
+    <string name="description_empty_icon">Иконка уведомляющая о пустом списке</string>
+    <string name="description_error_icon">Иконка, уведомляющая об ошибке</string>
+    <string name="description_logo_icon">Иконка нашего приложения</string>
+    <string name="description_vk_icon">Иконка гугла</string>
+    <string name="description_google_icon">Иконка вконтакте</string>
+
     <!-- Titles -->
     <string name="title_feed">Лента</string>
     <string name="title_subscription">Подписки</string>

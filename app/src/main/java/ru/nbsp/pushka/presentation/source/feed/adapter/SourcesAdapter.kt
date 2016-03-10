@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
@@ -16,33 +15,25 @@ import java.util.*
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SourcesAdapter : SectionedRecyclerViewAdapter<SourcesAdapter.SourceItemViewHolder>() {
+class SourcesAdapter : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
 
     var itemClickListener: OnItemClickListener? = null
 
     var sources: List<PresentationSource> = ArrayList()
-        set(s : List<PresentationSource>) {
+        set(s: List<PresentationSource>) {
             field = s
             notifyDataSetChanged()
         }
 
-    override fun getSectionCount(): Int {
-        return 1;
-    }
-
-    override fun getItemCount(section: Int): Int {
-        return sources.size
-    }
-
-    override fun onBindHeaderViewHolder(holder: SourceItemViewHolder, section: Int) {
-        // Setup header view.
-    }
-
-    override fun onBindViewHolder(holder: SourceItemViewHolder, section: Int, relativePosition: Int, absolutePosition: Int) {
-        val source = sources[absolutePosition]
+    override fun onBindViewHolder(holder: SourceItemViewHolder, position: Int) {
+        val source = sources[position]
 
         holder.sourceTitle.text = source.name
         holder.sourceSubtitle.text = source.description
+    }
+
+    override fun getItemCount(): Int {
+        return sources.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SourceItemViewHolder {

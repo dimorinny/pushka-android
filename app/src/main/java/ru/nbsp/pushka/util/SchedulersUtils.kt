@@ -19,7 +19,7 @@ class SchedulersUtils
 
     fun <T> applySchedulers(): Observable.Transformer<T, T>  {
         return Observable.Transformer {
-            it.subscribeOn(ioScheduler).observeOn(uiScheduler)
+            it.observeOn(uiScheduler).subscribeOn(ioScheduler)
         }
     }
 }

@@ -13,6 +13,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_sad_grey_48dp"
+        android:contentDescription="@string/description_empty_icon"
         />
 
     <TextView
