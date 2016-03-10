@@ -9,6 +9,8 @@ import android.view.animation.GridLayoutAnimationController;
 
 public class GridStateRecyclerView extends StateRecyclerView {
 
+    private boolean mAnimationCalled = false;
+
     public GridStateRecyclerView(Context context) {
         super(context);
     }
@@ -56,6 +58,14 @@ public class GridStateRecyclerView extends StateRecyclerView {
 
         } else {
             super.attachLayoutAnimationParameters(child, params, index, count);
+        }
+    }
+
+    @Override
+    public void scheduleLayoutAnimation() {
+        if (!mAnimationCalled) {
+            mAnimationCalled = true;
+            super.scheduleLayoutAnimation();
         }
     }
 }
