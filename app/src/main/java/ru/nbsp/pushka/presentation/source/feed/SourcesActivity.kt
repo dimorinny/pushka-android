@@ -31,6 +31,7 @@ class SourcesActivity : BaseActivity() {
 
     companion object {
         const val ARG_CATEGORY = "arg_category"
+        const val STATE_CATEGORY = "state_category"
 
         private const val ENTER_ANIMATION_DURATION = 300L
         private const val EXPAND_CIRCLE_ANIMATION_DURATION = 600L
@@ -61,17 +62,14 @@ class SourcesActivity : BaseActivity() {
 
         initToolbar()
         initArguments()
+        initState(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || savedInstanceState != null) {
             initFragment()
             setViewData()
             disableSharedTransitionState(false)
         } else {
             setupEnterAnimation()
-        }
-
-        if (savedInstanceState != null) {
-            disableSharedTransitionState(false)
         }
     }
 
@@ -99,6 +97,14 @@ class SourcesActivity : BaseActivity() {
     private fun initArguments() {
         if (intent.getSerializableExtra(ARG_CATEGORY) != null) {
             category = intent.extras.getSerializable(ARG_CATEGORY) as PresentationCategory
+        }
+    }
+
+    private fun initState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable(STATE_CATEGORY) != null) {
+                category = savedInstanceState.getSerializable(STATE_CATEGORY) as PresentationCategory
+            }
         }
     }
 
@@ -187,5 +193,10 @@ class SourcesActivity : BaseActivity() {
         if (supportActionBar != null) {
             (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(STATE_CATEGORY, category)
+        super.onSaveInstanceState(outState)
     }
 }
