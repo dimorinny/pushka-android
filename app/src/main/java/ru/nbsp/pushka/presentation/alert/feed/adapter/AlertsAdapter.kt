@@ -28,6 +28,7 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
     var alerts: List<PresentationAlert> = ArrayList()
         set(s : List<PresentationAlert>) {
             field = s
+
             notifyDataSetChanged()
         }
 

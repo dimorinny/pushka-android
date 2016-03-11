@@ -7,19 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.GridLayoutAnimationController;
 
-public class GridStateRecyclerView extends StateRecyclerView {
+public class AnimatedGridStateRecyclerView extends StateRecyclerView {
 
     private boolean mAnimationCalled = false;
 
-    public GridStateRecyclerView(Context context) {
+    public AnimatedGridStateRecyclerView(Context context) {
         super(context);
     }
 
-    public GridStateRecyclerView(Context context, AttributeSet attrs) {
+    public AnimatedGridStateRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public GridStateRecyclerView(Context context, AttributeSet attrs, int defStyle) {
+    public AnimatedGridStateRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

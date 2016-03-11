@@ -17,7 +17,7 @@ import ru.nbsp.pushka.presentation.category.feed.adapter.CategoriesAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.GridStateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.AnimatedGridStateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -27,7 +27,7 @@ import javax.inject.Inject
  */
 class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesView {
 
-    val recyclerView: GridStateRecyclerView by bindView(R.id.categories_recycler_view)
+    val recyclerView: AnimatedGridStateRecyclerView by bindView(R.id.categories_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.categories_refresh_layout)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
