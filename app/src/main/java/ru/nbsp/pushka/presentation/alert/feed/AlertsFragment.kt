@@ -97,7 +97,6 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     override fun setAlerts(alerts: List<PresentationAlert>) {
         alertsAdapter.alerts = alerts
-        recyclerView.scheduleLayoutAnimation()
     }
 
     override fun setState(state: State) {
