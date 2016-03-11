@@ -35,7 +35,7 @@ public class GridStateRecyclerView extends StateRecyclerView {
     @Override
     protected void attachLayoutAnimationParameters(View child, ViewGroup.LayoutParams params, int index, int count) {
 
-        if (getAdapter() != null && getLayoutManager() instanceof GridLayoutManager){
+        if (getAdapter() != null && getLayoutManager() instanceof GridLayoutManager) {
 
             GridLayoutAnimationController.AnimationParameters animationParams =
                     (GridLayoutAnimationController.AnimationParameters) params.layoutAnimationParameters;

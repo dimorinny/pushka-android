@@ -17,7 +17,7 @@ class PresentationAlertMapper @Inject constructor() {
     }
 
     fun fromNetworkAlert(networkAlert: NetworkAlert): PresentationAlert {
-        return PresentationAlert(networkAlert.id, networkAlert.title, networkAlert.text,
-                networkAlert.photo, networkAlert.sourceImage, networkAlert.sourceTitle, networkAlert.shareLink)
+        return PresentationAlert(networkAlert.id, networkAlert.notification.title, networkAlert.notification.description,
+                networkAlert.notification.image, networkAlert.notification.icon, null, "null")
     }
 }

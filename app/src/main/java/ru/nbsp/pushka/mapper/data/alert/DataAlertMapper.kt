@@ -20,8 +20,7 @@ class DataAlertMapper
     }
 
     fun fromNetworkAlert(networkAlert: NetworkAlert): DataAlert {
-        return DataAlert(networkAlert.id, networkAlert.title, networkAlert.text,
-                networkAlert.photo, networkAlert.sourceImage,
-                networkAlert.sourceTitle, networkAlert.shareLink)
+        return DataAlert(networkAlert.id, networkAlert.notification.title, networkAlert.notification.description,
+                networkAlert.notification.image, networkAlert.notification.icon, null, "null")
     }
 }
