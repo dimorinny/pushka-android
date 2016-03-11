@@ -13,9 +13,12 @@ import android.transition.TransitionInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.base.BaseActivity
+import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.util.GUIUtils
 import ru.nbsp.pushka.util.IntentUtils
 import ru.nbsp.pushka.util.bindView
@@ -27,20 +30,28 @@ import javax.inject.Inject
 class SourcesActivity : BaseActivity() {
 
     companion object {
+        const val ARG_CATEGORY = "arg_category"
+
         private const val ENTER_ANIMATION_DURATION = 300L
         private const val EXPAND_CIRCLE_ANIMATION_DURATION = 600L
         private const val SHOW_COLLAPSING_TOOLBAR_ANIMATION_DURATION = 100L
     }
 
-    private lateinit var fragment: Fragment
+    lateinit var fragment: Fragment
+    lateinit var category: PresentationCategory
 
     val toolbar: Toolbar by bindView(R.id.toolbar)
-    val toolbarImage: View by bindView(R.id.toolbar_image)
+    val toolbarImage: ImageView by bindView(R.id.toolbar_image)
+    val collapsingToolbar: CollapsingToolbarLayout by bindView(R.id.collapsing_toolbar)
     val sharedCircle: View by bindView(R.id.shared_animation_circle)
     val overlay: View by bindView(R.id.overlay)
 
     @Inject
     lateinit var intentUtils: IntentUtils
+
+    @Inject
+    lateinit var picasso: Picasso
+
     val guiUtils = GUIUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +60,11 @@ class SourcesActivity : BaseActivity() {
         BaseApplication.graph.inject(this)
 
         initToolbar()
+        initArguments()
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             initFragment()
+            setViewData()
             disableSharedTransitionState(false)
         } else {
             setupEnterAnimation()
@@ -83,6 +96,20 @@ class SourcesActivity : BaseActivity() {
         fragment = cachedFragment
     }
 
+    private fun initArguments() {
+        if (intent.getSerializableExtra(ARG_CATEGORY) != null) {
+            category = intent.extras.getSerializable(ARG_CATEGORY) as PresentationCategory
+        }
+    }
+
+    private fun setViewData() {
+        collapsingToolbar.title = category.name
+        picasso.load(category.image)
+                .fit()
+                .centerCrop()
+                .into(toolbarImage)
+    }
+
     private fun disableSharedTransitionState(animated: Boolean) {
         initStatusBar()
         overlay.visibility = View.GONE
@@ -110,6 +137,7 @@ class SourcesActivity : BaseActivity() {
         transition.addListener(object : Transition.TransitionListener {
             override fun onTransitionEnd(p0: Transition?) {
                 initFragment()
+                setViewData()
                 startRevealAnimation()
             }
 

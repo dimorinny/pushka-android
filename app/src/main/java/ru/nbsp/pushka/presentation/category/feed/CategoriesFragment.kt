@@ -91,9 +91,7 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         adapter = CategoriesAdapter(picasso)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
-                // TODO: think about passing view over presenter
-//                presenter.onCategoryClicked(index)
-                openCategoryScreen(view)
+                presenter.onCategoryClicked(index, view)
             }
         }
 
@@ -115,20 +113,12 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         toolbarStateManager?.setState(state)
     }
 
-    override fun openCategoryScreen() {
+    override fun openCategoryScreen(presentationCategory: PresentationCategory, view: View) {
         val intent = Intent(activity, SourcesActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun openCategoryScreen(view: View) {
-        startCategoryActivity(view)
-    }
-
-    fun startCategoryActivity(image: View) {
-        val intent = Intent(activity, SourcesActivity::class.java)
+        intent.putExtra(SourcesActivity.ARG_CATEGORY, presentationCategory)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, image.transitionName)
+            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, view.transitionName)
             ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
         } else {
             startActivity(intent)

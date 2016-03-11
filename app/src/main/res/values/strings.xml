@@ -4,6 +4,7 @@
     <!-- Common -->
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="empty"/>
 
     <!-- Transitions -->
     <string name="transition_category_source_circle">category_source_circle_transition</string>

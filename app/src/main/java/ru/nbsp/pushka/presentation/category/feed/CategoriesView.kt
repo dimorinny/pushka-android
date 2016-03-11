@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.category.feed
 
+import android.view.View
 import ru.nbsp.pushka.presentation.core.base.BaseView
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State
@@ -9,7 +10,7 @@ import ru.nbsp.pushka.presentation.core.state.State
  */
 interface CategoriesView : BaseView {
     fun setCategories(categories: List<PresentationCategory>)
-    fun openCategoryScreen()
+    fun openCategoryScreen(presentationCategory: PresentationCategory, view: View)
     fun setState(state: State)
     fun setToolbarState(state: State)
 }
