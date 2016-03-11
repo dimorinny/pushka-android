@@ -87,8 +87,9 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     }
 
     override fun setCategories(categories: List<PresentationCategory>) {
-        adapter.categories = categories
-        // TODO: think about starting animation for every setting data
+        recyclerView.executeTaskAfterAnimation {
+            adapter.categories = categories
+        }
         recyclerView.scheduleLayoutAnimation()
     }
 

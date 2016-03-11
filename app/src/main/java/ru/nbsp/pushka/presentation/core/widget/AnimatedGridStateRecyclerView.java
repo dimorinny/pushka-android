@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.GridLayoutAnimationController;
 
-public class AnimatedGridStateRecyclerView extends StateRecyclerView {
-
-    private boolean mAnimationCalled = false;
+public class AnimatedGridStateRecyclerView extends AnimatedStateRecyclerView {
 
     public AnimatedGridStateRecyclerView(Context context) {
         super(context);
@@ -58,14 +56,6 @@ public class AnimatedGridStateRecyclerView extends StateRecyclerView {
 
         } else {
             super.attachLayoutAnimationParameters(child, params, index, count);
-        }
-    }
-
-    @Override
-    public void scheduleLayoutAnimation() {
-        if (!mAnimationCalled) {
-            mAnimationCalled = true;
-            super.scheduleLayoutAnimation();
         }
     }
 }
