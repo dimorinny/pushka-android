@@ -9,6 +9,7 @@ import ru.nbsp.pushka.presentation.core.state.State
  */
 interface CategoriesView : BaseView {
     fun setCategories(categories: List<PresentationCategory>)
-    fun setState(state: State)
     fun openCategoryScreen()
+    fun setState(state: State)
+    fun setToolbarState(state: State)
 }

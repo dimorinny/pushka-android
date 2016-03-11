@@ -1,10 +1,12 @@
 package ru.nbsp.pushka.network.model.source
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Created by Dimorinny on 06.03.16.
  */
 data class NetworkCategory(
-        val id: String,
-        val name: String,
-        val image: String
+        @SerializedName("_id") val id: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("image") val image: String
 )

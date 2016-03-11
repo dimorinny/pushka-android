@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.feed
 
+import ru.nbsp.pushka.annotation.FakeRepository
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
@@ -10,7 +11,7 @@ import javax.inject.Inject
  * Created by Dimorinny on 26.02.16.
  */
 class SubscriptionsPresenter
-    @Inject constructor(val subscriptionsRepository: SubscriptionsRepository) : BasePresenter {
+    @Inject constructor(@FakeRepository val subscriptionsRepository: SubscriptionsRepository) : BasePresenter {
 
     override var view: SubscriptionsView? = null
 

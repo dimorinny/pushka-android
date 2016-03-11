@@ -3,6 +3,7 @@ package ru.nbsp.pushka.data
 import io.realm.Realm
 import io.realm.RealmObject
 import ru.nbsp.pushka.data.model.alert.DataAlert
+import ru.nbsp.pushka.data.model.source.DataCategory
 import ru.nbsp.pushka.data.model.source.DataSource
 import rx.Observable
 import javax.inject.Inject
@@ -46,6 +47,22 @@ class DataManager
         realmProvider.get().executeTransaction {
             it.copyToRealm(sources)
         }
+    }
+
+    fun putCategories(categories: List<DataCategory>) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(categories)
+        }
+    }
+
+    fun clearCategories() {
+        realmProvider.get().executeTransaction {
+            it.clear(DataCategory::class.java)
+        }
+    }
+
+    fun getCategoriesObservable(): Observable<List<DataCategory>> {
+        return getListObservable(DataCategory::class.java)
     }
 
     private fun <T : RealmObject> getListObservable(type: Class<T>): Observable<List<T>> {

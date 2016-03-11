@@ -5,9 +5,11 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.annotation.ApiRepository
+import ru.nbsp.pushka.annotation.FakeRepository
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
+import ru.nbsp.pushka.mapper.presentation.source.PresentationCategoryMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationSourceMapper
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaSourceService
@@ -16,8 +18,10 @@ import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.repository.alert.ApiAlertsRepository
 import ru.nbsp.pushka.repository.alert.StorageAlertsRepository
+import ru.nbsp.pushka.repository.category.ApiCategoriesRepository
 import ru.nbsp.pushka.repository.category.CategoriesRepository
 import ru.nbsp.pushka.repository.category.FakeCategoriesRepository
+import ru.nbsp.pushka.repository.category.StorageCategoriesRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
@@ -67,15 +71,31 @@ class RepositoryModule {
         return StorageSourcesRepository(dataManager, presentationSourceMapper)
     }
 
+    @FakeRepository
     @Singleton
     @Provides
     fun provideSubscriptionsRepository(): SubscriptionsRepository {
         return FakeSubscriptionsRepository()
     }
 
+    @ApiRepository
     @Singleton
     @Provides
-    fun provideCategoriesRepository(): CategoriesRepository {
+    fun provideApiCategoriesRepository(apiPushka: PushkaSourceService, presentationCategoryMapper: PresentationCategoryMapper, schedulersUtils: SchedulersUtils): CategoriesRepository {
+        return ApiCategoriesRepository(apiPushka, presentationCategoryMapper, schedulersUtils)
+    }
+
+    @StorageRepository
+    @Singleton
+    @Provides
+    fun provideStorageCategoriesRepository(dataManager: DataManager, presentationCategoryMapper: PresentationCategoryMapper): CategoriesRepository {
+        return StorageCategoriesRepository(dataManager, presentationCategoryMapper)
+    }
+
+    @FakeRepository
+    @Singleton
+    @Provides
+    fun provideFakeCategoriesRepository(): CategoriesRepository {
         return FakeCategoriesRepository()
     }
 }

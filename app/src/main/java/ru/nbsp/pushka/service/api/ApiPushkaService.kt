@@ -7,13 +7,17 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadAlertsEvent
+import ru.nbsp.pushka.bus.event.LoadCategoriesEvent
 import ru.nbsp.pushka.bus.event.LoginEvent
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
+import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
+import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.repository.alert.AlertsRepository
+import ru.nbsp.pushka.repository.category.CategoriesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import rx.Subscriber
@@ -37,8 +41,14 @@ class ApiPushkaService : Service() {
     @Inject
     lateinit var storageAlertInteractor: StorageAlertInteractor
 
+    @Inject
+    lateinit var storageCategoryInteractor: StorageCategoryInteractor
+
     @field:[Inject ApiRepository]
     lateinit var apiSourcesRepository: SourcesRepository
+
+    @field:[Inject ApiRepository]
+    lateinit var apiCategoriesRepository: CategoriesRepository
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -55,6 +65,7 @@ class ApiPushkaService : Service() {
         const val COMMAND_LOGIN = "command_login"
         const val COMMAND_LOAD_ALERTS = "command_load_alerts"
         const val COMMAND_LOAD_SOURCES = "command_load_sources"
+        const val COMMAND_LOAD_CATEGORIES = "command_load_categories"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -86,6 +97,9 @@ class ApiPushkaService : Service() {
             COMMAND_LOAD_SOURCES -> {
                 handleLoadSourcesCommand(startId)
             }
+            COMMAND_LOAD_CATEGORIES -> {
+                handleLoadCategoriesCommand(startId)
+            }
         }
 
         return START_NOT_STICKY
@@ -97,6 +111,14 @@ class ApiPushkaService : Service() {
                     storageAlertInteractor.saveAlerts(it)
                 }
                 .subscribe(LoadAlertsSubscriber(startId))
+    }
+
+    private fun handleLoadCategoriesCommand(startId: Int) {
+        apiCategoriesRepository.getCategories()
+                .flatMap {
+                    storageCategoryInteractor.saveCategories(it)
+                }
+                .subscribe(LoadCategoriesSubscriber(startId))
     }
 
     private fun handleLoadSourcesCommand(startId: Int) {
@@ -149,6 +171,20 @@ class ApiPushkaService : Service() {
 
         override fun onNext(alerts: List<PresentationAlert>) {
             bus.post(LoadAlertsEvent.Success() as LoadAlertsEvent)
+            stopSelf(startId)
+        }
+    }
+
+    inner class LoadCategoriesSubscriber(val startId: Int) : Subscriber<List<PresentationCategory>>() {
+        override fun onCompleted() {}
+
+        override fun onError(t: Throwable) {
+            bus.post(LoadCategoriesEvent.Error(t) as LoadCategoriesEvent)
+            stopSelf(startId)
+        }
+
+        override fun onNext(alerts: List<PresentationCategory>) {
+            bus.post(LoadCategoriesEvent.Success() as LoadCategoriesEvent)
             stopSelf(startId)
         }
     }

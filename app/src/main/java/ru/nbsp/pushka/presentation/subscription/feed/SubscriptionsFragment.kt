@@ -11,7 +11,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.AnimatedStateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), SubscriptionsView {
 
-    val recyclerView: AnimatedStateRecyclerView by bindView(R.id.subscriptions_recycler_view)
+    val recyclerView: StateRecyclerView by bindView(R.id.subscriptions_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.subscriptions_refresh_layout)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
@@ -69,9 +69,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     }
 
     override fun setSubscriptions(subscriptions: List<PresentationSubscription>) {
-        recyclerView.executeTaskAfterAnimation {
-            subscriptionsAdapter.subscriptions = subscriptions
-        }
+        subscriptionsAdapter.subscriptions = subscriptions
         recyclerView.setState(if (subscriptions.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }
 }
