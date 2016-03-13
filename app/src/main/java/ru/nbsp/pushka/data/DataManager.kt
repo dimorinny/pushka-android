@@ -57,8 +57,11 @@ class DataManager
                     .equalTo("category", categoryId)
                     .findAll()
 
-            for (source in sources) {
-                for (param in source.params) {
+            for (i in 0..sources.size - 1) {
+                val source = sources[i]
+
+                for (j in 0..source.params.size - 1) {
+                    val param = source.params[j]
                     param.control.removeFromRealm()
                 }
                 source.params.clear()

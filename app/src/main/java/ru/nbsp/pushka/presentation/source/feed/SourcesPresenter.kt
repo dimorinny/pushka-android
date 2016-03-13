@@ -8,11 +8,13 @@ import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.service.ServiceManager
 import rx.Observable
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -25,8 +27,9 @@ class SourcesPresenter
                         val serviceManager: ServiceManager) : BasePresenter {
 
     override var view: SourceView? = null
-    val subscription: CompositeSubscription = CompositeSubscription()
     lateinit var category: PresentationCategory
+    val subscription: CompositeSubscription = CompositeSubscription()
+    var sources: List<PresentationSource> = ArrayList()
 
     override fun onCreate() {
         super.onCreate()
@@ -59,10 +62,17 @@ class SourcesPresenter
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
+
+            if (sources.size == 0) {
+                view?.setState(State.STATE_ERROR)
+            }
         }
 
-        override fun onNext(alerts: List<PresentationSource>) {
-            view?.setSources(alerts)
+        override fun onNext(result: List<PresentationSource>) {
+            sources = result
+            
+            view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
+            view?.setSources(result)
         }
     }
 

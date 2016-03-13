@@ -87,6 +87,9 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
             adapter.sources = sources
         }
         recyclerView.scheduleLayoutAnimation()
-        recyclerView.setState(if (sources.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
+    }
+
+    override fun setState(state: State) {
+        recyclerView.setState(state)
     }
 }
