@@ -93,7 +93,7 @@ class AlertsPresenter
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         subscription.unsubscribe()
+        super.onDestroy()
     }
 }

@@ -41,7 +41,7 @@ class CategoriesPresenter
     }
 
     fun loadCategoriesFromCache() {
-        storageCategoriesRepository.getCategories().subscribe(LoadCategoriesCacheSubscriber())
+        subscription.add(storageCategoriesRepository.getCategories().subscribe(LoadCategoriesCacheSubscriber()))
     }
 
     fun loadCategoriesFromServer() {
@@ -91,5 +91,10 @@ class CategoriesPresenter
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setCategories(result)
         }
+    }
+
+    override fun onDestroy() {
+        subscription.unsubscribe()
+        super.onDestroy()
     }
 }
