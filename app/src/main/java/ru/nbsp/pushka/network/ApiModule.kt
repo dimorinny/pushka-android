@@ -27,7 +27,7 @@ import javax.inject.Singleton
 class ApiModule {
 
     companion object {
-        private const val BASE_URL = "http://104.155.91.78/api/v1/"
+        private const val BASE_URL = "http://130.211.103.133/api/v1/"
         private const val LOG_TAG = "RETROFIT"
     }
 

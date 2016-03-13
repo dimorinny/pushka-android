@@ -15,6 +15,7 @@ import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
 import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
+import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import ru.nbsp.pushka.util.SchedulersUtils
@@ -41,8 +42,8 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideStorageSourceInteractor(dataManager: DataManager): StorageSourceInteractor {
-        return StorageSourceInteractorImpl(dataManager)
+    fun provideStorageSourceInteractor(dataManager: DataManager, dataSourceMapper: DataSourceMapper): StorageSourceInteractor {
+        return StorageSourceInteractorImpl(dataManager, dataSourceMapper)
     }
 
     @Singleton

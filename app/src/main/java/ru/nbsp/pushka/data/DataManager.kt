@@ -33,13 +33,38 @@ class DataManager
         }
     }
 
-    fun getSourcesObservable(): Observable<List<DataSource>> {
-        return getListObservable(DataSource::class.java)
+    fun getSourcesObservable(categoryId: String): Observable<List<DataSource>> {
+        return realmProvider.get().where(DataSource::class.java)
+                .equalTo("category", categoryId)
+                .findAll()
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
     }
 
     fun clearSources() {
         realmProvider.get().executeTransaction {
             it.clear(DataSource::class.java)
+        }
+    }
+
+    fun clearSources(categoryId: String) {
+        // TODO: Cascade deletes not worked in realm now. Look this issue https://github.com/realm/realm-java/issues/1104
+        realmProvider.get().executeTransaction {
+
+            val sources = it.where(DataSource::class.java)
+                    .equalTo("category", categoryId)
+                    .findAll()
+
+            for (source in sources) {
+                for (param in source.params) {
+                    param.control.removeFromRealm()
+                }
+                source.params.clear()
+            }
+
+            sources.clear()
         }
     }
 

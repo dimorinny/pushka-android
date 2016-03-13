@@ -8,5 +8,5 @@ import rx.Observable
  * Created by Dimorinny on 26.02.16.
  */
 interface SourcesRepository {
-    fun getSources(): Observable<List<PresentationSource>>
+    fun getSources(categoryId: String): Observable<List<PresentationSource>>
 }

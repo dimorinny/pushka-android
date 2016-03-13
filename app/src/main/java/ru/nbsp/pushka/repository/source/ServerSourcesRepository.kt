@@ -15,9 +15,9 @@ class ServerSourcesRepository(
         val sourceMapper: PresentationSourceMapper,
         val schedulersUtils: SchedulersUtils) : SourcesRepository {
 
-    override fun getSources(): Observable<List<PresentationSource>> {
+    override fun getSources(categoryId: String): Observable<List<PresentationSource>> {
         return apiPushka
-                .getSources()
+                .getSources(categoryId)
                 .map {
                     var result = ArrayList<PresentationSource>()
                     for (source in it.sources) {

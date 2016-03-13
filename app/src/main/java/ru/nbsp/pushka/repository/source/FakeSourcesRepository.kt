@@ -24,7 +24,7 @@ class FakeSourcesRepository : SourcesRepository {
         private const val FAKE_HANDLER_ID = "some_handler_id"
     }
 
-    override fun getSources(): Observable<List<PresentationSource>> {
+    override fun getSources(categoryId: String): Observable<List<PresentationSource>> {
         return Observable.just(listOf(
                 PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE, FAKE_SOURCE_SUBTITLE, FAKE_HANDLER_ID),
                 PresentationSource(FAKE_ID, ArrayList<PresentationParam>(), FAKE_SOURCE_TITLE2, FAKE_SOURCE_SUBTITLE2, FAKE_HANDLER_ID),

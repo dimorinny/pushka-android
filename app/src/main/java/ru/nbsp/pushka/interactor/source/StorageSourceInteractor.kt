@@ -7,5 +7,5 @@ import rx.Observable
  * Created by Dimorinny on 07.03.16.
  */
 interface StorageSourceInteractor {
-    fun saveSources(sources: List<PresentationSource>): Observable<List<PresentationSource>>
+    fun saveSources(sources: List<PresentationSource>, categoryId: String): Observable<List<PresentationSource>>
 }

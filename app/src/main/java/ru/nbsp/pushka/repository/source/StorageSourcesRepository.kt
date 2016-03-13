@@ -13,8 +13,8 @@ class StorageSourcesRepository(
         val dataManager: DataManager,
         val sourceMapper: PresentationSourceMapper) : SourcesRepository {
 
-    override fun getSources(): Observable<List<PresentationSource>> {
-        return dataManager.getSourcesObservable()
+    override fun getSources(categoryId: String): Observable<List<PresentationSource>> {
+        return dataManager.getSourcesObservable(categoryId)
                 .map {
                     var result = ArrayList<PresentationSource>()
                     for (source in it) {

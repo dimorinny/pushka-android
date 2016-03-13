@@ -9,9 +9,10 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
+import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.AnimatedStateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -21,7 +22,11 @@ import javax.inject.Inject
  */
 class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
 
-    val recyclerView: StateRecyclerView by bindView(R.id.sources_recycler_view)
+    companion object {
+        const val ARG_CATEGORY = "arg_category"
+    }
+
+    val recyclerView: AnimatedStateRecyclerView by bindView(R.id.sources_recycler_view)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
@@ -29,8 +34,8 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
 
     @Inject
     lateinit var presenter: SourcesPresenter
-
-    lateinit var sourcesAdapter: SourcesAdapter
+    lateinit var adapter: SourcesAdapter
+    lateinit var category: PresentationCategory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sources, container, false)
@@ -40,13 +45,22 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         super.onViewCreated(view, savedInstanceState)
         BaseApplication.graph.inject(this)
 
+        initArguments()
         initPresenter(presenter)
         initRecyclerView()
         presenter.loadSourcesFromCache()
+        presenter.loadSourcesFromServer()
+    }
+
+    private fun initArguments() {
+        if (arguments.getSerializable(ARG_CATEGORY) != null) {
+            category = arguments.getSerializable(ARG_CATEGORY) as PresentationCategory
+        }
     }
 
     override fun initPresenter(presenter: SourcesPresenter) {
         presenter.view = this
+        presenter.category = category
         super.initPresenter(presenter)
     }
 
@@ -58,18 +72,20 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        sourcesAdapter = SourcesAdapter()
-        sourcesAdapter.itemClickListener = object : OnItemClickListener {
+        adapter = SourcesAdapter()
+        adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onSourceClicked()
             }
         }
 
-        recyclerView.adapter = sourcesAdapter
+        recyclerView.adapter = adapter
     }
 
     override fun setSources(sources: List<PresentationSource>) {
-        sourcesAdapter.sources = sources
+        recyclerView.executeTaskAfterAnimation {
+            adapter.sources = sources
+        }
         recyclerView.scheduleLayoutAnimation()
         recyclerView.setState(if (sources.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }
