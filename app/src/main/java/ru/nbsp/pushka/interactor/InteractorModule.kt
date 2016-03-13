@@ -7,17 +7,17 @@ import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractorImpl
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractorImpl
-import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
-import ru.nbsp.pushka.interactor.source.ApiSourceInteractorImpl
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractorImpl
+import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
+import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractorImpl
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
 import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
 import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
-import ru.nbsp.pushka.network.service.PushkaSourceService
+import ru.nbsp.pushka.network.service.PushkaSubscriptionService
 import ru.nbsp.pushka.util.SchedulersUtils
 import javax.inject.Singleton
 
@@ -36,8 +36,8 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideApiSourceInteractor(api: PushkaSourceService, schedulersUtils: SchedulersUtils): ApiSourceInteractor {
-        return ApiSourceInteractorImpl(api, schedulersUtils)
+    fun provideApiSubscriptionInteractor(api: PushkaSubscriptionService, schedulersUtils: SchedulersUtils): ApiSubscriptionInteractor {
+        return ApiSubscriptionInteractorImpl(api, schedulersUtils)
     }
 
     @Singleton

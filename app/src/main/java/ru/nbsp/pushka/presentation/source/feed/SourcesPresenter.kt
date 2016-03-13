@@ -3,7 +3,7 @@ package ru.nbsp.pushka.presentation.source.feed
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoadSourcesEvent
-import ru.nbsp.pushka.interactor.source.ApiSourceInteractor
+import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class SourcesPresenter
     @Inject constructor(@StorageRepository val storageSourcesRepository: SourcesRepository,
                         val rxBus: RxBus,
-                        val sourceInteractor: ApiSourceInteractor,
+                        val subscriptionInteractor: ApiSubscriptionInteractor,
                         val serviceManager: ServiceManager) : BasePresenter {
 
     override var view: SourceView? = null
@@ -52,7 +52,7 @@ class SourcesPresenter
     }
 
     fun onSourceClicked() {
-        sourceInteractor.subscribe(SubscribeRequest("news_gazetaru", mapOf(
+        subscriptionInteractor.subscribe(SubscribeRequest("news_gazetaru", mapOf(
                 Pair("category", "main"))))
                 .subscribe(SubscribeSourceSubscriber())
     }

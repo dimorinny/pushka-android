@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.feed
 
-import ru.nbsp.pushka.annotation.FakeRepository
+import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
@@ -11,12 +11,12 @@ import javax.inject.Inject
  * Created by Dimorinny on 26.02.16.
  */
 class SubscriptionsPresenter
-    @Inject constructor(@FakeRepository val subscriptionsRepository: SubscriptionsRepository) : BasePresenter {
+    @Inject constructor(@ApiRepository val subscriptionsRepository: SubscriptionsRepository) : BasePresenter {
 
     override var view: SubscriptionsView? = null
 
     fun loadSubscriptionsFromCache() {
-        subscriptionsRepository.getSubscriptions().subscribe(LoadSubscriptionsSubscriber())
+        subscriptionsRepository.getSubscriptions(true).subscribe(LoadSubscriptionsSubscriber())
     }
 
     inner class LoadSubscriptionsSubscriber : Subscriber<List<PresentationSubscription>>() {

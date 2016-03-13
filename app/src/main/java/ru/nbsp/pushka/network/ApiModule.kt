@@ -17,6 +17,7 @@ import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaSourceService
+import ru.nbsp.pushka.network.service.PushkaSubscriptionService
 import javax.inject.Singleton
 
 /**
@@ -104,6 +105,12 @@ class ApiModule {
     @Provides
     fun providePushkaAlertsService(@AuthRequired retrofit: Retrofit): PushkaAlertsService {
         return retrofit.create(PushkaAlertsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePushkaSubscriptionService(@AuthRequired retrofit: Retrofit): PushkaSubscriptionService {
+        return retrofit.create(PushkaSubscriptionService::class.java)
     }
 
     @Singleton

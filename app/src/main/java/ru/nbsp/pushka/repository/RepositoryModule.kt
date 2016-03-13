@@ -11,8 +11,10 @@ import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationCategoryMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationSourceMapper
+import ru.nbsp.pushka.mapper.presentation.subscription.PresentationSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaSourceService
+import ru.nbsp.pushka.network.service.PushkaSubscriptionService
 import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.repository.account.PreferencesAccountRepository
 import ru.nbsp.pushka.repository.alert.AlertsRepository
@@ -25,6 +27,7 @@ import ru.nbsp.pushka.repository.category.StorageCategoriesRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
+import ru.nbsp.pushka.repository.subscription.ApiSubscriptionRepository
 import ru.nbsp.pushka.repository.subscription.FakeSubscriptionsRepository
 import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
 import ru.nbsp.pushka.util.SchedulersUtils
@@ -74,8 +77,15 @@ class RepositoryModule {
     @FakeRepository
     @Singleton
     @Provides
-    fun provideSubscriptionsRepository(): SubscriptionsRepository {
+    fun provideFakeSubscriptionsRepository(): SubscriptionsRepository {
         return FakeSubscriptionsRepository()
+    }
+
+    @ApiRepository
+    @Singleton
+    @Provides
+    fun provideApiSubscriptionsRepository(apiPushka: PushkaSubscriptionService, subscriptionMapper: PresentationSubscriptionMapper, schedulersUtils: SchedulersUtils): SubscriptionsRepository {
+        return ApiSubscriptionRepository(apiPushka, subscriptionMapper, schedulersUtils)
     }
 
     @ApiRepository

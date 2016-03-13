@@ -19,7 +19,7 @@ class FakeSubscriptionsRepository : SubscriptionsRepository {
         private const val SUBSCRIPTION_SUBTITLE3 = "Выход фильма: \"Великолепная пятерка\""
     }
 
-    override fun getSubscriptions(): Observable<List<PresentationSubscription>> {
+    override fun getSubscriptions(detail: Boolean): Observable<List<PresentationSubscription>> {
         return Observable.just(listOf(
                 PresentationSubscription(SUBSCRIPTION_TITLE1, SUBSCRIPTION_SUBTITLE1),
                 PresentationSubscription(SUBSCRIPTION_TITLE2, SUBSCRIPTION_SUBTITLE2),
