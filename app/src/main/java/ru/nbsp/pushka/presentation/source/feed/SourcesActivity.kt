@@ -88,7 +88,7 @@ class SourcesActivity : BaseActivity() {
             cachedFragment = SourcesFragment()
             cachedFragment.arguments = intentUtils.intentToFragmentArguments(cachedFragment.arguments, intent)
 
-            fragmentManager.beginTransaction().replace(R.id.main_container, cachedFragment).commit()
+            fragmentManager.beginTransaction().replace(R.id.main_container, cachedFragment).commitAllowingStateLoss()
         }
 
         fragment = cachedFragment

@@ -52,6 +52,11 @@ class SourcesPresenter
     }
 
     fun onSourceClicked() {
+
+//        subscriptionInteractor.subscribe(SubscribeRequest("new_episode", mapOf(
+//                                Pair("alert_offset_days", "-10000"),
+//                                Pair("show", "1"))))
+//                                .subscribe(SubscribeSourceSubscriber())
         subscriptionInteractor.subscribe(SubscribeRequest("news_gazetaru", mapOf(
                 Pair("category", "main"))))
                 .subscribe(SubscribeSourceSubscriber())

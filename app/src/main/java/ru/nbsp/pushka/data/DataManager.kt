@@ -23,7 +23,19 @@ class DataManager
 
     fun clearAlerts() {
         realmProvider.get().executeTransaction {
-            it.clear(DataAlert::class.java)
+            // TODO: Cascade deletes not worked in realm now. Look this issue https://github.com/realm/realm-java/issues/1104
+            val alerts = it.where(DataAlert::class.java).findAll()
+
+            for (i in 0..alerts.size - 1) {
+                val alert = alerts[i]
+
+                for (j in 0..alert.actions.size - 1) {
+                    val action = alert.actions[j]
+                    action.removeFromRealm()
+                }
+            }
+
+            alerts.clear()
         }
     }
 
@@ -63,8 +75,8 @@ class DataManager
                 for (j in 0..source.params.size - 1) {
                     val param = source.params[j]
                     param.control.removeFromRealm()
+                    param.removeFromRealm()
                 }
-                source.params.clear()
             }
 
             sources.clear()

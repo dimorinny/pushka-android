@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.data.model.alert
 
+import io.realm.RealmList
 import io.realm.RealmObject
 
 /**
@@ -12,5 +13,6 @@ open class DataAlert(
         open var photo: String? = null,
         open var sourceImage: String? = null,
         open var sourceTitle: String? = null,
-        open var shareLink: String = ""
+        open var shareLink: String = "",
+        open var actions: RealmList<DataAction> = RealmList()
 ) : RealmObject()

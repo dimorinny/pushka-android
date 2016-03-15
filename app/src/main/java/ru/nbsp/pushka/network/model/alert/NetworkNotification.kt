@@ -10,5 +10,6 @@ data class NetworkNotification(
         @SerializedName("color") val color: String,
         @SerializedName("title") val title: String,
         @SerializedName("image") val image: String,
-        @SerializedName("icon") val icon: String
+        @SerializedName("icon") val icon: String,
+        @SerializedName("action") val actions: List<NetworkAction>
 )

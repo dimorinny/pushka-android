@@ -2,6 +2,7 @@ package ru.nbsp.pushka.repository.alert
 
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import rx.Observable
+import java.util.*
 
 /**
  * Created by Dimorinny on 25.02.16.
@@ -15,10 +16,10 @@ class FakeAlertsRepository : AlertsRepository {
 
     override fun getAlerts(): Observable<List<PresentationAlert>> {
         return Observable.just(listOf(
-                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
-                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe"),
-                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe"),
-                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe")
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe", ArrayList()),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe", ArrayList()),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, "qwe", FAKE_IMAGE, "Газета.ру", "qwe", ArrayList()),
+                PresentationAlert("zxc", "Заголовок тут", FAKE_TEXT, FAKE_IMAGE, FAKE_IMAGE, "Газета.ру", "qwe", ArrayList())
         ))
     }
 }

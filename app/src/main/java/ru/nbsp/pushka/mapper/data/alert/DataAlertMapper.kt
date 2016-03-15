@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.mapper.data.alert
 
+import io.realm.RealmList
+import ru.nbsp.pushka.data.model.alert.DataAction
 import ru.nbsp.pushka.data.model.alert.DataAlert
 import ru.nbsp.pushka.network.model.alert.NetworkAlert
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
@@ -11,16 +13,28 @@ import javax.inject.Singleton
  */
 @Singleton
 class DataAlertMapper
-    @Inject constructor() {
+    @Inject constructor(val dataActionMapper: DataActionMapper) {
 
     fun fromPresentationAlert(presentationAlert: PresentationAlert): DataAlert {
+        val actions = RealmList<DataAction>()
+
+        for (action in presentationAlert.actions) {
+            actions.add(dataActionMapper.fromPresentationAction(action))
+        }
+
         return DataAlert(presentationAlert.id, presentationAlert.title, presentationAlert.text,
                 presentationAlert.photo, presentationAlert.sourceImage,
-                presentationAlert.sourceTitle, presentationAlert.shareLink)
+                presentationAlert.sourceTitle, presentationAlert.shareLink, actions)
     }
 
     fun fromNetworkAlert(networkAlert: NetworkAlert): DataAlert {
+        val actions = RealmList<DataAction>()
+
+        for (action in networkAlert.notification.actions) {
+            actions.add(dataActionMapper.fromNetworkAction(action))
+        }
+
         return DataAlert(networkAlert.id, networkAlert.notification.title, networkAlert.notification.description,
-                networkAlert.notification.image, networkAlert.notification.icon, null, "null")
+                networkAlert.notification.image, networkAlert.notification.icon, null, "null", actions)
     }
 }

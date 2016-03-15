@@ -10,5 +10,6 @@ data class PresentationAlert(
         val photo: String?,
         val sourceImage: String?,
         val sourceTitle: String?,
-        val shareLink: String
+        val shareLink: String,
+        val actions: List<PresentationAction>
 )

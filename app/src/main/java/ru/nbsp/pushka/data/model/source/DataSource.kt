@@ -8,7 +8,7 @@ import io.realm.RealmObject
  */
 open class DataSource(
         open var id: String = "",
-        open var params: RealmList<DataParam> = RealmList<DataParam>(),
+        open var params: RealmList<DataParam> = RealmList(),
         open var name: String = "",
         open var description: String = "",
         open var category: String = ""
