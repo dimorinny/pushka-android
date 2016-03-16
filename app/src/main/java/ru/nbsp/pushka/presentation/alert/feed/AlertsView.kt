@@ -11,5 +11,5 @@ interface AlertsView : BaseView {
     fun setAlerts(alerts: List<PresentationAlert>)
     fun setState(state: State)
     fun setToolbarState(state: State)
-    fun openUrl(url: String)
+    fun openAlertScreen(alert: PresentationAlert)
 }

@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.presentation.core.model.alert
 
+import java.io.Serializable
+
 /**
  * Created by Dimorinny on 06.03.16.
  */
@@ -12,4 +14,4 @@ data class PresentationAlert(
         val sourceTitle: String?,
         val shareLink: String,
         val actions: List<PresentationAction>
-)
+) : Serializable

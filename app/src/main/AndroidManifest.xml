@@ -22,6 +22,10 @@
             android:name=".presentation.source.feed.SourcesActivity"
             android:label="@string/empty"
             />
+        <activity
+            android:name=".presentation.alert.detail.AlertActivity"
+            android:label="@string/empty"
+            />
         <activity android:name=".presentation.navigation.NavigationActivity" android:label="@string/title_feed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

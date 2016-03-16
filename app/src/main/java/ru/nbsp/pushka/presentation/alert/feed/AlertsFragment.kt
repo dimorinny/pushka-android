@@ -2,7 +2,6 @@ package ru.nbsp.pushka.presentation.alert.feed
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +12,7 @@ import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
+import ru.nbsp.pushka.presentation.alert.detail.AlertActivity
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
@@ -107,9 +107,9 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         toolbarStateManager?.setState(state)
     }
 
-    override fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
+    override fun openAlertScreen(alert: PresentationAlert) {
+        val intent = Intent(activity, AlertActivity::class.java)
+        intent.putExtra(AlertActivity.ARG_ALERT, alert)
+        activity.startActivity(intent)
     }
 }

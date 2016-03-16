@@ -49,7 +49,7 @@ class AlertsPresenter
     }
 
     fun onAlertClicked(index: Int) {
-        view?.openUrl(alerts[index].shareLink)
+        view?.openAlertScreen(alerts[index])
     }
 
     inner class LoadAlertsCacheSubscriber : Subscriber<List<PresentationAlert>>() {
