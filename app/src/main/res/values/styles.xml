@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -18,14 +18,36 @@
         <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="FabStyle">
+    <style name="Widget.MaterialSheetFab.Fab" parent="">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+        <item name="android:layout_marginEnd" tools:ignore="NewApi">@dimen/fab_margin</item>
+        <item name="android:layout_marginRight">@dimen/fab_margin</item>
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+        <item name="fabSize">normal</item>
         <item name="borderWidth">0dp</item>
-        <item name="elevation">6dp</item>
-        <item name="pressedTranslationZ">12dp</item>
-        <item name="rippleColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.MaterialSheetFab.Sheet.Item" parent="">
+        <item name="android:layout_width">210dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/fab_sheet_item_title_color</item>
+        <item name="android:drawablePadding">24dp</item>
+    </style>
+
+    <style name="Widget.MaterialSheetFab.Sheet" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/fab_sheet_margin</item>
+        <item name="android:layout_marginEnd" tools:ignore="NewApi">@dimen/fab_sheet_margin</item>
+        <item name="android:layout_marginRight">@dimen/fab_sheet_margin</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardMaxElevation">0dp</item>
+        <item name="contentPadding">-3dp</item>
     </style>
 
     <style name="CollapsingToolbarTitleStyle" parent="@android:style/TextAppearance">

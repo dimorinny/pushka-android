@@ -1,0 +1,5 @@
+<resources>
+    <!-- Floating action button -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_sheet_margin">0dp</dimen>
+</resources>
