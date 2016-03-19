@@ -17,6 +17,8 @@ import ru.nbsp.pushka.presentation.settings.SettingsFragment
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsFragment
+import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
+import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.api.ApiPushkaService
 import javax.inject.Singleton
@@ -47,5 +49,7 @@ interface AppComponent {
     fun inject(sourcesActivity: SourcesActivity)
     fun inject(subscriptionsFragment: SubscriptionsFragment)
     fun inject(categoriesFragment: CategoriesFragment)
+    fun inject(paramsFragment: ParamsFragment)
+    fun inject(subscribeActivity: SubscribeActivity)
     fun inject(alertActivity: AlertActivity)
 }

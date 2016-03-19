@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class DataControlMapper @Inject constructor() {
 
     fun fromPresentationControl(presentationControl: PresentationControl): DataControl {
-        return DataControl(presentationControl.type, presentationControl.title, presentationControl.options.toString())
+        return DataControl(presentationControl.type, presentationControl.title, presentationControl.attributes.toString())
     }
 
     fun fromNetworkControl(networkControl: NetworkControl): DataControl {

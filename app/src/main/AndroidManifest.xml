@@ -22,10 +22,6 @@
             android:name=".presentation.source.feed.SourcesActivity"
             android:label="@string/empty"
             />
-        <activity
-            android:name=".presentation.alert.detail.AlertActivity"
-            android:label="@string/empty"
-            />
         <activity android:name=".presentation.navigation.NavigationActivity" android:label="@string/title_feed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,7 +33,17 @@
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent"/>
 
-        <service android:name=".service.api.ApiPushkaService"/>
+        <service android:name=".service.api.ApiPushkaService" />
+
+        <activity
+            android:name=".presentation.subscription.subscribe.SubscribeActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

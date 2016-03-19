@@ -7,7 +7,7 @@ import javax.inject.Singleton
  * Created by Dimorinny on 20.02.16.
  */
 @Singleton
-class TimestampUtils @Inject constructor() {
+class  TimestampUtils @Inject constructor() {
     fun currentTimestamp(): Long {
         return System.currentTimeMillis() / 1000
     }
