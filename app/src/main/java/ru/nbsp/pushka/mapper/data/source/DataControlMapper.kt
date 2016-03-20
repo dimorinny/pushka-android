@@ -17,6 +17,6 @@ class DataControlMapper @Inject constructor() {
     }
 
     fun fromNetworkControl(networkControl: NetworkControl): DataControl {
-        return DataControl(networkControl.type, networkControl.title, networkControl.options.toString())
+        return DataControl(networkControl.type, networkControl.title, networkControl.attributes.toString())
     }
 }

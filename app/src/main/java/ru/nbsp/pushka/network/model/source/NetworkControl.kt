@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 data class NetworkControl(
         @SerializedName("type") val type: String,
         @SerializedName("title") val title: String,
-        @SerializedName("attributes") val options: JsonObject
+        @SerializedName("attributes") val attributes: JsonObject
 )

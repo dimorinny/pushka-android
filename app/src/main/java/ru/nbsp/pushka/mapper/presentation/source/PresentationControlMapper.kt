@@ -17,6 +17,6 @@ class PresentationControlMapper @Inject constructor() {
     }
 
     fun fromNetworkControl(networkControl: NetworkControl): PresentationControl {
-        return PresentationControl(networkControl.type, networkControl.title, networkControl.options)
+        return PresentationControl(networkControl.type, networkControl.title, networkControl.attributes)
     }
 }
