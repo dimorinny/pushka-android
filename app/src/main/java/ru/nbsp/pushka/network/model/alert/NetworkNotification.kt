@@ -12,5 +12,6 @@ data class NetworkNotification(
         @SerializedName("image") val image: String,
         @SerializedName("creation_date") val date: Long,
         @SerializedName("icon") val icon: String,
+        @SerializedName("source_name") val sourceTitle: String,
         @SerializedName("action") val actions: List<NetworkAction>
 )

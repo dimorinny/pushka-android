@@ -19,6 +19,8 @@
         android:clickable="true"
         >
 
+        <include layout="@layout/item_alert_header"/>
+
         <TextView
             android:id="@+id/item_alert_title"
             android:layout_width="match_parent"
@@ -27,10 +29,22 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:textSize="20sp"
+            android:text="Заголовок"
             android:textColor="@color/colorPrimaryText"
             />
 
-        <include layout="@layout/item_alert_footer"/>
+        <TextView
+            android:id="@+id/item_alert_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:text="qweqjwiej iq0wje 0qwije0q jweq0w ejqwie jqiwoej qoiwej qe "
+            android:textColor="@color/colorSecondaryText"
+            />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

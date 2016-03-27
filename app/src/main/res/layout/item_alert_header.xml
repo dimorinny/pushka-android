@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_subscription_container"
     android:orientation="horizontal"
-    android:background="@drawable/bg_clickable"
-    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_subscription_image"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/login_background"
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        />
+        >
+
+        <include layout="@layout/item_source_icon"/>
+
+    </FrameLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         >
 
         <TextView
-            android:id="@+id/item_subscription_title"
+            android:id="@+id/item_alert_source_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -36,11 +35,19 @@
             />
 
         <TextView
-            android:id="@+id/item_subscription_subtitle"
+            android:id="@+id/item_alert_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="2 часа назад"
             android:textColor="@color/colorSecondaryText"
             />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        />
+
 </LinearLayout>

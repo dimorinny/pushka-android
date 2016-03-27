@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.presentation.alert.feed.adapter
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +12,15 @@ import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 24.02.16.
  */
-class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlertsAdapter(val picasso: Picasso, val iconUtils: IconUtils)
+        : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_IMAGE = 0
@@ -41,9 +45,10 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
         val alertContainer: ViewGroup by bindView(R.id.item_alert_container)
         val alertTitle: TextView by bindView(R.id.item_alert_title)
         val alertText: TextView by bindView(R.id.item_alert_text)
+        val alertSourceIconBackground: View by bindView(R.id.item_source_icon_background)
+        val sourceIcon: ImageView by bindView(R.id.item_source_icon_icon)
         val sourceTitle: TextView by bindView(R.id.item_alert_source_title)
-        val sourceImage: ImageView by bindView(R.id.item_alert_source_image)
-        val sourceShare: ImageView by bindView(R.id.item_alert_share)
+        val sourceDate: TextView by bindView(R.id.item_alert_date)
 
         init {
             if (itemClickListener != null) {
@@ -60,9 +65,10 @@ class AlertsAdapter(val picasso: Picasso) : RecyclerView.Adapter<RecyclerView.Vi
 
         holderItem.alertTitle.text = alert.title
         holderItem.alertText.text = alert.text
-//        holderItem.sourceTitle.text = alert.sourceTitle
-
-//        picasso.load(alert.sourceImage).into(holderItem.sourceImage)
+        (holderItem.alertSourceIconBackground.background as GradientDrawable)
+                .setColor(Color.parseColor(alert.color))
+        holderItem.sourceTitle.text = alert.sourceTitle
+        holderItem.sourceIcon.setImageResource(iconUtils.getIcon(alert.sourceImage))
 
         if (holder is ImageItem) {
             picasso

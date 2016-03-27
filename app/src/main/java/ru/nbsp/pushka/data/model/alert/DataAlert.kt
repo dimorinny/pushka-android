@@ -12,8 +12,9 @@ open class DataAlert(
         open var text: String = "",
         open var photo: String? = null,
         open var date: Long = 0,
-        open var sourceImage: String? = null,
-        open var sourceTitle: String? = null,
+        open var sourceImage: String = "",
+        open var sourceTitle: String = "",
         open var shareLink: String = "",
+        open var color: String = "",
         open var actions: RealmList<DataAction> = RealmList()
 ) : RealmObject()

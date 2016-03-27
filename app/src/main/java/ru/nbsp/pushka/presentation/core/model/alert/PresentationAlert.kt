@@ -11,8 +11,9 @@ data class PresentationAlert(
         val text: String,
         val photo: String?,
         val date: Long,
-        val sourceImage: String?,
-        val sourceTitle: String?,
+        val sourceImage: String,
+        val sourceTitle: String,
         val shareLink: String,
+        val color: String,
         val actions: List<PresentationAction>
 ) : Serializable

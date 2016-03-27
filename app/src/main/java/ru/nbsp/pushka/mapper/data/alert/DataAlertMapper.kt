@@ -30,6 +30,7 @@ class DataAlertMapper
                 sourceImage = presentationAlert.sourceImage,
                 sourceTitle = presentationAlert.sourceTitle,
                 shareLink = presentationAlert.shareLink,
+                color = presentationAlert.color,
                 actions = actions)
     }
 
@@ -45,7 +46,8 @@ class DataAlertMapper
                 text = networkAlert.notification.description,
                 photo = networkAlert.notification.image,
                 sourceImage = networkAlert.notification.icon,
-                sourceTitle = null,
+                color = networkAlert.notification.color,
+                sourceTitle = networkAlert.notification.sourceTitle,
                 shareLink = "null",
                 actions = actions)
     }
