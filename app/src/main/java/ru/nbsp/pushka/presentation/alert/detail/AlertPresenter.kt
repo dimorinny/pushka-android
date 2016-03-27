@@ -21,7 +21,7 @@ class AlertPresenter
                         val serviceManager: ServiceManager) : BasePresenter {
 
     override var view: AlertView? = null
-    var alert: PresentationAlert? = null
+    lateinit var alert: PresentationAlert
     val subscription: CompositeSubscription = CompositeSubscription()
 
     override fun onCreate() {
@@ -42,6 +42,18 @@ class AlertPresenter
 
     fun loadAlertFromServer(alertId: String) {
         serviceManager.loadAlert(alertId)
+    }
+
+    fun onActionClicked(index: Int) {
+        val action = alert.actions[index]
+
+        when(action.type) {
+            "url" ->handleUrlAction(action.value)
+        }
+    }
+
+    private fun handleUrlAction(value: String) {
+        // TODO: handle url action
     }
 
     inner class LoadAlertSubscriber : Subscriber<PresentationAlert>() {

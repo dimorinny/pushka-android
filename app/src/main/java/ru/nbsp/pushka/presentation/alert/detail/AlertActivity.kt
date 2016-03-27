@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import com.gordonwong.materialsheetfab.DimOverlayFrameLayout
 import com.gordonwong.materialsheetfab.MaterialSheetFab
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener
@@ -108,7 +107,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
         alertActionsAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
-                Toast.makeText(this@AlertActivity, "qwe", Toast.LENGTH_LONG).show()
+                presenter.onActionClicked(index)
             }
         }
     }
