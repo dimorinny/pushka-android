@@ -27,4 +27,12 @@ class ApiAlertsRepository(
                 }
                 .compose(schedulersUtils.applySchedulers<List<PresentationAlert>>())
     }
+
+    override fun getAlert(alertId: String): Observable<PresentationAlert> {
+        return apiPushka.getAlert(alertId)
+                .map {
+                    alertMapper.fromNetworkAlert(it.alert)
+                }
+                .compose(schedulersUtils.applySchedulers<PresentationAlert>())
+    }
 }

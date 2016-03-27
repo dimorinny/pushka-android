@@ -22,7 +22,7 @@ open class BaseActivity : AppCompatActivity() {
         BaseApplication.graph.inject(this)
 
         if (javaClass !in exceptionActivities && accountManager.getAccount() == null) {
-//            openLoginActivity()
+            openLoginActivity()
         }
     }
 

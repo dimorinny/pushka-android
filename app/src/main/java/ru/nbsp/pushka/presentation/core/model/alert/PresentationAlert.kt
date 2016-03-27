@@ -10,6 +10,7 @@ data class PresentationAlert(
         val title: String,
         val text: String,
         val photo: String?,
+        val date: Long,
         val sourceImage: String?,
         val sourceTitle: String?,
         val shareLink: String,

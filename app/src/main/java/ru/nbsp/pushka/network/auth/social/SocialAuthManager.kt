@@ -47,7 +47,7 @@ class SocialAuthManager(val authListener: SocialAuthListener) : GoogleApiClient.
 
         googleApiClient = GoogleApiClient.Builder(activity.applicationContext)
                 .enableAutoManage(activity, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions!!)
                 .build()
     }
 

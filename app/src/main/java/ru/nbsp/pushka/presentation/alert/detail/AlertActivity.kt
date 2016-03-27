@@ -20,7 +20,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.detail.adapter.AlertActionsAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
-import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
+import ru.nbsp.pushka.presentation.core.model.alert.PresentationAction
 import ru.nbsp.pushka.presentation.core.widget.AnimatedFloatingActionButton
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
     companion object {
-        final val ARG_ALERT = "arg_alert"
+        final val ARG_ALERT_ID = "arg_alert_id"
     }
 
     val contentWebView: WebView by bindView(R.id.alert_web_view)
@@ -43,9 +43,9 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
     @Inject
     lateinit var presenter: AlertPresenter
-    lateinit var alert: PresentationAlert
     lateinit var alertActionsAdapter: AlertActionsAdapter
     lateinit var sheetFab: MaterialSheetFab<AnimatedFloatingActionButton>
+    lateinit var alertId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +54,23 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
         initPresenter(presenter)
         initArgs()
+        initState(savedInstanceState)
         initToolbar()
         initViews()
-        setContentUrl(alert.actions[0].value)
+
+        presenter.loadAlertFromCache(alertId)
+        presenter.loadAlertFromServer(alertId)
+    }
+
+    private fun initState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            contentWebView.restoreState(savedInstanceState)
+        }
     }
 
     private fun initArgs() {
-        if (intent.extras.getSerializable(ARG_ALERT) != null) {
-            alert = intent.extras.getSerializable(ARG_ALERT) as PresentationAlert
+        if (intent.extras.getString(ARG_ALERT_ID) != null) {
+            alertId = intent.extras.getString(ARG_ALERT_ID)
         }
     }
 
@@ -88,10 +97,10 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
             }
         })
 
-        initRecyclerView()
+        initActionsRecyclerView()
     }
 
-    private fun initRecyclerView() {
+    private fun initActionsRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         alertActionsAdapter = AlertActionsAdapter()
@@ -102,8 +111,6 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
                 Toast.makeText(this@AlertActivity, "qwe", Toast.LENGTH_LONG).show()
             }
         }
-
-        alertActionsAdapter.actions = alert.actions
     }
 
     override fun initPresenter(presenter: AlertPresenter) {
@@ -112,7 +119,18 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
     }
 
     override fun setContentUrl(url: String) {
-        contentWebView.loadUrl(url)
+        if (contentWebView.url != url) {
+            contentWebView.loadUrl(url)
+        }
+    }
+
+    override fun setTitle(alertTitle: String) {
+        title = alertTitle
+    }
+
+    override fun setActions(actions: List<PresentationAction>) {
+        alertActionsAdapter.actions = actions
+        floatingActionButton.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -138,6 +156,10 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         if (supportActionBar != null) {
             (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true);
         }
-        supportActionBar?.title = alert.title
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        contentWebView.saveState(outState)
+        super.onSaveInstanceState(outState)
     }
 }

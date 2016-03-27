@@ -9,7 +9,7 @@
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
     </style>
 
-    <style name="TranslucentStatusBarTheme" parent="AppTheme"></style>
+    <style name="TranslucentStatusBarTheme" parent="AppTheme"/>
 
     <style name="BaseToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>

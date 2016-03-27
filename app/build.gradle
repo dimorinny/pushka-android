@@ -27,7 +27,7 @@ kapt {
     generateStubs = true
 }
 
-def appcompatVersion = "23.2.0"
+def appcompatVersion = "23.2.1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -94,7 +94,7 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.0.1'
     repositories {
         mavenCentral()
     }

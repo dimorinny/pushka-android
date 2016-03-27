@@ -16,4 +16,10 @@ class StorageAlertInteractorImpl(val dataManager: DataManager,
         dataManager.putAlerts(alerts.map { dataAlertMapper.fromPresentationAlert(it) })
         return Observable.just(alerts)
     }
+
+    override fun saveAlert(alert: PresentationAlert): Observable<PresentationAlert> {
+        dataManager.clearAlert(alert.id)
+        dataManager.putAlert(dataAlertMapper.fromPresentationAlert(alert))
+        return Observable.just(alert)
+    }
 }

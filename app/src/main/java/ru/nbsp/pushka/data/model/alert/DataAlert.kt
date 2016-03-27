@@ -11,6 +11,7 @@ open class DataAlert(
         open var title: String = "",
         open var text: String = "",
         open var photo: String? = null,
+        open var date: Long = 0,
         open var sourceImage: String? = null,
         open var sourceTitle: String? = null,
         open var shareLink: String = "",

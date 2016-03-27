@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface StorageAlertInteractor {
     fun saveAlerts(alerts: List<PresentationAlert>): Observable<List<PresentationAlert>>
+    fun saveAlert(alert: PresentationAlert): Observable<PresentationAlert>
 }

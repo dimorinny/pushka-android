@@ -23,4 +23,11 @@ class StorageAlertsRepository(
                     result
                 }
     }
+
+    override fun getAlert(alertId: String): Observable<PresentationAlert> {
+        return dataManager.getAlertObservable(alertId)
+                .map {
+                    alertMapper.fromDataAlert(it)
+                }
+    }
 }

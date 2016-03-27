@@ -109,7 +109,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     override fun openAlertScreen(alert: PresentationAlert) {
         val intent = Intent(activity, AlertActivity::class.java)
-        intent.putExtra(AlertActivity.ARG_ALERT, alert)
+        intent.putExtra(AlertActivity.ARG_ALERT_ID, alert.id)
         activity.startActivity(intent)
     }
 }

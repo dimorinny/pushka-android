@@ -1,7 +1,6 @@
 package ru.nbsp.pushka.data
 
 import io.realm.Realm
-import io.realm.RealmObject
 import ru.nbsp.pushka.data.model.alert.DataAlert
 import ru.nbsp.pushka.data.model.source.DataCategory
 import ru.nbsp.pushka.data.model.source.DataSource
@@ -18,7 +17,13 @@ class DataManager
     @Inject constructor(val realmProvider: Provider<Realm>) {
 
     fun getAlertsObservable(): Observable<List<DataAlert>> {
-        return getListObservable(DataAlert::class.java)
+        return realmProvider.get()
+                .where(DataAlert::class.java)
+                .findAllSorted("date")
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
     }
 
     fun clearAlerts() {
@@ -42,6 +47,34 @@ class DataManager
     fun putAlerts(alerts: List<DataAlert>) {
         realmProvider.get().executeTransaction {
             it.copyToRealm(alerts)
+        }
+    }
+
+    fun getAlertObservable(alertId: String): Observable<DataAlert> {
+        return realmProvider.get().where(DataAlert::class.java)
+                .equalTo("id", alertId)
+                .findFirst()
+                .asObservable()
+    }
+
+    fun putAlert(alert: DataAlert) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(alert)
+        }
+    }
+
+    fun clearAlert(alertId: String) {
+        realmProvider.get().executeTransaction {
+            val alert = it.where(DataAlert::class.java)
+                    .equalTo("id", alertId)
+                    .findFirst()
+
+            for (i in 0..alert.actions.size - 1) {
+                val action = alert.actions[i]
+                action.removeFromRealm()
+            }
+
+            alert.removeFromRealm()
         }
     }
 
@@ -102,11 +135,7 @@ class DataManager
     }
 
     fun getCategoriesObservable(): Observable<List<DataCategory>> {
-        return getListObservable(DataCategory::class.java)
-    }
-
-    private fun <T : RealmObject> getListObservable(type: Class<T>): Observable<List<T>> {
-        return realmProvider.get().where(type)
+        return realmProvider.get().where(DataCategory::class.java)
                 .findAll()
                 .asObservable()
                 .map {

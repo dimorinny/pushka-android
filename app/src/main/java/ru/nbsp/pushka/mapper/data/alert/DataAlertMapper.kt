@@ -22,9 +22,15 @@ class DataAlertMapper
             actions.add(dataActionMapper.fromPresentationAction(action))
         }
 
-        return DataAlert(presentationAlert.id, presentationAlert.title, presentationAlert.text,
-                presentationAlert.photo, presentationAlert.sourceImage,
-                presentationAlert.sourceTitle, presentationAlert.shareLink, actions)
+        return DataAlert(id = presentationAlert.id,
+                title = presentationAlert.title,
+                text = presentationAlert.text,
+                photo = presentationAlert.photo,
+                date = presentationAlert.date,
+                sourceImage = presentationAlert.sourceImage,
+                sourceTitle = presentationAlert.sourceTitle,
+                shareLink = presentationAlert.shareLink,
+                actions = actions)
     }
 
     fun fromNetworkAlert(networkAlert: NetworkAlert): DataAlert {
@@ -34,7 +40,13 @@ class DataAlertMapper
             actions.add(dataActionMapper.fromNetworkAction(action))
         }
 
-        return DataAlert(networkAlert.id, networkAlert.notification.title, networkAlert.notification.description,
-                networkAlert.notification.image, networkAlert.notification.icon, null, "null", actions)
+        return DataAlert(id = networkAlert.id,
+                title = networkAlert.notification.title,
+                text = networkAlert.notification.description,
+                photo = networkAlert.notification.image,
+                sourceImage = networkAlert.notification.icon,
+                sourceTitle = null,
+                shareLink = "null",
+                actions = actions)
     }
 }
