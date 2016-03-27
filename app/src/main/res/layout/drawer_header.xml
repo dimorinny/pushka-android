@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="172dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="@dimen/status_bar_height"
     android:orientation="vertical"
     android:background="@color/drawer_header_background"
@@ -14,7 +15,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_settings_grey_24dp"
+        app:srcCompat="@drawable/ic_settings_grey_24dp"
         />
 
     <TextView

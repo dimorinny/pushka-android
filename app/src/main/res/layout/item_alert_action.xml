@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_alert_action_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:background="@drawable/bg_clickable"
     android:clickable="true"
     >
 
+    <ImageView
+        android:id="@+id/item_alert_action_image"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_share_grey_24dp"
+        />
+
     <TextView
         android:id="@+id/item_alert_action_title"
         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-        android:drawableLeft="@drawable/ic_share_grey_24dp"
-        android:drawableStart="@drawable/ic_share_grey_24dp"
         />
 
-</FrameLayout>
+</LinearLayout>

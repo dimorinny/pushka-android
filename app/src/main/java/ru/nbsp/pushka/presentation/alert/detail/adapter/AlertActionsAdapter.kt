@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
@@ -28,6 +29,7 @@ class AlertActionsAdapter : RecyclerView.Adapter<AlertActionsAdapter.ViewHolder>
     open inner class ViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
         val actionContainer: ViewGroup by bindView(R.id.item_alert_action_container)
         val actionTitle: TextView by bindView(R.id.item_alert_action_title)
+        val actionImage: ImageView by bindView(R.id.item_alert_action_image)
 
         init {
             if (itemClickListener != null) {
