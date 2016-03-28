@@ -15,6 +15,10 @@
     <color name="fab_sheet_item_title_color">#de000000</color>
 
     <!-- Common -->
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+    <color name="orange">#FF9800</color>
+    <color name="blue">#2196F3</color>
     <color name="white">#FFF</color>
     <color name="nearly_white">#FAFAFA</color>
     <color name="grey">#757575</color>

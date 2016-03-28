@@ -69,15 +69,19 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         super.onViewCreated(view, savedInstanceState)
         BaseApplication.graph.inject(this)
 
-        initViews()
         initPresenter(presenter)
+        initViews()
         initRecyclerView()
         presenter.loadAlertsFromCache()
         presenter.loadAlertsFromServer()
     }
 
     private fun initViews() {
-        refreshLayout.setOnRefreshListener { refreshLayout.isRefreshing = false }
+        refreshLayout.setColorSchemeResources(R.color.green,
+                R.color.blue,
+                R.color.orange);
+
+        refreshLayout.setOnRefreshListener { presenter.loadAlertsFromServer() }
     }
 
     override fun initPresenter(presenter: AlertsPresenter) {
@@ -113,6 +117,10 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     override fun setToolbarState(state: State) {
         toolbarStateManager?.setState(state)
+    }
+
+    override fun disableSwipeRefresh() {
+        refreshLayout.isRefreshing = false
     }
 
     override fun openAlertScreen(alert: PresentationAlert) {

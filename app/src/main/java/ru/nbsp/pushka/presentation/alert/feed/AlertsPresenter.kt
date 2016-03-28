@@ -76,6 +76,7 @@ class AlertsPresenter
         override fun onError(t: Throwable) {
             t.printStackTrace()
 
+            view?.disableSwipeRefresh()
             if (alerts.size == 0) {
                 view?.setState(State.STATE_ERROR)
                 view?.setToolbarState(State.STATE_NORMAL)
@@ -86,6 +87,7 @@ class AlertsPresenter
 
         override fun onNext(result: List<PresentationAlert>) {
             alerts = result
+            view?.disableSwipeRefresh()
             view?.setToolbarState(State.STATE_NORMAL)
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setAlerts(result)

@@ -12,4 +12,5 @@ interface AlertsView : BaseView {
     fun setState(state: State)
     fun setToolbarState(state: State)
     fun openAlertScreen(alert: PresentationAlert)
+    fun disableSwipeRefresh()
 }
