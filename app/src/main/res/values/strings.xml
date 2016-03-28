@@ -19,6 +19,7 @@
     <string name="description_logo_icon">Иконка нашего приложения</string>
     <string name="description_vk_icon">Иконка гугла</string>
     <string name="description_google_icon">Иконка вконтакте</string>
+    <string name="description_source_icon">Иконка источников</string>
 
     <!-- Titles -->
     <string name="title_feed">Лента</string>

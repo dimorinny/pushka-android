@@ -11,5 +11,7 @@ open class DataSource(
         open var params: RealmList<DataParam> = RealmList(),
         open var name: String = "",
         open var description: String = "",
+        open var color: String = "",
+        open var icon: String = "",
         open var category: String = ""
 ) : RealmObject()

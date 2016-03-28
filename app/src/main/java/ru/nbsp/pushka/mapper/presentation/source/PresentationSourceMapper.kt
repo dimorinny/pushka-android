@@ -22,7 +22,14 @@ class PresentationSourceMapper
             params.add(paramMapper.fromDataParam(param))
         }
 
-        return PresentationSource(dataSource.id, params, dataSource.name, dataSource.description, dataSource.category)
+        return PresentationSource(
+                id = dataSource.id,
+                params = params,
+                name = dataSource.name,
+                description = dataSource.description,
+                category = dataSource.category,
+                icon = dataSource.icon,
+                color = dataSource.color)
     }
 
     fun fromNetworkSource(networkSource: NetworkSource): PresentationSource {
@@ -32,6 +39,13 @@ class PresentationSourceMapper
             params.add(paramMapper.fromNetworkParam(param))
         }
 
-        return PresentationSource(networkSource.id, params, networkSource.name, networkSource.description, networkSource.category)
+        return PresentationSource(
+                id = networkSource.id,
+                params = params,
+                name = networkSource.name,
+                description = networkSource.description,
+                category = networkSource.category,
+                icon = networkSource.icon,
+                color = networkSource.color)
     }
 }

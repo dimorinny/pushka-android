@@ -14,6 +14,7 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.AnimatedStateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -34,6 +35,10 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
 
     @Inject
     lateinit var presenter: SourcesPresenter
+
+    @Inject
+    lateinit var iconUtlis: IconUtils
+
     lateinit var adapter: SourcesAdapter
     lateinit var category: PresentationCategory
 
@@ -72,7 +77,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        adapter = SourcesAdapter()
+        adapter = SourcesAdapter(iconUtlis)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onSourceClicked()

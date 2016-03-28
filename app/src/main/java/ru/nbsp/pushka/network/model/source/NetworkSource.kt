@@ -10,5 +10,7 @@ data class NetworkSource(
         @SerializedName("params") val params: List<NetworkParam>,
         @SerializedName("name") val name: String,
         @SerializedName("description") val description: String,
-        @SerializedName("category") val category: String
+        @SerializedName("category") val category: String,
+        @SerializedName("icon") val icon: String,
+        @SerializedName("color") val color: String
 )

@@ -10,5 +10,7 @@ data class PresentationSource(
         val params: List<PresentationParam>,
         val name: String,
         val description: String,
-        val category: String
+        val category: String,
+        val icon: String,
+        val color: String
 ) : Serializable

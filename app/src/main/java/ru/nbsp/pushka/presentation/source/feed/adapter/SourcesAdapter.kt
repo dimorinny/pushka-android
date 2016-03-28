@@ -1,5 +1,7 @@
 package ru.nbsp.pushka.presentation.source.feed.adapter
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +11,14 @@ import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SourcesAdapter : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
+class SourcesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
 
     var itemClickListener: OnItemClickListener? = null
 
@@ -30,6 +33,10 @@ class SourcesAdapter : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>
 
         holder.sourceTitle.text = source.name
         holder.sourceSubtitle.text = source.description
+
+        (holder.sourceIconBackground.background as GradientDrawable)
+                .setColor(Color.parseColor(source.color))
+        holder.sourceIcon.setImageResource(iconUtils.getIcon(source.icon))
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +52,8 @@ class SourcesAdapter : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>
         val sourceContainer: ViewGroup by bindView(R.id.item_source_container)
         val sourceTitle: TextView by bindView(R.id.item_source_title)
         val sourceSubtitle: TextView by bindView(R.id.item_source_subtitle)
-        val sourceImage: ImageView by bindView(R.id.item_source_image)
+        val sourceIcon: ImageView by bindView(R.id.item_source_icon_icon)
+        val sourceIconBackground: View by bindView(R.id.item_source_icon_background)
 
         init {
             if (itemClickListener != null) {

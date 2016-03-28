@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
+import ru.nbsp.pushka.presentation.core.widget.GridAutofitLayoutManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
@@ -27,6 +27,10 @@ import javax.inject.Inject
  * Created by Dimorinny on 12.02.16.
  */
 class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
+
+    companion object {
+        const val GRID_FIXED_ALERT_WIDTH = 800
+    }
 
     val recyclerView: StateRecyclerView by bindView(R.id.alerts_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.alerts_refresh_layout)
@@ -82,7 +86,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     }
 
     private fun initRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = GridAutofitLayoutManager(activity, GRID_FIXED_ALERT_WIDTH)
 
         recyclerView.setEmptyView(emptyPlaceholder)
         recyclerView.setErrorView(errorPlaceholder)
