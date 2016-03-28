@@ -14,7 +14,7 @@ open class DataAlert(
         open var date: Long = 0,
         open var sourceImage: String = "",
         open var sourceTitle: String = "",
-        open var shareLink: String = "",
         open var color: String = "",
+        open var uri: String = "",
         open var actions: RealmList<DataAction> = RealmList()
 ) : RealmObject()

@@ -28,7 +28,7 @@ class PresentationAlertMapper
                 photo = dataAlert.photo,
                 sourceImage = dataAlert.sourceImage,
                 sourceTitle = dataAlert.sourceTitle,
-                shareLink = dataAlert.shareLink,
+                uri = dataAlert.uri,
                 date = dataAlert.date,
                 color = dataAlert.color,
                 actions = actions)
@@ -49,7 +49,7 @@ class PresentationAlertMapper
                 sourceImage = networkAlert.notification.icon,
                 color = networkAlert.notification.color,
                 sourceTitle = networkAlert.notification.sourceTitle,
-                shareLink = "null",
+                uri = networkAlert.notification.uri,
                 actions = actions)
     }
 }

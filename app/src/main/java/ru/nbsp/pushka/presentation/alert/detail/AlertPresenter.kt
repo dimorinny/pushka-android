@@ -65,9 +65,11 @@ class AlertPresenter
 
         override fun onNext(result: PresentationAlert) {
             if (result != alert) {
-                view?.setContentUrl(result.actions[0].value)
+                view?.setContentUrl(result.uri)
                 view?.setTitle(result.title)
-                view?.setActions(result.actions)
+                if (result.actions.size != 0) {
+                    view?.setActions(result.actions)
+                }
             }
 
             alert = result
