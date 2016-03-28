@@ -1,8 +1,10 @@
 package ru.nbsp.pushka.presentation.alert.feed.adapter
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +21,7 @@ import java.util.*
 /**
  * Created by Dimorinny on 24.02.16.
  */
-class AlertsAdapter(val picasso: Picasso, val iconUtils: IconUtils)
+class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: IconUtils)
         : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -32,7 +34,6 @@ class AlertsAdapter(val picasso: Picasso, val iconUtils: IconUtils)
     var alerts: List<PresentationAlert> = ArrayList()
         set(s : List<PresentationAlert>) {
             field = s
-
             notifyDataSetChanged()
         }
 
@@ -65,10 +66,15 @@ class AlertsAdapter(val picasso: Picasso, val iconUtils: IconUtils)
 
         holderItem.alertTitle.text = alert.title
         holderItem.alertText.text = alert.text
-        (holderItem.alertSourceIconBackground.background as GradientDrawable)
-                .setColor(Color.parseColor(alert.color))
+        (holderItem.alertSourceIconBackground.background as GradientDrawable).setColor(Color.parseColor(alert.color))
         holderItem.sourceTitle.text = alert.sourceTitle
         holderItem.sourceIcon.setImageResource(iconUtils.getIcon(alert.sourceImage))
+        holderItem.sourceDate.text = DateUtils.getRelativeDateTimeString(
+                context,
+                alert.date,
+                DateUtils.MINUTE_IN_MILLIS,
+                DateUtils.HOUR_IN_MILLIS,
+                0)
 
         if (holder is ImageItem) {
             picasso

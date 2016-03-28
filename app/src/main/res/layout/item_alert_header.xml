@@ -38,7 +38,6 @@
             android:id="@+id/item_alert_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 часа назад"
             android:textColor="@color/colorSecondaryText"
             />
 

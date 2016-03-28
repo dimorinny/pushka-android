@@ -93,7 +93,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        alertsAdapter = AlertsAdapter(picasso, iconUtils)
+        alertsAdapter = AlertsAdapter(context, picasso, iconUtils)
         recyclerView.adapter = alertsAdapter
 
         alertsAdapter.itemClickListener = object : OnItemClickListener {
