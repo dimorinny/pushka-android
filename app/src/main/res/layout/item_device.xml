@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_device_container"
     android:orientation="horizontal"
+    android:background="@drawable/bg_clickable"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -17,16 +20,16 @@
     </FrameLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         >
 
         <TextView
-            android:id="@+id/item_alert_source_title"
+            android:id="@+id/item_device_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -35,18 +38,11 @@
             />
 
         <TextView
-            android:id="@+id/item_alert_date"
+            android:id="@+id/item_device_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorSecondaryText"
             />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider"
-        />
-
 </LinearLayout>

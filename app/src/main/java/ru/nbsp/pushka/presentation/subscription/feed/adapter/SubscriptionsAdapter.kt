@@ -15,7 +15,7 @@ import java.util.*
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SubscriptionsAdapter : RecyclerView.Adapter<SubscriptionsAdapter.ViewHolder>(){
+class SubscriptionsAdapter : RecyclerView.Adapter<SubscriptionsAdapter.ViewHolder>() {
     var itemClickListener: OnItemClickListener? = null
 
     var subscriptions: List<PresentationSubscription> = ArrayList()

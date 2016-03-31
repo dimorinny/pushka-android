@@ -5,14 +5,14 @@
     android:layout_height="48dp"
     >
     <View
-        android:id="@+id/item_source_icon_background"
+        android:id="@+id/item_icon_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/primary_circle"
         />
 
     <ImageView
-        android:id="@+id/item_source_icon_icon"
+        android:id="@+id/item_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center"

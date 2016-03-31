@@ -26,6 +26,7 @@
     <string name="title_subscription">Подписки</string>
     <string name="title_settings">Настройки</string>
     <string name="title_sources">Источники</string>
+    <string name="title_devices">Устройства</string>
 
     <string name="title_loading">Загрузка…</string>
     <string name="title_error">Ошибка загрузки</string>
@@ -37,6 +38,7 @@
     <string name="drawer_feed">Лента</string>
     <string name="drawer_sources">Источники</string>
     <string name="drawer_subscription">Подписки</string>
+    <string name="drawer_devices">Устройства</string>
 
     <!-- Login -->
     <string name="login_enter_vk">Войти с помощью Вконтакте</string>

@@ -19,6 +19,7 @@ class NavigationPresenter
             R.id.drawer_sources -> view?.setCategoriesContent()
             R.id.drawer_subscriptions -> view?.setSubscriptionsContent()
             R.id.drawer_settings -> view?.setSettingsContent()
+            R.id.drawer_devices -> view?.setDevicesContent()
         }
     }
 

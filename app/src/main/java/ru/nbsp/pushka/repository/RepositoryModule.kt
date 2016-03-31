@@ -9,10 +9,12 @@ import ru.nbsp.pushka.annotation.FakeRepository
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
+import ru.nbsp.pushka.mapper.presentation.device.PresentationDeviceMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationCategoryMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationSourceMapper
 import ru.nbsp.pushka.mapper.presentation.subscription.PresentationSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAlertsService
+import ru.nbsp.pushka.network.service.PushkaDeviceService
 import ru.nbsp.pushka.network.service.PushkaSourceService
 import ru.nbsp.pushka.network.service.PushkaSubscriptionService
 import ru.nbsp.pushka.repository.account.AccountRepository
@@ -24,6 +26,8 @@ import ru.nbsp.pushka.repository.category.ApiCategoriesRepository
 import ru.nbsp.pushka.repository.category.CategoriesRepository
 import ru.nbsp.pushka.repository.category.FakeCategoriesRepository
 import ru.nbsp.pushka.repository.category.StorageCategoriesRepository
+import ru.nbsp.pushka.repository.device.ApiDevicesRepository
+import ru.nbsp.pushka.repository.device.DevicesRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
@@ -107,5 +111,12 @@ class RepositoryModule {
     @Provides
     fun provideFakeCategoriesRepository(): CategoriesRepository {
         return FakeCategoriesRepository()
+    }
+
+    @ApiRepository
+    @Singleton
+    @Provides
+    fun provideApiDevicesRepository(api: PushkaDeviceService, presentationDeviceMapper: PresentationDeviceMapper, schedulersUtils: SchedulersUtils): DevicesRepository {
+        return ApiDevicesRepository(api, presentationDeviceMapper, schedulersUtils)
     }
 }

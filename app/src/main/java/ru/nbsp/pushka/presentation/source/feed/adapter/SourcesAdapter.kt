@@ -52,8 +52,8 @@ class SourcesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SourcesAda
         val sourceContainer: ViewGroup by bindView(R.id.item_source_container)
         val sourceTitle: TextView by bindView(R.id.item_source_title)
         val sourceSubtitle: TextView by bindView(R.id.item_source_subtitle)
-        val sourceIcon: ImageView by bindView(R.id.item_source_icon_icon)
-        val sourceIconBackground: View by bindView(R.id.item_source_icon_background)
+        val sourceIcon: ImageView by bindView(R.id.item_icon)
+        val sourceIconBackground: View by bindView(R.id.item_icon_background)
 
         init {
             if (itemClickListener != null) {

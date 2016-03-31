@@ -46,8 +46,8 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
         val alertContainer: ViewGroup by bindView(R.id.item_alert_container)
         val alertTitle: TextView by bindView(R.id.item_alert_title)
         val alertText: TextView by bindView(R.id.item_alert_text)
-        val alertSourceIconBackground: View by bindView(R.id.item_source_icon_background)
-        val sourceIcon: ImageView by bindView(R.id.item_source_icon_icon)
+        val alertSourceIconBackground: View by bindView(R.id.item_icon_background)
+        val sourceIcon: ImageView by bindView(R.id.item_icon)
         val sourceTitle: TextView by bindView(R.id.item_alert_source_title)
         val sourceDate: TextView by bindView(R.id.item_alert_date)
 
