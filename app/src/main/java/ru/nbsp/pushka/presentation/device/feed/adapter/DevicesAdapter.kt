@@ -11,14 +11,14 @@ import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.device.PresentationDevice
-import ru.nbsp.pushka.util.IconUtils
+import ru.nbsp.pushka.util.DeviceTokenUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 31.03.16.
  */
-class DevicesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>() {
+class DevicesAdapter(val deviceTokenUtils: DeviceTokenUtils) : RecyclerView.Adapter<DevicesAdapter.ViewHolder>() {
     var itemClickListener: OnItemClickListener? = null
 
     var devices: List<PresentationDevice> = ArrayList()
@@ -33,12 +33,14 @@ class DevicesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<DevicesAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val device = devices[position]
+        val deviceInfo = deviceTokenUtils.getDeviceNameById(device.type)
 
-        holder.deviceTitle.text = device.type
-        holder.deviceSubtitle.text = device.name
+        holder.deviceTitle.text = device.name
+        holder.deviceSubtitle.text = deviceInfo.name
+
         // TODO: hardcode
-        (holder.deviceIconBackground.background as GradientDrawable).setColor(Color.parseColor("#43A047"))
-        holder.deviceIcon.setImageResource(iconUtils.getIcon(device.type))
+        (holder.deviceIconBackground.background as GradientDrawable).setColor(Color.parseColor(deviceInfo.color))
+        holder.deviceIcon.setImageResource(deviceInfo.icon)
 
     }
 

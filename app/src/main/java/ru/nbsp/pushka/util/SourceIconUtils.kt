@@ -8,7 +8,7 @@ import javax.inject.Singleton
  * Created by Dimorinny on 28.03.16.
  */
 @Singleton
-class IconUtils @Inject constructor() {
+class SourceIconUtils @Inject constructor() {
 
     private val icons = mapOf(
             Pair("newspaper", R.drawable.ic_newspaper_white_36dp),

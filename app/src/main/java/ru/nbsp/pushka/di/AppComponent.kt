@@ -24,7 +24,9 @@ import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
 import ru.nbsp.pushka.presentation.subscription.params.control.SimpleListFragment
 import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.repository.RepositoryModule
-import ru.nbsp.pushka.service.api.ApiPushkaService
+import ru.nbsp.pushka.service.api.ApiAlertService
+import ru.nbsp.pushka.service.api.ApiAuthService
+import ru.nbsp.pushka.service.api.ApiSourceService
 import javax.inject.Singleton
 
 /**
@@ -42,7 +44,12 @@ import javax.inject.Singleton
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)
-    fun inject(pushkaService: ApiPushkaService)
+
+    // Services
+    fun inject(alertService: ApiAlertService)
+    fun inject(sourceService: ApiSourceService)
+    fun inject(pushkaService: ApiAuthService)
+
     fun inject(baseActivity: BaseActivity)
     fun inject(loginActivity: LoginActivity)
     fun inject(socialAuthManager: SocialAuthManager)

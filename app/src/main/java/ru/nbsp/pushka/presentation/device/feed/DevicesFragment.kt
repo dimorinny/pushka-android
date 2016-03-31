@@ -13,7 +13,7 @@ import ru.nbsp.pushka.presentation.core.model.device.PresentationDevice
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.device.feed.adapter.DevicesAdapter
-import ru.nbsp.pushka.util.IconUtils
+import ru.nbsp.pushka.util.DeviceTokenUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class DevicesFragment : PresentedFragment<DevicesPresenter>(), DevicesView {
     lateinit var presenter: DevicesPresenter
 
     @Inject
-    lateinit var iconUtils: IconUtils
+    lateinit var deviceTokenUtils: DeviceTokenUtils
 
     lateinit var devicesAdapter: DevicesAdapter
 
@@ -68,7 +68,7 @@ class DevicesFragment : PresentedFragment<DevicesPresenter>(), DevicesView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        devicesAdapter = DevicesAdapter(iconUtils)
+        devicesAdapter = DevicesAdapter(deviceTokenUtils)
         recyclerView.adapter = devicesAdapter
     }
 

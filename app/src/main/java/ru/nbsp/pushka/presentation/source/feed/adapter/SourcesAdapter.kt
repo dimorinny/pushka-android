@@ -11,14 +11,14 @@ import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
-import ru.nbsp.pushka.util.IconUtils
+import ru.nbsp.pushka.util.SourceIconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SourcesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
+class SourcesAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
 
     var itemClickListener: OnItemClickListener? = null
 
@@ -36,7 +36,7 @@ class SourcesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SourcesAda
 
         (holder.sourceIconBackground.background as GradientDrawable)
                 .setColor(Color.parseColor(source.color))
-        holder.sourceIcon.setImageResource(iconUtils.getIcon(source.icon))
+        holder.sourceIcon.setImageResource(sourceIconUtils.getIcon(source.icon))
     }
 
     override fun getItemCount(): Int {
