@@ -61,6 +61,10 @@ dependencies {
 
     // Google play services
     compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+
+    // GCM
+    compile 'eu.inloop:easygcm:1.6.2@aar'
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

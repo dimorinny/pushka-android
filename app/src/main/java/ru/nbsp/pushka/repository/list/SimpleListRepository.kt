@@ -1,7 +1,6 @@
-package ru.nbsp.pushka.repository.subscription
+package ru.nbsp.pushka.repository.list
 
 import ru.nbsp.pushka.presentation.core.model.source.control.SimpleListControlItem
-import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import rx.Observable
 
 /**

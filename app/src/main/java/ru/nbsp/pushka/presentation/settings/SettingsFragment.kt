@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment
 import android.support.v7.app.AlertDialog
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
+import ru.nbsp.pushka.gcm.manage.GcmManager
 import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
@@ -20,6 +21,9 @@ class SettingsFragment : PreferenceFragment() {
 
     @Inject
     lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var gcmManager: GcmManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,7 @@ class SettingsFragment : PreferenceFragment() {
     private fun onLogoutDialogPositiveClicked() {
         logoutDialog.dismiss()
         accountManager.clear()
+        gcmManager.clear()
         openLoginActivity()
     }
 

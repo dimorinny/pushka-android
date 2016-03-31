@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
+import eu.inloop.easygcm.EasyGcm
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment

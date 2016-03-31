@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.data
 
 import io.realm.Realm
+import io.realm.Sort
 import ru.nbsp.pushka.data.model.alert.DataAlert
 import ru.nbsp.pushka.data.model.source.DataCategory
 import ru.nbsp.pushka.data.model.source.DataSource
@@ -19,7 +20,7 @@ class DataManager
     fun getAlertsObservable(): Observable<List<DataAlert>> {
         return realmProvider.get()
                 .where(DataAlert::class.java)
-                .findAllSorted("date")
+                .findAllSorted("date", Sort.DESCENDING)
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)

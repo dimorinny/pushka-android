@@ -2,11 +2,11 @@ package ru.nbsp.pushka.presentation.login
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.annotation.UISched
-import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.LoginEvent
+import ru.nbsp.pushka.gcm.manage.GcmManager
+import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
-import ru.nbsp.pushka.presentation.login.LoginView
 import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.StringUtils
 import rx.Observable
@@ -23,6 +23,7 @@ class LoginPresenter
             @UISched val resultScheduler: Scheduler,
             val accountManager: AccountManager,
             val bus: RxBus,
+            val gcmManager: GcmManager,
             val serviceManager: ServiceManager,
             val stringUtils: StringUtils): BasePresenter {
 
@@ -83,6 +84,8 @@ class LoginPresenter
             view?.hideDialog()
 
             if (success) {
+                gcmManager.clear()
+                gcmManager.init()
                 view?.openNavigationWindow()
             } else {
                 onLoginError()

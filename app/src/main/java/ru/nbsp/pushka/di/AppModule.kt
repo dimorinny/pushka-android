@@ -3,6 +3,8 @@ package ru.nbsp.pushka.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.telephony.TelephonyManager
+import android.view.WindowManager
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.BaseApplication
@@ -26,5 +28,17 @@ class AppModule(val application: BaseApplication) {
     @Provides
     fun provideSharedPreferences(context: Context): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTelephonyManager(context: Context): TelephonyManager {
+        return context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    }
+
+    @Singleton
+    @Provides
+    fun provideWindowManager(context: Context): WindowManager {
+        return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     }
 }

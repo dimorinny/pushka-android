@@ -9,7 +9,7 @@ import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.control.SimpleListControlItem
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.alert.AlertsRepository
-import ru.nbsp.pushka.repository.subscription.SimpleListRepository
+import ru.nbsp.pushka.repository.list.SimpleListRepository
 import rx.Observable
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription

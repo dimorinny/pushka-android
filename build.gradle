@@ -1,3 +1,5 @@
+import eu.inloop.easygcm.PushTask
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -7,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0-alpha4'
         classpath 'com.google.gms:google-services:2.0.0-alpha6'
+        classpath 'eu.inloop:easygcm-tasks:1.3.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,4 +25,12 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task push(type: PushTask) {
+    data = '{"myMessage":"Hello World"}'
+    apiKey = 'AIzaSyB8gPwx7R3VzUH2Ix0rBGnIRzb9UAkYxFE' // Server API Key
+    registrationIds = [
+            'etC_2NyOllo:APA91bHwuhQm2R3j9KRa8VBo3oHSh7jtwvGS4ainGlmr1A2GjNQ6QQMV8iGbQ0kKQZA6HScCxkXVVz58QdetAokFOHAk5n4CisBrjfJNKZr_0BDVVSCl1LX9SNeHHDhJaEWWz1DgtXO9'
+    ]
 }

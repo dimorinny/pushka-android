@@ -57,8 +57,8 @@ class SourcesPresenter
 //                                Pair("alert_offset_days", "-10000"),
 //                                Pair("show", "1"))))
 //                                .subscribe(SubscribeSourceSubscriber())
-        subscriptionInteractor.subscribe(SubscribeRequest("news_gazetaru", mapOf(
-                Pair("category", "main"))))
+        subscriptionInteractor.subscribe(SubscribeRequest("hubs_habr", mapOf(
+                Pair("hub", "programming"))))
                 .subscribe(SubscribeSourceSubscriber())
     }
 

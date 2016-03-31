@@ -14,10 +14,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.nbsp.pushka.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
-import ru.nbsp.pushka.network.service.PushkaAlertsService
-import ru.nbsp.pushka.network.service.PushkaAuthService
-import ru.nbsp.pushka.network.service.PushkaSourceService
-import ru.nbsp.pushka.network.service.PushkaSubscriptionService
+import ru.nbsp.pushka.network.service.*
 import javax.inject.Singleton
 
 /**
@@ -29,7 +26,6 @@ class ApiModule {
 
     companion object {
         private const val BASE_URL = "http://130.211.103.133/api/v1/"
-        private const val LOG_TAG = "RETROFIT"
     }
 
     @Singleton
@@ -111,6 +107,12 @@ class ApiModule {
     @Provides
     fun providePushkaSubscriptionService(@AuthRequired retrofit: Retrofit): PushkaSubscriptionService {
         return retrofit.create(PushkaSubscriptionService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePushkaDeviceService(@AuthRequired retrofit: Retrofit): PushkaDeviceService {
+        return retrofit.create(PushkaDeviceService::class.java)
     }
 
     @Singleton

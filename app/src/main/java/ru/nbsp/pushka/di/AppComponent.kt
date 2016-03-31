@@ -3,6 +3,8 @@ package ru.nbsp.pushka.di
 import dagger.Component
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.data.DataModule
+import ru.nbsp.pushka.gcm.GcmModule
+import ru.nbsp.pushka.gcm.PushkaGcmListener
 import ru.nbsp.pushka.interactor.InteractorModule
 import ru.nbsp.pushka.network.ApiModule
 import ru.nbsp.pushka.network.auth.social.SocialAuthManager
@@ -34,7 +36,8 @@ import javax.inject.Singleton
         SchedulerModule::class,
         RepositoryModule::class,
         InteractorModule::class,
-        DataModule::class
+        DataModule::class,
+        GcmModule::class
 ))
 interface AppComponent {
     fun inject(application: BaseApplication)
@@ -54,4 +57,5 @@ interface AppComponent {
     fun inject(subscribeActivity: SubscribeActivity)
     fun inject(alertActivity: AlertActivity)
     fun inject(simpleListFragment: SimpleListFragment)
+    fun inject(pushkaGcmListener: PushkaGcmListener)
 }
