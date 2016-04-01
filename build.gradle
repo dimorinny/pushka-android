@@ -31,6 +31,6 @@ task push(type: PushTask) {
     data = '{"myMessage":"Hello World"}'
     apiKey = 'AIzaSyB8gPwx7R3VzUH2Ix0rBGnIRzb9UAkYxFE' // Server API Key
     registrationIds = [
-            'etC_2NyOllo:APA91bHwuhQm2R3j9KRa8VBo3oHSh7jtwvGS4ainGlmr1A2GjNQ6QQMV8iGbQ0kKQZA6HScCxkXVVz58QdetAokFOHAk5n4CisBrjfJNKZr_0BDVVSCl1LX9SNeHHDhJaEWWz1DgtXO9'
+            'evYKr7b6Eys:APA91bGoD3bIseyVZU-GuRFhW1oIcIuBnzJk1qdrPemiA02QaZNlx3EQslOAIbc2kBuHspBLycyYyEzlrwfa_yCsLh9MHXr7pOsr5RJlIRijDoAdVHO-hqdshiA4TAQkwAI5hg5M2-o7'
     ]
 }

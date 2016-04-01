@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.di
 
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -40,5 +41,11 @@ class AppModule(val application: BaseApplication) {
     @Provides
     fun provideWindowManager(context: Context): WindowManager {
         return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationManager(context: Context): NotificationManager {
+        return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 }

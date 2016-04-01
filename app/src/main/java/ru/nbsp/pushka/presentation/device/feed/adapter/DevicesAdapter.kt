@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.presentation.device.feed.adapter
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -33,13 +32,13 @@ class DevicesAdapter(val deviceTokenUtils: DeviceTokenUtils) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val device = devices[position]
-        val deviceInfo = deviceTokenUtils.getDeviceNameById(device.type)
+        val deviceInfo = deviceTokenUtils.getDeviceInfoById(device.type)
 
         holder.deviceTitle.text = device.name
         holder.deviceSubtitle.text = deviceInfo.name
 
         // TODO: hardcode
-        (holder.deviceIconBackground.background as GradientDrawable).setColor(Color.parseColor(deviceInfo.color))
+        (holder.deviceIconBackground.background as GradientDrawable).setColor(deviceInfo.color)
         holder.deviceIcon.setImageResource(deviceInfo.icon)
 
     }

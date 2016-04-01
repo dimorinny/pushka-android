@@ -52,10 +52,15 @@ class DataManager
     }
 
     fun getAlertObservable(alertId: String): Observable<DataAlert> {
-        return realmProvider.get().where(DataAlert::class.java)
+        val result = realmProvider.get().where(DataAlert::class.java)
                 .equalTo("id", alertId)
                 .findFirst()
-                .asObservable()
+
+        return if (result != null) {
+            result.asObservable<DataAlert>()
+        } else {
+            Observable.empty()
+        }
     }
 
     fun putAlert(alert: DataAlert) {
@@ -70,12 +75,14 @@ class DataManager
                     .equalTo("id", alertId)
                     .findFirst()
 
-            for (i in 0..alert.actions.size - 1) {
-                val action = alert.actions[i]
-                action.removeFromRealm()
-            }
+            if (alert != null) {
+                for (i in 0..alert.actions.size - 1) {
+                    val action = alert.actions[i]
+                    action.removeFromRealm()
+                }
 
-            alert.removeFromRealm()
+                alert.removeFromRealm()
+            }
         }
     }
 
