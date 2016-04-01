@@ -75,6 +75,7 @@ class PushkaGcmListener : GcmListener {
         val mBuilder = NotificationCompat
                 .Builder(context)
                 .setPriority(1)
+                .setAutoCancel(true)
                 .setColor(Color.parseColor(alert.notification.color))
                 .setSmallIcon(iconUtils.getIcon(alert.notification.icon))
                 .setContentTitle(alert.notification.title)

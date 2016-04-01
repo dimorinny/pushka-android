@@ -37,7 +37,6 @@ class DevicesAdapter(val deviceTokenUtils: DeviceTokenUtils) : RecyclerView.Adap
         holder.deviceTitle.text = device.name
         holder.deviceSubtitle.text = deviceInfo.name
 
-        // TODO: hardcode
         (holder.deviceIconBackground.background as GradientDrawable).setColor(deviceInfo.color)
         holder.deviceIcon.setImageResource(deviceInfo.icon)
 
