@@ -8,5 +8,6 @@ import io.realm.RealmObject
 open class DataCategory(
         open var id: String = "",
         open var name: String = "",
-        open var image: String = ""
+        open var icon: String = "",
+        open var color: String = ""
 ) : RealmObject()

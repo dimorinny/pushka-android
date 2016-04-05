@@ -11,14 +11,14 @@ import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SourcesAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
+class SourcesAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SourcesAdapter.SourceItemViewHolder>() {
 
     var itemClickListener: OnItemClickListener? = null
 
@@ -31,12 +31,11 @@ class SourcesAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: SourceItemViewHolder, position: Int) {
         val source = sources[position]
 
-        holder.sourceTitle.text = source.name
-        holder.sourceSubtitle.text = source.description
-
-        (holder.sourceIconBackground.background as GradientDrawable)
+        holder.title.text = source.name
+        holder.subtitle.text = source.description
+        (holder.iconBackground.background as GradientDrawable)
                 .setColor(Color.parseColor(source.color))
-        holder.sourceIcon.setImageResource(sourceIconUtils.getIcon(source.icon))
+        holder.icon.setImageResource(iconUtils.getIcon(source.icon))
     }
 
     override fun getItemCount(): Int {
@@ -49,16 +48,16 @@ class SourcesAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.Adapte
     }
 
     inner class SourceItemViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
-        val sourceContainer: ViewGroup by bindView(R.id.item_source_container)
-        val sourceTitle: TextView by bindView(R.id.item_source_title)
-        val sourceSubtitle: TextView by bindView(R.id.item_source_subtitle)
-        val sourceIcon: ImageView by bindView(R.id.item_icon)
-        val sourceIconBackground: View by bindView(R.id.item_icon_background)
+        val container: ViewGroup by bindView(R.id.item_source_container)
+        val title: TextView by bindView(R.id.item_source_title)
+        val subtitle: TextView by bindView(R.id.item_source_subtitle)
+        val icon: ImageView by bindView(R.id.item_icon)
+        val iconBackground: View by bindView(R.id.item_icon_background)
 
         init {
             if (itemClickListener != null) {
-                sourceContainer.setOnClickListener {
-                    itemClickListener?.onItemClicked(adapterPosition, sourceContainer)
+                container.setOnClickListener {
+                    itemClickListener?.onItemClicked(adapterPosition, container)
                 }
             }
         }

@@ -19,7 +19,7 @@ import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.GridAutofitLayoutManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -46,7 +46,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     lateinit var picasso: Picasso
 
     @Inject
-    lateinit var sourceIconUtils: SourceIconUtils
+    lateinit var iconUtils: IconUtils
 
     lateinit var alertsAdapter: AlertsAdapter
     var toolbarStateManager: StateManager? = null
@@ -97,7 +97,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        alertsAdapter = AlertsAdapter(context, picasso, sourceIconUtils)
+        alertsAdapter = AlertsAdapter(context, picasso, iconUtils)
         recyclerView.adapter = alertsAdapter
 
         alertsAdapter.itemClickListener = object : OnItemClickListener {

@@ -12,10 +12,14 @@ import javax.inject.Singleton
 @Singleton
 class DataActionMapper @Inject constructor() {
     fun fromPresentationAction(presentationAction: PresentationAction): DataAction {
-        return DataAction(presentationAction.type, presentationAction.value)
+        return DataAction(
+                type = presentationAction.type,
+                value = presentationAction.value)
     }
 
     fun fromNetworkAction(networkAction: NetworkAction): DataAction {
-        return DataAction(networkAction.type, networkAction.value)
+        return DataAction(
+                type = networkAction.type,
+                value = networkAction.value)
     }
 }

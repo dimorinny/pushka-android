@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.annotation.ApiRepository
-import ru.nbsp.pushka.annotation.FakeRepository
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
@@ -24,7 +23,6 @@ import ru.nbsp.pushka.repository.alert.ApiAlertsRepository
 import ru.nbsp.pushka.repository.alert.StorageAlertsRepository
 import ru.nbsp.pushka.repository.category.ApiCategoriesRepository
 import ru.nbsp.pushka.repository.category.CategoriesRepository
-import ru.nbsp.pushka.repository.category.FakeCategoriesRepository
 import ru.nbsp.pushka.repository.category.StorageCategoriesRepository
 import ru.nbsp.pushka.repository.device.ApiDevicesRepository
 import ru.nbsp.pushka.repository.device.DevicesRepository
@@ -104,13 +102,6 @@ class RepositoryModule {
     @Provides
     fun provideStorageCategoriesRepository(dataManager: DataManager, presentationCategoryMapper: PresentationCategoryMapper): CategoriesRepository {
         return StorageCategoriesRepository(dataManager, presentationCategoryMapper)
-    }
-
-    @FakeRepository
-    @Singleton
-    @Provides
-    fun provideFakeCategoriesRepository(): CategoriesRepository {
-        return FakeCategoriesRepository()
     }
 
     @ApiRepository

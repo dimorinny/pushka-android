@@ -6,9 +6,6 @@
     <string name="no">Нет</string>
     <string name="empty" />
 
-    <!-- Transitions -->
-    <string name="transition_category_source_circle">category_source_circle_transition</string>
-
     <!-- Descriptions -->
     <string name="description_category_image">Изображение категории</string>
     <string name="description_source_image">Изображение источника</string>

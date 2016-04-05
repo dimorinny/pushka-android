@@ -12,10 +12,18 @@ import javax.inject.Singleton
 @Singleton
 class PresentationCategoryMapper @Inject constructor() {
     fun fromDataCategory(dataCategory: DataCategory): PresentationCategory {
-        return PresentationCategory(dataCategory.id, dataCategory.name, dataCategory.image)
+        return PresentationCategory(
+                id = dataCategory.id,
+                name = dataCategory.name,
+                icon = dataCategory.icon,
+                color = dataCategory.color)
     }
 
     fun fromNetworkCategory(networkCategory: NetworkCategory): PresentationCategory {
-        return PresentationCategory(networkCategory.id, networkCategory.name, networkCategory.image)
+        return PresentationCategory(
+                id = networkCategory.id,
+                name = networkCategory.name,
+                icon = networkCategory.icon,
+                color = networkCategory.color)
     }
 }

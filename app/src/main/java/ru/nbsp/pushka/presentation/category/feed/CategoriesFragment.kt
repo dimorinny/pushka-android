@@ -2,15 +2,11 @@ package ru.nbsp.pushka.presentation.category.feed
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
@@ -21,6 +17,8 @@ import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.AnimatedGridStateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
+import ru.nbsp.pushka.util.ColorUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -40,7 +38,10 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     lateinit var presenter: CategoriesPresenter
 
     @Inject
-    lateinit var picasso: Picasso
+    lateinit var colorUtils: ColorUtils
+
+    @Inject
+    lateinit var iconUtils: IconUtils
 
     lateinit var adapter: CategoriesAdapter
     var toolbarStateManager: StateManager? = null
@@ -88,10 +89,10 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        adapter = CategoriesAdapter(picasso)
+        adapter = CategoriesAdapter(iconUtils, colorUtils)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
-                presenter.onCategoryClicked(index, view)
+                presenter.onCategoryClicked(index)
             }
         }
 
@@ -113,15 +114,9 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         toolbarStateManager?.setState(state)
     }
 
-    override fun openCategoryScreen(presentationCategory: PresentationCategory, view: View) {
+    override fun openCategoryScreen(presentationCategory: PresentationCategory) {
         val intent = Intent(activity, SourcesActivity::class.java)
         intent.putExtra(SourcesActivity.ARG_CATEGORY, presentationCategory)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, view.transitionName)
-            ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
-        } else {
-            startActivity(intent)
-        }
+        startActivity(intent)
     }
 }

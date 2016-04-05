@@ -13,10 +13,16 @@ import javax.inject.Singleton
 @Singleton
 class PresentationControlMapper @Inject constructor() {
     fun fromDataControl(dataControl: DataControl): PresentationControl {
-        return PresentationControl(dataControl.type, dataControl.title, JsonParser().parse(dataControl.options).asJsonObject)
+        return PresentationControl(
+                type = dataControl.type,
+                title= dataControl.title,
+                attributes = JsonParser().parse(dataControl.options).asJsonObject)
     }
 
     fun fromNetworkControl(networkControl: NetworkControl): PresentationControl {
-        return PresentationControl(networkControl.type, networkControl.title, networkControl.attributes)
+        return PresentationControl(
+                type = networkControl.type,
+                title = networkControl.title,
+                attributes = networkControl.attributes)
     }
 }

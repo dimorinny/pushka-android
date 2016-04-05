@@ -1,22 +1,24 @@
 package ru.nbsp.pushka.presentation.category.feed.adapter
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
+import ru.nbsp.pushka.util.ColorUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 08.03.16.
  */
-class CategoriesAdapter(val picasso: Picasso) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
+class CategoriesAdapter(val iconUtils: IconUtils, val colorUtils: ColorUtils) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
     var itemClickListener: OnItemClickListener? = null
 
@@ -27,14 +29,16 @@ class CategoriesAdapter(val picasso: Picasso) : RecyclerView.Adapter<CategoriesA
         }
 
     inner class CategoryViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
-        val categoryContainer: ViewGroup by bindView(R.id.item_category_container)
-        val categoryImage: ImageView by bindView(R.id.item_category_image)
-        val categoryTitle: TextView by bindView(R.id.item_category_title)
+        val container: ViewGroup by bindView(R.id.item_category_container)
+        val icon: ImageView by bindView(R.id.item_category_icon)
+        val title: TextView by bindView(R.id.item_category_title)
+        val imageContainer: ViewGroup by bindView(R.id.item_category_image_container)
+        val titleContainer: ViewGroup by bindView(R.id.item_category_title_container)
 
         init {
             if (itemClickListener != null) {
-                categoryContainer.setOnClickListener {
-                    itemClickListener?.onItemClicked(adapterPosition, categoryContainer)
+                container.setOnClickListener {
+                    itemClickListener?.onItemClicked(adapterPosition, container)
                 }
             }
         }
@@ -43,11 +47,10 @@ class CategoriesAdapter(val picasso: Picasso) : RecyclerView.Adapter<CategoriesA
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
 
-        holder.categoryTitle.text = category.name
-        picasso.load(category.image)
-                .fit()
-                .centerCrop()
-                .into(holder.categoryImage)
+        holder.title.text = category.name
+        holder.imageContainer.setBackgroundColor(Color.parseColor(category.color))
+        holder.titleContainer.setBackgroundColor(colorUtils.darker(Color.parseColor(category.color)))
+        holder.icon.setImageResource(iconUtils.getIcon(category.icon))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CategoryViewHolder? {

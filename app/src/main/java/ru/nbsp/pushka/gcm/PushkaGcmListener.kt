@@ -16,7 +16,7 @@ import ru.nbsp.pushka.interactor.device.ApiDeviceInteractor
 import ru.nbsp.pushka.network.model.alert.NetworkAlert
 import ru.nbsp.pushka.presentation.alert.detail.AlertActivity
 import ru.nbsp.pushka.util.NotificationIdUtils
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import rx.Subscriber
 import javax.inject.Inject
 
@@ -45,7 +45,7 @@ class PushkaGcmListener : GcmListener {
     lateinit var notificationIdUtils: NotificationIdUtils
 
     @Inject
-    lateinit var iconUtils: SourceIconUtils
+    lateinit var iconUtils: IconUtils
 
     constructor() {
         BaseApplication.graph.inject(this)

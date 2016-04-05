@@ -15,7 +15,7 @@ import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -35,7 +35,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     lateinit var presenter: SubscriptionsPresenter
 
     @Inject
-    lateinit var sourceIconUtils: SourceIconUtils
+    lateinit var iconUtils: IconUtils
 
     lateinit var subscriptionsAdapter: SubscriptionsAdapter
 
@@ -84,7 +84,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        subscriptionsAdapter = SubscriptionsAdapter(sourceIconUtils)
+        subscriptionsAdapter = SubscriptionsAdapter(iconUtils)
         recyclerView.adapter = subscriptionsAdapter
     }
 

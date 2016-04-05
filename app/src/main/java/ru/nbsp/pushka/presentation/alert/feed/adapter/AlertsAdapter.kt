@@ -14,14 +14,14 @@ import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 24.02.16.
  */
-class AlertsAdapter(val context: Context, val picasso: Picasso, val sourceIconUtils: SourceIconUtils)
+class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: IconUtils)
         : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -68,7 +68,7 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val sourceIconUt
         holderItem.alertText.text = alert.text
         (holderItem.alertSourceIconBackground.background as GradientDrawable).setColor(Color.parseColor(alert.color))
         holderItem.sourceTitle.text = alert.sourceTitle
-        holderItem.sourceIcon.setImageResource(sourceIconUtils.getIcon(alert.sourceImage))
+        holderItem.sourceIcon.setImageResource(iconUtils.getIcon(alert.sourceImage))
         holderItem.sourceDate.text = DateUtils.getRelativeDateTimeString(
                 context,
                 alert.date,

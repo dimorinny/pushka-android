@@ -12,9 +12,9 @@ import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.AnimatedStateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         const val ARG_CATEGORY = "arg_category"
     }
 
-    val recyclerView: AnimatedStateRecyclerView by bindView(R.id.sources_recycler_view)
+    val recyclerView: StateRecyclerView by bindView(R.id.sources_recycler_view)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
@@ -37,7 +37,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
     lateinit var presenter: SourcesPresenter
 
     @Inject
-    lateinit var sourceIconUtils: SourceIconUtils
+    lateinit var iconUtils: IconUtils
 
     lateinit var adapter: SourcesAdapter
     lateinit var category: PresentationCategory
@@ -54,7 +54,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         initPresenter(presenter)
         initRecyclerView()
         presenter.loadSourcesFromCache()
-        presenter.loadSourcesFromServer()
+//        presenter.loadSourcesFromServer()
     }
 
     private fun initArguments() {
@@ -77,7 +77,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        adapter = SourcesAdapter(sourceIconUtils)
+        adapter = SourcesAdapter(iconUtils)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onSourceClicked()
@@ -88,10 +88,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
     }
 
     override fun setSources(sources: List<PresentationSource>) {
-        recyclerView.executeTaskAfterAnimation {
-            adapter.sources = sources
-        }
-        recyclerView.scheduleLayoutAnimation()
+        adapter.sources = sources
     }
 
     override fun setState(state: State) {

@@ -14,10 +14,16 @@ class PresentationParamMapper
     @Inject constructor(val controlMapper: PresentationControlMapper) {
 
     fun fromDataParam(dataParam: DataParam): PresentationParam {
-        return PresentationParam(dataParam.name, dataParam.required, controlMapper.fromDataControl(dataParam.control))
+        return PresentationParam(
+                name = dataParam.name,
+                required = dataParam.required,
+                control = controlMapper.fromDataControl(dataParam.control))
     }
 
     fun fromNetworkParam(networkPresentation: NetworkParam): PresentationParam {
-        return PresentationParam(networkPresentation.name, networkPresentation.required, controlMapper.fromNetworkControl(networkPresentation.control))
+        return PresentationParam(
+                name = networkPresentation.name,
+                required = networkPresentation.required,
+                control = controlMapper.fromNetworkControl(networkPresentation.control))
     }
 }

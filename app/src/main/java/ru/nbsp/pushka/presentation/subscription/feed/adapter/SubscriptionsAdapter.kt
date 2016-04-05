@@ -11,14 +11,14 @@ import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
-import ru.nbsp.pushka.util.SourceIconUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import java.util.*
 
 /**
  * Created by Dimorinny on 26.02.16.
  */
-class SubscriptionsAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.Adapter<SubscriptionsAdapter.ViewHolder>() {
+class SubscriptionsAdapter(val iconUtils: IconUtils) : RecyclerView.Adapter<SubscriptionsAdapter.ViewHolder>() {
     var itemClickListener: OnItemClickListener? = null
 
     var subscriptions: List<PresentationSubscription> = ArrayList()
@@ -38,7 +38,7 @@ class SubscriptionsAdapter(val sourceIconUtils: SourceIconUtils) : RecyclerView.
         holder.subtitle.text = subscription.sourceTitle
         (holder.sourceIconBackground.background as GradientDrawable)
                 .setColor(Color.parseColor(subscription.color))
-        holder.sourceIcon.setImageResource(sourceIconUtils.getIcon(subscription.icon))
+        holder.sourceIcon.setImageResource(iconUtils.getIcon(subscription.icon))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

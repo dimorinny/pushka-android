@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.presentation.category.feed
 
-import android.view.View
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.source.LoadCategoriesEvent
@@ -49,8 +48,8 @@ class CategoriesPresenter
         serviceManager.loadCategories()
     }
 
-    fun onCategoryClicked(index: Int, clickedView: View) {
-        view?.openCategoryScreen(categories[index], clickedView)
+    fun onCategoryClicked(index: Int) {
+        view?.openCategoryScreen(categories[index])
     }
 
     inner class LoadCategoriesCacheSubscriber : Subscriber<List<PresentationCategory>>() {

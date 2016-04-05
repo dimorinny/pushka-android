@@ -8,4 +8,6 @@ import java.io.Serializable
 data class PresentationCategory(
         val id: String,
         val name: String,
-        val image: String) : Serializable
+        val icon: String,
+        val color: String
+) : Serializable
