@@ -3,7 +3,7 @@ package ru.nbsp.pushka.presentation.login
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.annotation.UISched
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoginEvent
+import ru.nbsp.pushka.bus.event.auth.LoginEvent
 import ru.nbsp.pushka.gcm.manage.GcmManager
 import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.core.base.BasePresenter

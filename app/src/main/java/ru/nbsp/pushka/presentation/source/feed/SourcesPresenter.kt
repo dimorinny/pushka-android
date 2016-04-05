@@ -2,7 +2,7 @@ package ru.nbsp.pushka.presentation.source.feed
 
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoadSourcesEvent
+import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
@@ -57,7 +57,7 @@ class SourcesPresenter
 //                                Pair("alert_offset_days", "-10000"),
 //                                Pair("show", "1"))))
 //                                .subscribe(SubscribeSourceSubscriber())
-        subscriptionInteractor.subscribe(SubscribeRequest("hubs_habr", mapOf(
+        subscriptionInteractor.subscribe(SubscribeRequest("habrahabr", mapOf(
                 Pair("hub", "programming"))))
                 .subscribe(SubscribeSourceSubscriber())
     }

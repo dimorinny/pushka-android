@@ -6,8 +6,8 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoadCategoriesEvent
-import ru.nbsp.pushka.bus.event.LoadSourcesEvent
+import ru.nbsp.pushka.bus.event.source.LoadCategoriesEvent
+import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory

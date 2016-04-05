@@ -6,8 +6,8 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoadAlertEvent
-import ru.nbsp.pushka.bus.event.LoadAlertsEvent
+import ru.nbsp.pushka.bus.event.alert.LoadAlertEvent
+import ru.nbsp.pushka.bus.event.alert.LoadAlertsEvent
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.repository.alert.AlertsRepository

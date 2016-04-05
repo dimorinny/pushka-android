@@ -5,6 +5,7 @@ import io.realm.Sort
 import ru.nbsp.pushka.data.model.alert.DataAlert
 import ru.nbsp.pushka.data.model.source.DataCategory
 import ru.nbsp.pushka.data.model.source.DataSource
+import ru.nbsp.pushka.data.model.subscription.DataSubscription
 import rx.Observable
 import javax.inject.Inject
 import javax.inject.Provider
@@ -144,6 +145,27 @@ class DataManager
 
     fun getCategoriesObservable(): Observable<List<DataCategory>> {
         return realmProvider.get().where(DataCategory::class.java)
+                .findAll()
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
+    }
+
+    fun clearSubscriptions() {
+        realmProvider.get().executeTransaction {
+            it.clear(DataSubscription::class.java)
+        }
+    }
+
+    fun putSubscriptions(subscriptions: List<DataSubscription>) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(subscriptions)
+        }
+    }
+
+    fun getSubscriptionsObservable(): Observable<List<DataSubscription>> {
+        return realmProvider.get().where(DataSubscription::class.java)
                 .findAll()
                 .asObservable()
                 .map {

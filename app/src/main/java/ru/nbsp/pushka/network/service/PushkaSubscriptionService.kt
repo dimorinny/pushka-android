@@ -3,7 +3,6 @@ package ru.nbsp.pushka.network.service
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.network.response.SubscriptionsResponse
 import rx.Observable
@@ -16,5 +15,5 @@ interface  PushkaSubscriptionService {
     fun subscribe(@Body subscribeRequest: SubscribeRequest): Observable<Any>
 
     @GET("subscription/")
-    fun getSubscriptions(@Query("detail") detail: Boolean): Observable<SubscriptionsResponse>
+    fun getSubscriptions(): Observable<SubscriptionsResponse>
 }

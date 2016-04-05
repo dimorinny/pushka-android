@@ -2,7 +2,7 @@ package ru.nbsp.pushka.presentation.alert.feed
 
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoadAlertsEvent
+import ru.nbsp.pushka.bus.event.alert.LoadAlertsEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State

@@ -3,7 +3,7 @@ package ru.nbsp.pushka.presentation.category.feed
 import android.view.View
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoadCategoriesEvent
+import ru.nbsp.pushka.bus.event.source.LoadCategoriesEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State

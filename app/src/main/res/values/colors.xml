@@ -39,7 +39,7 @@
     <color name="login_google_color_pressed">#c4392d</color>
 
     <!-- Devices -->
-    <color name="android">#43A047</color>
-    <color name="telegram">#179cde</color>
+    <color name="android">#a4c639</color>
+    <color name="telegram">#0088cc</color>
     <color name="chrome">#ea4335</color>
 </resources>

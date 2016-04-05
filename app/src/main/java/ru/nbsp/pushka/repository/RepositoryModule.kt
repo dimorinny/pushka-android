@@ -32,8 +32,8 @@ import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
 import ru.nbsp.pushka.repository.subscription.ApiSubscriptionRepository
-import ru.nbsp.pushka.repository.subscription.FakeSubscriptionsRepository
-import ru.nbsp.pushka.repository.subscription.SubscriptionsRepository
+import ru.nbsp.pushka.repository.subscription.StorageSubscriptionRepository
+import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
 import ru.nbsp.pushka.util.SchedulersUtils
 import javax.inject.Singleton
 
@@ -78,18 +78,18 @@ class RepositoryModule {
         return StorageSourcesRepository(dataManager, presentationSourceMapper)
     }
 
-    @FakeRepository
-    @Singleton
-    @Provides
-    fun provideFakeSubscriptionsRepository(): SubscriptionsRepository {
-        return FakeSubscriptionsRepository()
-    }
-
     @ApiRepository
     @Singleton
     @Provides
-    fun provideApiSubscriptionsRepository(apiPushka: PushkaSubscriptionService, subscriptionMapper: PresentationSubscriptionMapper, schedulersUtils: SchedulersUtils): SubscriptionsRepository {
+    fun provideApiSubscriptionsRepository(apiPushka: PushkaSubscriptionService, subscriptionMapper: PresentationSubscriptionMapper, schedulersUtils: SchedulersUtils): SubscriptionRepository {
         return ApiSubscriptionRepository(apiPushka, subscriptionMapper, schedulersUtils)
+    }
+
+    @StorageRepository
+    @Singleton
+    @Provides
+    fun provideStorageSubscriptionRepository(dataManager: DataManager, presentationSubscriptionMapper: PresentationSubscriptionMapper): SubscriptionRepository {
+        return StorageSubscriptionRepository(dataManager, presentationSubscriptionMapper)
     }
 
     @ApiRepository

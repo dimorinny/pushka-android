@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.bus.RxBus
-import ru.nbsp.pushka.bus.event.LoginEvent
+import ru.nbsp.pushka.bus.event.auth.LoginEvent
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager

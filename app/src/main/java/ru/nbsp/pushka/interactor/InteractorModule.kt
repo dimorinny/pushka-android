@@ -13,11 +13,14 @@ import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractorImpl
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractorImpl
+import ru.nbsp.pushka.interactor.subscription.StorageSubscriptionInteractor
+import ru.nbsp.pushka.interactor.subscription.StorageSubscriptionInteractorImpl
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
 import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
 import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
+import ru.nbsp.pushka.mapper.data.subscription.DataSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaDeviceService
 import ru.nbsp.pushka.network.service.PushkaSubscriptionService
@@ -42,6 +45,12 @@ class InteractorModule {
     @Provides
     fun provideApiSubscriptionInteractor(api: PushkaSubscriptionService, schedulersUtils: SchedulersUtils): ApiSubscriptionInteractor {
         return ApiSubscriptionInteractorImpl(api, schedulersUtils)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStorageSubscriptionInteractor(dataManager: DataManager, dataSubscriptionMapper: DataSubscriptionMapper): StorageSubscriptionInteractor {
+        return StorageSubscriptionInteractorImpl(dataManager, dataSubscriptionMapper)
     }
 
     @Singleton

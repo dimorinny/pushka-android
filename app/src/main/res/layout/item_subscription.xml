@@ -9,12 +9,11 @@
     android:layout_height="wrap_content"
     >
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_subscription_image"
+    <include
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/login_background"
         android:layout_margin="16dp"
+        layout="@layout/item_icon"
         />
 
     <LinearLayout

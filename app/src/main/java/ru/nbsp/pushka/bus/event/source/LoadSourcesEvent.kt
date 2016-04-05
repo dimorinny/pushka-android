@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.bus.event
+package ru.nbsp.pushka.bus.event.source
 
 /**
  * Created by Dimorinny on 13.03.16.

@@ -13,10 +13,10 @@ import java.util.*
 class ApiSubscriptionRepository(
         val apiPushka: PushkaSubscriptionService,
         val subscriptionMapper: PresentationSubscriptionMapper,
-        val schedulersUtils: SchedulersUtils) : SubscriptionsRepository {
+        val schedulersUtils: SchedulersUtils) : SubscriptionRepository {
 
-    override fun getSubscriptions(detail: Boolean): Observable<List<PresentationSubscription>> {
-        return apiPushka.getSubscriptions(detail)
+    override fun getSubscriptions(): Observable<List<PresentationSubscription>> {
+        return apiPushka.getSubscriptions()
                 .map {
                     var result = ArrayList<PresentationSubscription>()
                     for (subscription in it.subscriptions) {

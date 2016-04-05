@@ -47,5 +47,6 @@
         <service android:name=".service.api.ApiAuthService"/>
         <service android:name=".service.api.ApiAlertService"/>
         <service android:name=".service.api.ApiSourceService"/>
+        <service android:name=".service.api.ApiSubscriptionService"/>
     </application>
 </manifest>

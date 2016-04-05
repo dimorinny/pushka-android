@@ -9,15 +9,12 @@
     android:layout_height="wrap_content"
     >
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <include
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_margin="16dp"
-        >
-
-        <include layout="@layout/item_icon"/>
-
-    </FrameLayout>
+        layout="@layout/item_icon"
+        />
 
     <LinearLayout
         android:orientation="vertical"

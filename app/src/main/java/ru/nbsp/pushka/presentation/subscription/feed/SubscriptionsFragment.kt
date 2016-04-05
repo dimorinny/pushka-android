@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.feed
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -11,8 +12,10 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
+import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
+import ru.nbsp.pushka.util.SourceIconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -31,7 +34,22 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     @Inject
     lateinit var presenter: SubscriptionsPresenter
 
+    @Inject
+    lateinit var sourceIconUtils: SourceIconUtils
+
     lateinit var subscriptionsAdapter: SubscriptionsAdapter
+
+    var toolbarStateManager: StateManager? = null
+
+    override fun onAttach(context: Context?) {
+        toolbarStateManager = activity as StateManager
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        toolbarStateManager = null
+        super.onDetach()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_subscriptions, container, false)
@@ -44,6 +62,8 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         initViews()
         initPresenter(presenter)
         initRecyclerView()
+
+        presenter.loadSubscriptionsFromServer()
         presenter.loadSubscriptionsFromCache()
     }
 
@@ -64,12 +84,20 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        subscriptionsAdapter = SubscriptionsAdapter()
+        subscriptionsAdapter = SubscriptionsAdapter(sourceIconUtils)
         recyclerView.adapter = subscriptionsAdapter
     }
 
     override fun setSubscriptions(subscriptions: List<PresentationSubscription>) {
         subscriptionsAdapter.subscriptions = subscriptions
         recyclerView.setState(if (subscriptions.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
+    }
+
+    override fun setState(state: State) {
+        recyclerView.setState(state)
+    }
+
+    override fun setToolbarState(state: State) {
+        toolbarStateManager?.setState(state)
     }
 }

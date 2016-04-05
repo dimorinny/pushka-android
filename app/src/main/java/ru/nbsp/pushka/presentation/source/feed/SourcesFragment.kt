@@ -37,7 +37,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
     lateinit var presenter: SourcesPresenter
 
     @Inject
-    lateinit var sourceIconUtlis: SourceIconUtils
+    lateinit var sourceIconUtils: SourceIconUtils
 
     lateinit var adapter: SourcesAdapter
     lateinit var category: PresentationCategory
@@ -77,7 +77,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        adapter = SourcesAdapter(sourceIconUtlis)
+        adapter = SourcesAdapter(sourceIconUtils)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onSourceClicked()
