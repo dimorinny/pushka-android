@@ -76,7 +76,7 @@ class ApiAuthService : Service() {
                 .map {
                     val user = it.user
                     val identity = it.identity
-                    Account(user.firstName, user.lastName, user.photo,
+                    Account(identity.userId, user.firstName, user.lastName, user.photo,
                             identity.accessToken, identity.refreshToken,
                             timeStampUtils.currentTimestamp() + identity.expires)
                 }

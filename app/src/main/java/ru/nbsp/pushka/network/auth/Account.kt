@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName
  * Created by Dimorinny on 20.02.16.
  */
 data class Account(
+    @SerializedName("user_id")
+    val userId: String,
+
     @SerializedName("first_name")
     val firstName: String,
 
