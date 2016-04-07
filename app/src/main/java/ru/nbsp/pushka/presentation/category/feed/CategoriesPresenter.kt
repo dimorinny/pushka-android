@@ -44,7 +44,6 @@ class CategoriesPresenter
     }
 
     fun loadCategoriesFromServer() {
-        view?.setToolbarState(State.STATE_PROGRESS)
         serviceManager.loadCategories()
     }
 
@@ -78,15 +77,11 @@ class CategoriesPresenter
 
             if (categories.size == 0) {
                 view?.setState(State.STATE_ERROR)
-                view?.setToolbarState(State.STATE_NORMAL)
-            } else {
-                view?.setToolbarState(State.STATE_ERROR)
             }
         }
 
         override fun onNext(result: List<PresentationCategory>) {
             categories = result
-            view?.setToolbarState(State.STATE_NORMAL)
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setCategories(result)
         }

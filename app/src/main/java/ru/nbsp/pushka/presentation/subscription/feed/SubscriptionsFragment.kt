@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.presentation.subscription.feed
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +11,6 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
 import ru.nbsp.pushka.util.IconUtils
@@ -38,18 +36,6 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     lateinit var iconUtils: IconUtils
 
     lateinit var subscriptionsAdapter: SubscriptionsAdapter
-
-    var toolbarStateManager: StateManager? = null
-
-    override fun onAttach(context: Context?) {
-        toolbarStateManager = activity as StateManager
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        toolbarStateManager = null
-        super.onDetach()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_subscriptions, container, false)
@@ -95,9 +81,5 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
     override fun setState(state: State) {
         recyclerView.setState(state)
-    }
-
-    override fun setToolbarState(state: State) {
-        toolbarStateManager?.setState(state)
     }
 }

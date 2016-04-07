@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.gordonwong.materialsheetfab.DimOverlayFrameLayout
@@ -30,8 +31,6 @@ import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.category.feed.CategoriesFragment
 import ru.nbsp.pushka.presentation.core.model.device.PresentationDeviceType
-import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.AnimatedFloatingActionButton
 import ru.nbsp.pushka.presentation.device.feed.DevicesFragment
 import ru.nbsp.pushka.presentation.navigation.adapter.DeviceTypesAdapter
@@ -47,11 +46,10 @@ import javax.inject.Inject
  */
 class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         ru.nbsp.pushka.presentation.navigation.NavigationView,
-        NavigationView.OnNavigationItemSelectedListener,
-        StateManager {
+        NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
-        private const val NAVDRAWER_LAUNCH_DELAY = 258L
+        private const val NAVDRAWER_LAUNCH_DELAY = 232L
         private const val STATE_TITLE = "state_title"
         private const val STATE_CURRENT_DRAWER_ITEM_ID = "state_current_drawer_item_id"
     }
@@ -61,6 +59,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     lateinit var currentFragmentTitle: String
     var currentDrawerItemId: Int = R.id.drawer_feed
 
+    val container: ViewGroup by bindView(R.id.container)
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
     val navigationView: NavigationView by bindView(R.id.navigation)
     val toolbar: Toolbar by bindView(R.id.toolbar)
@@ -98,7 +97,9 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         presenter.loadAccount()
 
         if (savedInstanceState == null) {
-            setFeedContent()
+            titleFromStringRes(R.string.title_feed)
+            setFragment(AlertsFragment())
+            navigationView.setCheckedItem(R.id.drawer_feed)
         } else {
             title = currentFragmentTitle
 
@@ -146,7 +147,7 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         navigationView.setNavigationItemSelectedListener(this)
 
         devicesSheetFab = MaterialSheetFab(devicesFab, sheetLayout, overlay,
-                ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.white))
+                ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.colorPrimary))
         devicesSheetFab.setEventListener(object : MaterialSheetFabEventListener() {
 
             var statusBarColor: Int? = null
@@ -192,32 +193,38 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
     override fun setFeedContent() {
         titleFromStringRes(R.string.title_feed)
-        setFragment(AlertsFragment())
+        setFragmentDelayed(AlertsFragment())
         navigationView.setCheckedItem(R.id.drawer_feed)
     }
 
     override fun setSourcesContent() {
         titleFromStringRes(R.string.title_sources)
-        setFragment(SourcesFragment())
+        setFragmentDelayed(SourcesFragment())
         navigationView.setCheckedItem(R.id.drawer_sources)
     }
 
     override fun setCategoriesContent() {
         titleFromStringRes(R.string.title_sources)
-        setFragment(CategoriesFragment())
+        setFragmentDelayed(CategoriesFragment())
         navigationView.setCheckedItem(R.id.drawer_sources)
     }
 
     override fun setSubscriptionsContent() {
         titleFromStringRes(R.string.title_subscription)
-        setFragment(SubscriptionsFragment())
+        setFragmentDelayed(SubscriptionsFragment())
         navigationView.setCheckedItem(R.id.drawer_subscriptions)
     }
 
     override fun setDevicesContent() {
         titleFromStringRes(R.string.title_devices)
-        setFragment(DevicesFragment())
+        setFragmentDelayed(DevicesFragment())
         navigationView.setCheckedItem(R.id.drawer_devices)
+    }
+
+    fun setFragmentDelayed(fragment: Fragment) {
+        handler.postDelayed({
+            setFragment(fragment)
+        }, NAVDRAWER_LAUNCH_DELAY)
     }
 
     override fun setSettingsContent() {
@@ -227,13 +234,6 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         }, NAVDRAWER_LAUNCH_DELAY)
     }
 
-    override fun setState(state: State) {
-        title = when (state) {
-            State.STATE_NORMAL, State.STATE_EMPTY -> currentFragmentTitle
-            State.STATE_PROGRESS -> resources.getString(R.string.title_loading)
-            State.STATE_ERROR -> resources.getString(R.string.title_error)
-        }
-    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -248,7 +248,8 @@ class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
 
-        if (currentDrawerItemId == item.itemId) {
+        if (currentDrawerItemId != R.id.drawer_settings
+                && currentDrawerItemId == item.itemId) {
             return false
         }
 

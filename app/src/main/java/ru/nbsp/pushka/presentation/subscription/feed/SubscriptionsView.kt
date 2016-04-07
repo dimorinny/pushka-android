@@ -10,5 +10,4 @@ import ru.nbsp.pushka.presentation.core.state.State
 interface SubscriptionsView : BaseView {
     fun setSubscriptions(subscriptions: List<PresentationSubscription>)
     fun setState(state: State)
-    fun setToolbarState(state: State)
 }

@@ -10,7 +10,6 @@ import ru.nbsp.pushka.presentation.core.state.State
 interface AlertsView : BaseView {
     fun setAlerts(alerts: List<PresentationAlert>)
     fun setState(state: State)
-    fun setToolbarState(state: State)
     fun openAlertScreen(alert: PresentationAlert)
     fun disableSwipeRefresh()
 }

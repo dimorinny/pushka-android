@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.presentation.category.feed
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -14,7 +13,6 @@ import ru.nbsp.pushka.presentation.category.feed.adapter.CategoriesAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.state.StateManager
 import ru.nbsp.pushka.presentation.core.widget.AnimatedGridStateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.util.ColorUtils
@@ -44,17 +42,6 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     lateinit var iconUtils: IconUtils
 
     lateinit var adapter: CategoriesAdapter
-    var toolbarStateManager: StateManager? = null
-
-    override fun onAttach(context: Context?) {
-        toolbarStateManager = activity as StateManager
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        toolbarStateManager = null
-        super.onDetach()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_categories, container, false)
@@ -108,10 +95,6 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
 
     override fun setState(state: State) {
         recyclerView.setState(state)
-    }
-
-    override fun setToolbarState(state: State) {
-        toolbarStateManager?.setState(state)
     }
 
     override fun openCategoryScreen(presentationCategory: PresentationCategory) {
