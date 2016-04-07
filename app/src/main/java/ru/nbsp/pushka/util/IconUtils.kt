@@ -15,7 +15,8 @@ class IconUtils @Inject constructor() {
             Pair("filmstrip", R.drawable.ic_filmstrip_white_36dp),
             Pair("android", R.drawable.ic_android_white_24dp),
             Pair("telegram", R.drawable.ic_telegram_white_24dp),
-            Pair("category_news", R.drawable.ic_news_112dp)
+            Pair("category_news", R.drawable.ic_news_112dp),
+            Pair("category_films", R.drawable.ic_films_112dp)
     )
 
     fun getIcon(name: String): Int {

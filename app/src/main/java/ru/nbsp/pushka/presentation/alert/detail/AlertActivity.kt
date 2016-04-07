@@ -129,7 +129,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
     override fun setActions(actions: List<PresentationAction>) {
         alertActionsAdapter.actions = actions
-        floatingActionButton.show()
+        sheetFab.showFab()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
