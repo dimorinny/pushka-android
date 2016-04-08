@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.widget.Button
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -12,24 +13,24 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationControl
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
+import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
 class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView {
-    val EXTRA_SOURCE = "extra_source"
 
-    lateinit var fragment: ParamsFragment
+    companion object {
+        const val ARG_SOURCE = "arg_source"
+    }
 
     @Inject
     lateinit var presenter: SubscribePresenter
+    lateinit var fragment: ParamsFragment
+    lateinit var source: PresentationSource
 
-    lateinit var TEST_ATTRS: JsonObject
-    lateinit var okButton: Button
+    val subscribeButton: Button by bindView(R.id.subscribe_button)
 
-    override fun setParams(params: List<PresentationParam>) {
-        fragment.setParams(params)
-    }
-
-    init {
+    // TODO: remove it
+    val TEST_ATTRS: JsonObject by lazy<JsonObject> {
         val gson = Gson()
         val json = "{\"options\": [\n" +
                 "                    {\"value\": \"main\", \"name\": \"Главное\"},\n" +
@@ -44,29 +45,48 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
                 "                    {\"value\": \"sport\", \"name\": \"Спорт\"},\n" +
                 "                    {\"value\": \"auto\", \"name\": \"Авто\"}\n" +
                 "                ]}"
-        val jelem = gson.fromJson(json, JsonElement::class.java)
-        TEST_ATTRS = jelem.getAsJsonObject()
+        val element = gson.fromJson(json, JsonElement::class.java)
+        element.asJsonObject
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subscribe)
         BaseApplication.graph.inject(this)
+
+        // TODO: remove it
+        intent.putExtra(ARG_SOURCE, fakeSource())
+
+        initArgs()
+        initFragment()
         initPresenter(presenter)
+        initViews()
+    }
 
-        fragment = ParamsFragment()
+    private fun initFragment() {
+        val fragmentManager = supportFragmentManager
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment).commitAllowingStateLoss()
+        var cachedFragment: Fragment? = fragmentManager.findFragmentById(R.id.container)
 
-        intent.putExtra(EXTRA_SOURCE, fakeSource())
+        if (cachedFragment == null) {
+            cachedFragment = ParamsFragment()
 
-        val source = intent.extras.getSerializable(EXTRA_SOURCE) as PresentationSource
-        presenter.setSource(source)
+            fragmentManager.beginTransaction().replace(R.id.container, cachedFragment).commitAllowingStateLoss()
+        }
 
-        okButton = findViewById(R.id.ok_button) as Button
-        okButton.setOnClickListener({
-            presenter.onButtonClick()
-        })
+        fragment = cachedFragment as ParamsFragment
+    }
+
+    private fun initViews() {
+        subscribeButton.setOnClickListener {
+            presenter.subscribeButtonClicked()
+        }
+    }
+
+    private fun initArgs() {
+        if (intent.extras.containsKey(ARG_SOURCE)) {
+            source = intent.extras.getSerializable(ARG_SOURCE) as PresentationSource
+        }
     }
 
     override fun validateFields(): Boolean {
@@ -88,9 +108,13 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         return testSource
     }
 
-    override fun initPresenter(presenter: SubscribePresenter) {
-        presenter.view = this
-        super.initPresenter(presenter)
+    override fun setParams(params: List<PresentationParam>) {
+        fragment.setParams(params)
     }
 
+    override fun initPresenter(presenter: SubscribePresenter) {
+        presenter.view = this
+        presenter.source = source
+        super.initPresenter(presenter)
+    }
 }

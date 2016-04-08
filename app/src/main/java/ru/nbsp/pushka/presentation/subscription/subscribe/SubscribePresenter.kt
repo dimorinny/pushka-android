@@ -1,14 +1,10 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
-import android.util.Log
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
-import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
-import ru.nbsp.pushka.presentation.source.feed.SourcesPresenter
 import rx.Subscriber
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -18,18 +14,17 @@ class SubscribePresenter
     @Inject constructor(val subscriptionInteractor: ApiSubscriptionInteractor): BasePresenter {
 
     override var view: SubscribeView? = null
+    lateinit var source: PresentationSource
 
-    lateinit var srcId: String
-
-    fun setSource(source: PresentationSource) {
-        srcId = source.id
+    override fun onCreate() {
+        super.onCreate()
         view?.setParams(source.params)
     }
 
-    fun onButtonClick() {
+    fun subscribeButtonClicked() {
         if (view!!.validateFields()) {
-            val map = view!!.getParamsMap()
-            subscriptionInteractor.subscribe(SubscribeRequest(srcId, map))
+            val params = view!!.getParamsMap()
+            subscriptionInteractor.subscribe(SubscribeRequest(source.id, params))
                     .subscribe(SubscribeSourceSubscriber())
         }
     }
