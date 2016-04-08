@@ -94,7 +94,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     }
 
     override fun getParamsMap(): Map<String, String?> {
-        return fragment.getAsMap()
+        return fragment.getParamsMap()
     }
 
     fun fakeSource(): PresentationSource {

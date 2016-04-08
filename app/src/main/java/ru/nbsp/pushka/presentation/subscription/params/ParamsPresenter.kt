@@ -1,13 +1,8 @@
 package ru.nbsp.pushka.presentation.subscription.params
 
-import android.util.Log
-import java.util.*
-import com.google.gson.Gson
-import com.google.gson.JsonElement
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
-import ru.nbsp.pushka.presentation.core.model.source.PresentationControl
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
-import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -25,7 +20,7 @@ class ParamsPresenter
         }
 
     private fun showParams() {
-        for(param in params) {
+        for (param in params) {
             view?.addParam(param)
         }
     }
@@ -36,14 +31,9 @@ class ParamsPresenter
         }
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     fun validate(): Boolean {
-//
         var errorFlag = false
-        for(param in params) {
+        for (param in params) {
             if (param.required) {
                 val value = view!!.getValue(param)
                 if (value == null) {
@@ -55,9 +45,9 @@ class ParamsPresenter
         return !errorFlag
     }
 
-    fun getAsMap(): Map<String, String?> {
+    fun getParamsMap(): Map<String, String?> {
         var map = HashMap<String, String?>()
-        for(param in params) {
+        for (param in params) {
             map.put(param.name, view!!.getValue(param))
         }
         return map

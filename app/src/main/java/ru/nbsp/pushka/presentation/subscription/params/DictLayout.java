@@ -2,13 +2,10 @@ package ru.nbsp.pushka.presentation.subscription.params;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +13,7 @@ import java.util.Map;
  */
 public class DictLayout extends LinearLayout {
 
-
-    Map<String, View> views = new HashMap<>();
+    private Map<String, View> views = new HashMap<>();
 
     public DictLayout(Context context) {
         this(context, null);
