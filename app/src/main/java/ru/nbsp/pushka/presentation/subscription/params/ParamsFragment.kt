@@ -9,8 +9,8 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
+import ru.nbsp.pushka.presentation.subscription.params.builders.ControlBuilder
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
-import ru.nbsp.pushka.presentation.subscription.params.inflaters.ControlInflater
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -23,6 +23,9 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
     @Inject
     lateinit var presenter: ParamsPresenter
+
+    @Inject
+    lateinit var controlBuilder: ControlBuilder
 
     var paramsToSet: List<PresentationParam>? = null
     var presenterInited = false
@@ -71,14 +74,13 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
     }
 
     override fun addParam(param: PresentationParam) {
-        val control = ControlInflater.inflate(param.control, context)
+        val control = controlBuilder.build(param.control, context)
         layout.addPair(param.name, control as View)
-        val cb = object : Control.Callback {
+        control.setOnChangeListener(object : Control.OnChangeListener {
             override fun onChange(newValue: String?) {
                 presenter.onParamChanged(param, newValue)
             }
-        }
-        control.setOnChangeCallback(cb)
+        })
     }
 
     override fun getValue(param: PresentationParam): String? {

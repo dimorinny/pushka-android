@@ -27,10 +27,7 @@
             android:label="@string/empty"
             />
         <activity android:name=".presentation.navigation.NavigationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".presentation.alert.detail.AlertActivity"
@@ -41,8 +38,12 @@
             android:theme="@style/VK.Transparent"/>
         <activity
             android:name=".presentation.subscription.subscribe.SubscribeActivity"
-            android:label="@string/title_activity_test"
-            />
+            android:label="@string/title_activity_test">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <service android:name=".service.api.ApiAuthService"/>
         <service android:name=".service.api.ApiAlertService"/>

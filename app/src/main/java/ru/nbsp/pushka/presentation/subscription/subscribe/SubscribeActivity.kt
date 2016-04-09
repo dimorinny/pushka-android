@@ -70,7 +70,6 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
 
         if (cachedFragment == null) {
             cachedFragment = ParamsFragment()
-
             fragmentManager.beginTransaction().replace(R.id.container, cachedFragment).commitAllowingStateLoss()
         }
 
@@ -98,8 +97,8 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     }
 
     fun fakeSource(): PresentationSource {
-        val dropdown1 = PresentationControl("dropdown", "title1", TEST_ATTRS)
-        val dropdown2 = PresentationControl("dropdown", "title2", TEST_ATTRS)
+        val dropdown1 = PresentationControl("dropdown", "Категория", TEST_ATTRS)
+        val dropdown2 = PresentationControl("dropdown", "Возраст", TEST_ATTRS)
         val param1 = PresentationParam("param1", true, dropdown1)
         val param2 = PresentationParam("param2", false, dropdown2)
 

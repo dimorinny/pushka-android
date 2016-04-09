@@ -2,92 +2,50 @@ package ru.nbsp.pushka.presentation.subscription.params.control
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
-
-import java.util.ArrayList
-
+import android.widget.*
 import ru.nbsp.pushka.R
+import ru.nbsp.pushka.presentation.core.model.source.control.Option
+import ru.nbsp.pushka.util.bindView
 
-class DropdownControl
+class DropdownControl(context: Context, val options: List<Option>, attrs: AttributeSet? = null) : LinearLayout(context, attrs), Control {
 
-@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs), Control {
+    val adapter: ArrayAdapter<Option> = ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, options)
+
+    val title: TextView by bindView(R.id.dropdown_title)
+    val errorIndicator: TextView by bindView(R.id.dropdown_error)
+    val spinner: Spinner by bindView(R.id.dropdown_spinner)
+
+    init {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        inflater.inflate(R.layout.control_dropdown, this, true)
+
+        spinner.adapter = adapter
+    }
+
     override fun setNoError() {
         errorIndicator.text = ""
     }
 
     override fun setError() {
         errorIndicator.text = "ERROR"
-        Log.d("hey", "set textview to error")
     }
 
-    internal class Option(var name: String, var value: String) {
+    override fun getValue(): String? = options[spinner.selectedItemPosition].value
 
-        override fun toString(): String {
-            return name
-        }
-    }
+    override fun setOnChangeListener(onChangeListener: Control.OnChangeListener) {
+        spinner.onItemSelectedListener = object :  AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    private val titleView: TextView
-    private val errorIndicator: TextView
-    private val spinner: Spinner
-
-    private val list: ArrayList<Option>
-    private val adapter: ArrayAdapter<Option>
-
-    init {
-
-        orientation = LinearLayout.HORIZONTAL
-        setGravity(Gravity.CENTER_VERTICAL)
-
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.control_dropdown, this, true)
-
-        titleView = findViewById(R.id.titleView) as TextView
-        errorIndicator = findViewById(R.id.errorIndicator) as TextView
-        spinner = findViewById(R.id.spinner) as Spinner
-
-        list = ArrayList<Option>()
-        adapter = ArrayAdapter<Option>(getContext(), android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        addOption("Ничего не выбрано", "null")
-    }
-
-    fun addOption(name: String, value: String) {
-        adapter.add(Option(name, value))
-        adapter.notifyDataSetChanged()
-    }
-
-    fun setTitle(title: String) {
-        titleView.text = title
-    }
-
-    override fun getValue(): String? {
-        var value = adapter.getItem(spinner.selectedItemPosition).value
-        if (value.equals("null")) {
-            return null
-        } else {
-            return value
-        }
-    }
-
-    override fun setOnChangeCallback(callback: Control.Callback) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                callback.onChange(adapter.getItem(position).value)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                throw NotImplementedError()
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onChangeListener.onChange(options[position].value)
             }
         }
+    }
+
+    fun setTitle(value: String) {
+        title.text = value
     }
 }
 

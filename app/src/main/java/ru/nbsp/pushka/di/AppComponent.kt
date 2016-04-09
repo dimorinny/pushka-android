@@ -21,7 +21,6 @@ import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsFragment
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
-import ru.nbsp.pushka.presentation.subscription.params.control.SimpleListFragment
 import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.api.ApiAlertService
@@ -69,7 +68,6 @@ interface AppComponent {
     fun inject(paramsFragment: ParamsFragment)
     fun inject(subscribeActivity: SubscribeActivity)
     fun inject(alertActivity: AlertActivity)
-    fun inject(simpleListFragment: SimpleListFragment)
 
     // Auth
     fun inject(socialAuthManager: SocialAuthManager)

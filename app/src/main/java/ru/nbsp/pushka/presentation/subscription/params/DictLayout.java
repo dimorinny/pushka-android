@@ -21,7 +21,6 @@ public class DictLayout extends LinearLayout {
 
     public DictLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(VERTICAL);
     }
 
     public View get(String key) {
