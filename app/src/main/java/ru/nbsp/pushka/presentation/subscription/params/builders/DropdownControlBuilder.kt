@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import ru.nbsp.pushka.presentation.core.model.source.PresentationControl
 import ru.nbsp.pushka.presentation.core.model.source.control.DropdownAttributes
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
-import ru.nbsp.pushka.presentation.subscription.params.control.DropdownControl
+import ru.nbsp.pushka.presentation.subscription.params.control.dropdown.DropdownControl
 
 /**
  * Created by egor on 17.03.16.

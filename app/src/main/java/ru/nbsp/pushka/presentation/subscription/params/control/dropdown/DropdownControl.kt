@@ -1,17 +1,27 @@
-package ru.nbsp.pushka.presentation.subscription.params.control
+package ru.nbsp.pushka.presentation.subscription.params.control.dropdown
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.LinearLayout
+import android.widget.Spinner
+import android.widget.TextView
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.model.source.control.Option
+import ru.nbsp.pushka.presentation.subscription.params.control.Control
+import ru.nbsp.pushka.presentation.subscription.params.control.dropdown.adapter.DropdownAdapter
 import ru.nbsp.pushka.util.bindView
 
-class DropdownControl(context: Context, val options: List<Option>, attrs: AttributeSet? = null) : LinearLayout(context, attrs), Control {
+class DropdownControl(context: Context, values: List<Option>, attrs: AttributeSet? = null)
+        : LinearLayout(context, attrs), Control {
 
-    val adapter: ArrayAdapter<Option> = ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, options)
+    val adapter: DropdownAdapter = DropdownAdapter(
+            getContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            values,
+            context.getString(R.string.subscribe_dropdown_placeholder))
 
     val title: TextView by bindView(R.id.dropdown_title)
     val errorIndicator: TextView by bindView(R.id.dropdown_error)
@@ -25,21 +35,22 @@ class DropdownControl(context: Context, val options: List<Option>, attrs: Attrib
     }
 
     override fun setNoError() {
-        errorIndicator.text = ""
+        errorIndicator.visibility = GONE
     }
 
     override fun setError() {
+        errorIndicator.visibility = VISIBLE
         errorIndicator.text = "ERROR"
     }
 
-    override fun getValue(): String? = options[spinner.selectedItemPosition].value
+    override fun getValue(): String? = adapter.options[spinner.selectedItemPosition].value
 
     override fun setOnChangeListener(onChangeListener: Control.OnChangeListener) {
-        spinner.onItemSelectedListener = object :  AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                onChangeListener.onChange(options[position].value)
+                onChangeListener.onChange(adapter.options[position].value)
             }
         }
     }

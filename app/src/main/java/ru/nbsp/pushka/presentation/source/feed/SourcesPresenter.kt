@@ -4,7 +4,6 @@ import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
-import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
@@ -51,15 +50,16 @@ class SourcesPresenter
         subscription.add(storageSourcesRepository.getSources(category.id).subscribe(LoadSourcesSubscriber()))
     }
 
-    fun onSourceClicked() {
+    fun onSourceClicked(index: Int) {
+        view?.openSubscribeScreen(sources[index])
 
 //        subscriptionInteractor.subscribe(SubscribeRequest("new_episode", mapOf(
 //                                Pair("alert_offset_days", "-10000"),
 //                                Pair("show", "1"))))
 //                                .subscribe(SubscribeSourceSubscriber())
-        subscriptionInteractor.subscribe(SubscribeRequest("newsmailru", mapOf(
-                Pair("category", "main"))))
-                .subscribe(SubscribeSourceSubscriber())
+//        subscriptionInteractor.subscribe(SubscribeRequest("newsmailru", mapOf(
+//                Pair("category", "main"))))
+//                .subscribe(SubscribeSourceSubscriber())
     }
 
     inner class LoadSourcesSubscriber : Subscriber<List<PresentationSource>>() {

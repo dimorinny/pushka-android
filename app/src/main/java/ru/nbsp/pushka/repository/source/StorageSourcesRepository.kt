@@ -23,4 +23,11 @@ class StorageSourcesRepository(
                     result
                 }
     }
+
+    override fun getSource(sourceId: String): Observable<PresentationSource> {
+        return dataManager.getSourceObservable(sourceId)
+                .map {
+                    sourceMapper.fromDataSource(it)
+                }
+    }
 }

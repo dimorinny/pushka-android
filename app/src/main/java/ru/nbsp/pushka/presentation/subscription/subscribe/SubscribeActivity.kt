@@ -1,66 +1,68 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
+import android.view.View
 import android.widget.Button
-import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
+import android.widget.ImageView
+import android.widget.TextView
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
-import ru.nbsp.pushka.presentation.core.model.source.PresentationControl
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
+import ru.nbsp.pushka.util.ColorUtils
+import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
 class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView {
 
     companion object {
-        const val ARG_SOURCE = "arg_source"
+        const val ARG_SOURCE_ID = "arg_source"
+        const val ARG_CATEGORY_COLOR = "arg_category_color"
     }
 
     @Inject
     lateinit var presenter: SubscribePresenter
+
+    @Inject
+    lateinit var iconUtils: IconUtils
+
+    @Inject
+    lateinit var colorUtils: ColorUtils
+
     lateinit var fragment: ParamsFragment
-    lateinit var source: PresentationSource
+    lateinit var sourceId: String
+    lateinit var categoryColor: String
 
+    val sourceTitle: TextView by bindView(R.id.source_title)
+    val subtitle: TextView by bindView(R.id.source_subtitle)
+    val icon: ImageView by bindView(R.id.item_icon)
+    val iconBackground: View by bindView(R.id.item_icon_background)
     val subscribeButton: Button by bindView(R.id.subscribe_button)
-
-    // TODO: remove it
-    val TEST_ATTRS: JsonObject by lazy<JsonObject> {
-        val gson = Gson()
-        val json = "{\"options\": [\n" +
-                "                    {\"value\": \"main\", \"name\": \"Главное\"},\n" +
-                "                    {\"value\": \"policy\", \"name\": \"Политика\"},\n" +
-                "                    {\"value\": \"business\", \"name\": \"Бизнес\"},\n" +
-                "                    {\"value\": \"society\", \"name\": \"Общество\"},\n" +
-                "                    {\"value\": \"life_style\", \"name\": \"Стиль жизни\"},\n" +
-                "                    {\"value\": \"technology\", \"name\": \"Технологии\"},\n" +
-                "                    {\"value\": \"realty\", \"name\": \"Недвижимость\"},\n" +
-                "                    {\"value\": \"culture\", \"name\": \"Культура\"},\n" +
-                "                    {\"value\": \"science\", \"name\": \"Наука\"},\n" +
-                "                    {\"value\": \"sport\", \"name\": \"Спорт\"},\n" +
-                "                    {\"value\": \"auto\", \"name\": \"Авто\"}\n" +
-                "                ]}"
-        val element = gson.fromJson(json, JsonElement::class.java)
-        element.asJsonObject
-    }
+    val toolbar: Toolbar by bindView(R.id.toolbar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subscribe)
         BaseApplication.graph.inject(this)
 
-        // TODO: remove it
-        intent.putExtra(ARG_SOURCE, fakeSource())
-
         initArgs()
+        initToolbar()
+        initColors()
         initFragment()
         initPresenter(presenter)
         initViews()
+
+        presenter.loadSourceFromCache(sourceId)
     }
 
     private fun initFragment() {
@@ -83,9 +85,23 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     }
 
     private fun initArgs() {
-        if (intent.extras.containsKey(ARG_SOURCE)) {
-            source = intent.extras.getSerializable(ARG_SOURCE) as PresentationSource
+        sourceId = intent.extras.getString(ARG_SOURCE_ID)
+        categoryColor = intent.extras.getString(ARG_CATEGORY_COLOR)
+    }
+
+    private fun initColors() {
+        toolbar.setBackgroundColor(Color.parseColor(categoryColor))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = colorUtils.darker(Color.parseColor(categoryColor))
         }
+    }
+
+    override fun setSourceData(source: PresentationSource) {
+        sourceTitle.text = source.name
+        subtitle.text = source.description
+        (iconBackground.background as GradientDrawable)
+                .setColor(Color.parseColor(source.color))
+        icon.setImageResource(iconUtils.getIcon(source.icon))
     }
 
     override fun validateFields(): Boolean {
@@ -96,24 +112,33 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         return fragment.getParamsMap()
     }
 
-    fun fakeSource(): PresentationSource {
-        val dropdown1 = PresentationControl("dropdown", "Категория", TEST_ATTRS)
-        val dropdown2 = PresentationControl("dropdown", "Возраст", TEST_ATTRS)
-        val param1 = PresentationParam("param1", true, dropdown1)
-        val param2 = PresentationParam("param2", false, dropdown2)
-
-        val testSource = PresentationSource("weather", arrayListOf(param1, param2), "pogoda",
-                "best pogoda", "category1", "qwe", "qwe")
-        return testSource
-    }
-
     override fun setParams(params: List<PresentationParam>) {
         fragment.setParams(params)
     }
 
     override fun initPresenter(presenter: SubscribePresenter) {
         presenter.view = this
-        presenter.source = source
         super.initPresenter(presenter)
+    }
+
+    override fun setTitle(sourceTitle: String) {
+        title = sourceTitle
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        if (supportActionBar != null) {
+            (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

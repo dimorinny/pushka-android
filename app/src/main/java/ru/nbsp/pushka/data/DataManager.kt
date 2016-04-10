@@ -97,6 +97,18 @@ class DataManager
                 }
     }
 
+    fun getSourceObservable(sourceId: String): Observable<DataSource> {
+        val result = realmProvider.get().where(DataSource::class.java)
+                .equalTo("id", sourceId)
+                .findFirst()
+
+        return if (result != null) {
+            result.asObservable<DataSource>()
+        } else {
+            Observable.empty()
+        }
+    }
+
     fun clearSources() {
         realmProvider.get().executeTransaction {
             it.clear(DataSource::class.java)

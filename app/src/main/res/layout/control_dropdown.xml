@@ -13,9 +13,8 @@
         android:textSize="16sp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="3dp"
-        android:text="Данное поле"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="2dp"
         />
 
     <Spinner
@@ -34,8 +33,10 @@
         android:visibility="gone"
         android:textSize="14sp"
         android:textColor="@color/login_google_color"
-        android:layout_margin="8dp"
-        android:text="Данное поле является одинаковым."
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="8dp"
         />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.source.feed
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.adapter.SourcesAdapter
+import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -80,11 +82,18 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         adapter = SourcesAdapter(iconUtils)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
-                presenter.onSourceClicked()
+                presenter.onSourceClicked(index)
             }
         }
 
         recyclerView.adapter = adapter
+    }
+
+    override fun openSubscribeScreen(source: PresentationSource) {
+        val intent = Intent(activity, SubscribeActivity::class.java)
+        intent.putExtra(SubscribeActivity.ARG_SOURCE_ID, source.id)
+        intent.putExtra(SubscribeActivity.ARG_CATEGORY_COLOR, source.color)
+        startActivity(intent)
     }
 
     override fun setSources(sources: List<PresentationSource>) {

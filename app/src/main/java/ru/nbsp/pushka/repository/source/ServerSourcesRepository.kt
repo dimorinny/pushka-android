@@ -27,4 +27,8 @@ class ServerSourcesRepository(
                 }
                 .compose(schedulersUtils.applySchedulers<List<PresentationSource>>())
     }
+
+    override fun getSource(sourceId: String): Observable<PresentationSource> {
+        throw UnsupportedOperationException()
+    }
 }

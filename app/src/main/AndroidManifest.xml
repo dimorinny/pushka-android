@@ -27,24 +27,24 @@
             android:label="@string/empty"
             />
         <activity android:name=".presentation.navigation.NavigationActivity">
-
-        </activity>
-        <activity
-            android:name=".presentation.alert.detail.AlertActivity"
-            android:label="@string/empty"/>
-        <activity
-            android:name="com.vk.sdk.VKServiceActivity"
-            android:label="ServiceActivity"
-            android:theme="@style/VK.Transparent"/>
-        <activity
-            android:name=".presentation.subscription.subscribe.SubscribeActivity"
-            android:label="@string/title_activity_test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".presentation.alert.detail.AlertActivity"
+            android:label="@string/empty"
+            />
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent"
+            />
+        <activity
+            android:name=".presentation.subscription.subscribe.SubscribeActivity"
+            android:label="@string/empty"
+            />
         <service android:name=".service.api.ApiAuthService"/>
         <service android:name=".service.api.ApiAlertService"/>
         <service android:name=".service.api.ApiSourceService"/>

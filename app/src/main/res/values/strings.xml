@@ -56,5 +56,7 @@
     <!-- Placeholder -->
     <string name="error_placeholder">Не удалось загрузить данные. Повторите попытку позже.</string>
     <string name="empty_placeholder">Здесь пока пусто</string>
-    <string name="title_activity_test">TestActivity</string>
+
+    <!-- Subscribe -->
+    <string name="subscribe_dropdown_placeholder">Выберите...</string>
 </resources>

@@ -10,4 +10,5 @@ import ru.nbsp.pushka.presentation.core.state.State
 interface SourceView : BaseView {
     fun setSources(sources: List<PresentationSource>)
     fun setState(state: State)
+    fun openSubscribeScreen(source: PresentationSource)
 }

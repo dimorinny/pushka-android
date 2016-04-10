@@ -9,4 +9,5 @@ import rx.Observable
  */
 interface SourcesRepository {
     fun getSources(categoryId: String): Observable<List<PresentationSource>>
+    fun getSource(sourceId: String): Observable<PresentationSource>
 }
