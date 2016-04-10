@@ -92,7 +92,7 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
     override fun openSubscribeScreen(source: PresentationSource) {
         val intent = Intent(activity, SubscribeActivity::class.java)
         intent.putExtra(SubscribeActivity.ARG_SOURCE_ID, source.id)
-        intent.putExtra(SubscribeActivity.ARG_CATEGORY_COLOR, source.color)
+        intent.putExtra(SubscribeActivity.ARG_SOURCE_COLOR, source.color)
         startActivity(intent)
     }
 

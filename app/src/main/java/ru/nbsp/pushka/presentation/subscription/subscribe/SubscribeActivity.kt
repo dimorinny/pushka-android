@@ -27,7 +27,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
 
     companion object {
         const val ARG_SOURCE_ID = "arg_source"
-        const val ARG_CATEGORY_COLOR = "arg_category_color"
+        const val ARG_SOURCE_COLOR = "arg_source_color"
     }
 
     @Inject
@@ -41,7 +41,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
 
     lateinit var fragment: ParamsFragment
     lateinit var sourceId: String
-    lateinit var categoryColor: String
+    lateinit var sourceColor: String
 
     val sourceTitle: TextView by bindView(R.id.source_title)
     val subtitle: TextView by bindView(R.id.source_subtitle)
@@ -86,13 +86,13 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
 
     private fun initArgs() {
         sourceId = intent.extras.getString(ARG_SOURCE_ID)
-        categoryColor = intent.extras.getString(ARG_CATEGORY_COLOR)
+        sourceColor = intent.extras.getString(ARG_SOURCE_COLOR)
     }
 
     private fun initColors() {
-        toolbar.setBackgroundColor(Color.parseColor(categoryColor))
+        toolbar.setBackgroundColor(Color.parseColor(sourceColor))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = colorUtils.darker(Color.parseColor(categoryColor))
+            window.statusBarColor = colorUtils.darker(Color.parseColor(sourceColor))
         }
     }
 
