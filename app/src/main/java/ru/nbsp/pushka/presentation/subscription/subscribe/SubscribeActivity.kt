@@ -63,13 +63,8 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         initFragment()
         initPresenter(presenter)
         initViews()
-        initDialog()
 
         presenter.loadSourceFromCache(sourceId)
-    }
-
-    private fun initDialog() {
-
     }
 
     private fun initFragment() {
