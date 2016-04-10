@@ -20,6 +20,12 @@ class ParamsPresenter
         }
 
     private fun showParams() {
+        if (!params.isEmpty()) {
+            view?.showParams()
+        } else {
+            view?.hideParams()
+        }
+
         for (param in params) {
             view?.addParam(param)
         }

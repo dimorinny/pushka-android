@@ -13,6 +13,7 @@ class ApiSubscriptionInteractorImpl(
         val schedulersUtils: SchedulersUtils) : ApiSubscriptionInteractor {
 
     override fun subscribe(subscribeRequest: SubscribeRequest): Observable<Any> {
-        return apiPushka.subscribe(subscribeRequest).compose(schedulersUtils.applySchedulers<Any>())
+        return apiPushka.subscribe(subscribeRequest)
+                .compose(schedulersUtils.applySchedulers<Any>())
     }
 }

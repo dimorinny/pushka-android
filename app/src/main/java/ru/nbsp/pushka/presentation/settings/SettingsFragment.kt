@@ -17,7 +17,7 @@ import javax.inject.Inject
  */
 class SettingsFragment : PreferenceFragment() {
 
-    private lateinit var logoutDialog: AlertDialog
+    lateinit var logoutDialog: AlertDialog
 
     @Inject
     lateinit var accountManager: AccountManager

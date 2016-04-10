@@ -8,6 +8,8 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
  */
 interface ParamsView : BaseView {
     fun addParam(param: PresentationParam)
+    fun showParams()
+    fun hideParams()
     fun getValue(param: PresentationParam): String?
     fun setError(param: PresentationParam)
     fun setNoError(param: PresentationParam)

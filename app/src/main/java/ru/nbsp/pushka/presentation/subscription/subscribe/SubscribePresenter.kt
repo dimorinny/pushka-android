@@ -2,6 +2,7 @@ package ru.nbsp.pushka.presentation.subscription.subscribe
 
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
+import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.repository.source.SourcesRepository
@@ -25,12 +26,12 @@ class SubscribePresenter
                 .subscribe(LoadSourceSubscriber()))
     }
 
-    fun subscribeButtonClicked() {
-//        if (view!!.validateFields()) {
-//            val params = view!!.getParamsMap()
-//            subscriptionInteractor.subscribe(SubscribeRequest(source.id, params))
-//                    .subscribe(SubscribeSourceSubscriber())
-//        }
+    fun subscribeButtonClicked(params: Map<String, String?>) {
+        if (view!!.validateFields()) {
+            view?.showSubscribeProgressDialog()
+            subscription.add(subscriptionInteractor.subscribe(SubscribeRequest(source!!.id, params))
+                    .subscribe(SubscribeSourceSubscriber()))
+        }
     }
 
     inner class LoadSourceSubscriber : Subscriber<PresentationSource>() {
@@ -50,6 +51,19 @@ class SubscribePresenter
             }
 
             source = result
+        }
+    }
+
+    inner class SubscribeSourceSubscriber : Subscriber<Any>() {
+        override fun onCompleted() {}
+
+        override fun onError(e: Throwable) {
+            e.printStackTrace()
+            view?.hideSubscribeProgressDialog()
+        }
+
+        override fun onNext(result: Any) {
+            view?.hideSubscribeProgressDialog()
         }
     }
 

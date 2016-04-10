@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
+import android.app.ProgressDialog
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -43,6 +44,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     lateinit var sourceId: String
     lateinit var sourceColor: String
 
+    val subscribeProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     val sourceTitle: TextView by bindView(R.id.source_title)
     val subtitle: TextView by bindView(R.id.source_subtitle)
     val icon: ImageView by bindView(R.id.item_icon)
@@ -61,8 +63,13 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         initFragment()
         initPresenter(presenter)
         initViews()
+        initDialog()
 
         presenter.loadSourceFromCache(sourceId)
+    }
+
+    private fun initDialog() {
+
     }
 
     private fun initFragment() {
@@ -79,8 +86,9 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     }
 
     private fun initViews() {
+        subscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
         subscribeButton.setOnClickListener {
-            presenter.subscribeButtonClicked()
+            presenter.subscribeButtonClicked(fragment.getParamsMap())
         }
     }
 
@@ -108,10 +116,6 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         return fragment.validate()
     }
 
-    override fun getParamsMap(): Map<String, String?> {
-        return fragment.getParamsMap()
-    }
-
     override fun setParams(params: List<PresentationParam>) {
         fragment.setParams(params)
     }
@@ -123,6 +127,14 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
 
     override fun setTitle(sourceTitle: String) {
         title = sourceTitle
+    }
+
+    override fun showSubscribeProgressDialog() {
+        subscribeProgressDialog.show()
+    }
+
+    override fun hideSubscribeProgressDialog() {
+        subscribeProgressDialog.dismiss()
     }
 
     private fun initToolbar() {
@@ -140,5 +152,13 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (subscribeProgressDialog.isShowing) {
+            subscribeProgressDialog.dismiss()
+        }
     }
 }

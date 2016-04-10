@@ -59,4 +59,5 @@
 
     <!-- Subscribe -->
     <string name="subscribe_dropdown_placeholder">Выберите...</string>
+    <string name="subscribe_dialog_message">Подождитесь, сейчас мы вас подпишем</string>
 </resources>

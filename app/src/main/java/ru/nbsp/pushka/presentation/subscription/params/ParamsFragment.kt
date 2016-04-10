@@ -19,8 +19,6 @@ import javax.inject.Inject
  */
 class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
-    val layout: DictLayout by bindView(R.id.dict_layout)
-
     @Inject
     lateinit var presenter: ParamsPresenter
 
@@ -29,6 +27,9 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
     var paramsToSet: List<PresentationParam>? = null
     var presenterInited = false
+
+    val container: ViewGroup by bindView(R.id.params_container)
+    val layout: DictLayout by bindView(R.id.dict_layout)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_params, container, false)
@@ -85,5 +86,13 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
     override fun getValue(param: PresentationParam): String? {
         return (layout.get(param.name) as Control).getValue()
+    }
+
+    override fun showParams() {
+        container.visibility = View.VISIBLE
+    }
+
+    override fun hideParams() {
+        container.visibility = View.GONE
     }
 }
