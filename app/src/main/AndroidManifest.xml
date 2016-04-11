@@ -44,6 +44,7 @@
         <activity
             android:name=".presentation.subscription.subscribe.SubscribeActivity"
             android:label="@string/empty"
+            android:windowSoftInputMode="stateHidden"
             />
         <service android:name=".service.api.ApiAuthService"/>
         <service android:name=".service.api.ApiAlertService"/>
