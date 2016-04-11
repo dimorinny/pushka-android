@@ -24,6 +24,6 @@ class IconUtils @Inject constructor() {
     )
 
     fun getIcon(name: String): Int {
-        return icons[name]!!
+        return if (icons.containsKey(name)) icons[name]!! else R.drawable.ic_info_white_36dp
     }
 }
