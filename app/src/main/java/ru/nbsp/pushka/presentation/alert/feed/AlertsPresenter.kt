@@ -10,6 +10,7 @@ import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.service.ServiceManager
 import rx.Observable
 import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
 import rx.subscriptions.CompositeSubscription
 import java.util.*
 import javax.inject.Inject
@@ -29,18 +30,20 @@ class AlertsPresenter
 
     override fun onCreate() {
         super.onCreate()
-
         subscription.add(rxBus.events(LoadAlertsEvent::class.java)
                 .flatMap {
                     when (it) {
                         is LoadAlertsEvent.Success -> storageAlertsRepository.getAlerts()
                         is LoadAlertsEvent.Error -> Observable.error(it.t)
                     }
-                }.subscribe(LoadAlertsNetworkSubscriber()))
+                }
+                .subscribe(LoadAlertsNetworkSubscriber()))
     }
 
     fun loadAlertsFromCache() {
-        subscription.add(storageAlertsRepository.getAlerts().subscribe(LoadAlertsCacheSubscriber()))
+        subscription.add(storageAlertsRepository.getAlerts()
+                .unsubscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(LoadAlertsCacheSubscriber()))
     }
 
     fun loadAlertsFromServer() {

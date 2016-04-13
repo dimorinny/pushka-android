@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.presentation.core.model.source.control.NumberAttributes
+import ru.nbsp.pushka.presentation.core.model.subscription.control.NumberAttributes
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.util.bindView
 

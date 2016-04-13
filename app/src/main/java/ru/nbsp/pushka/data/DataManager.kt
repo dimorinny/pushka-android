@@ -19,8 +19,7 @@ class DataManager
     @Inject constructor(val realmProvider: Provider<Realm>) {
 
     fun getAlertsObservable(): Observable<List<DataAlert>> {
-        return realmProvider.get()
-                .where(DataAlert::class.java)
+        return realmProvider.get().where(DataAlert::class.java)
                 .findAllSorted("date", Sort.DESCENDING)
                 .asObservable()
                 .map {
@@ -81,7 +80,6 @@ class DataManager
                     val action = alert.actions[i]
                     action.removeFromRealm()
                 }
-
                 alert.removeFromRealm()
             }
         }

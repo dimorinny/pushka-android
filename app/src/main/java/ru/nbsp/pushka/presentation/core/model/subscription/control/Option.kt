@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.core.model.source.control
+package ru.nbsp.pushka.presentation.core.model.subscription.control
 
 /**
  * Created by Dimorinny on 09.04.16.

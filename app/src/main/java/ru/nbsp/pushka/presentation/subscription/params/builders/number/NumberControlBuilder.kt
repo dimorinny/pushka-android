@@ -3,7 +3,7 @@ package ru.nbsp.pushka.presentation.subscription.params.builders.number
 import android.content.Context
 import com.google.gson.Gson
 import ru.nbsp.pushka.presentation.core.model.source.PresentationControl
-import ru.nbsp.pushka.presentation.core.model.source.control.NumberAttributes
+import ru.nbsp.pushka.presentation.core.model.subscription.control.NumberAttributes
 import ru.nbsp.pushka.presentation.subscription.params.builders.ControlBuilder
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.presentation.subscription.params.control.number.NumberControl

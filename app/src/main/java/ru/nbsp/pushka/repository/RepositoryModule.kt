@@ -11,6 +11,7 @@ import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
 import ru.nbsp.pushka.mapper.presentation.device.PresentationDeviceMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationCategoryMapper
 import ru.nbsp.pushka.mapper.presentation.source.PresentationSourceMapper
+import ru.nbsp.pushka.mapper.presentation.subscription.PresentationListItemMapper
 import ru.nbsp.pushka.mapper.presentation.subscription.PresentationSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAlertsService
 import ru.nbsp.pushka.network.service.PushkaDeviceService
@@ -29,9 +30,7 @@ import ru.nbsp.pushka.repository.device.DevicesRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
-import ru.nbsp.pushka.repository.subscription.ApiSubscriptionRepository
-import ru.nbsp.pushka.repository.subscription.StorageSubscriptionRepository
-import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
+import ru.nbsp.pushka.repository.subscription.*
 import ru.nbsp.pushka.util.SchedulersUtils
 import javax.inject.Singleton
 
@@ -109,5 +108,12 @@ class RepositoryModule {
     @Provides
     fun provideApiDevicesRepository(api: PushkaDeviceService, presentationDeviceMapper: PresentationDeviceMapper, schedulersUtils: SchedulersUtils): DevicesRepository {
         return ApiDevicesRepository(api, presentationDeviceMapper, schedulersUtils)
+    }
+
+    @ApiRepository
+    @Singleton
+    @Provides
+    fun provideApiListItemRepository(apiPushka: PushkaSubscriptionService, listItemMapper: PresentationListItemMapper, schedulersUtils: SchedulersUtils): ListItemRepository {
+        return ApiListItemRepository(apiPushka, listItemMapper, schedulersUtils)
     }
 }

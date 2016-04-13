@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.presentation.core.model.source.control.Option
+import ru.nbsp.pushka.presentation.core.model.subscription.control.Option
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.presentation.subscription.params.control.dropdown.adapter.DropdownAdapter
 import ru.nbsp.pushka.util.bindView

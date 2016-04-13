@@ -1,9 +1,8 @@
 package ru.nbsp.pushka.network.service
 
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 import ru.nbsp.pushka.network.request.SubscribeRequest
+import ru.nbsp.pushka.network.response.ListResponse
 import ru.nbsp.pushka.network.response.SubscriptionsResponse
 import rx.Observable
 
@@ -16,4 +15,9 @@ interface  PushkaSubscriptionService {
 
     @GET("subscription/")
     fun getSubscriptions(): Observable<SubscriptionsResponse>
+
+    @GET("list/{source_id}/{list_id}")
+    fun getListItems(@Path("source_id") sourceId: String,
+                  @Path("list_id") listId: String,
+                  @Query("query") query: String): Observable<ListResponse>
 }

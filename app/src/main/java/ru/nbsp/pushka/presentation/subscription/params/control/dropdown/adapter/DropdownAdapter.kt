@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import ru.nbsp.pushka.presentation.core.model.source.control.Option
+import ru.nbsp.pushka.presentation.core.model.subscription.control.Option
 
 /**
  * Created by Dimorinny on 09.04.16.
