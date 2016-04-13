@@ -10,7 +10,8 @@ interface ParamsView : BaseView {
     fun addParam(param: PresentationParam)
     fun showParams()
     fun hideParams()
-    fun getValue(param: PresentationParam): String?
-    fun setError(param: PresentationParam)
-    fun setNoError(param: PresentationParam)
+    fun getValue(name: String): String?
+    fun setValue(name: String, value: String?)
+    fun setError(name: String)
+    fun setNoError(name: String)
 }

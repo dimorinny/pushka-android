@@ -9,6 +9,7 @@ interface Control {
     }
 
     fun getValue(): String?
+    fun setValue(value: String?)
     fun setOnChangeListener(onChangeListener: OnChangeListener)
     fun setError()
     fun setNoError()

@@ -3,7 +3,6 @@ package ru.nbsp.pushka.presentation.source.feed
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
-import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class SourcesPresenter
     @Inject constructor(@StorageRepository val storageSourcesRepository: SourcesRepository,
                         val rxBus: RxBus,
-                        val subscriptionInteractor: ApiSubscriptionInteractor,
                         val serviceManager: ServiceManager) : BasePresenter {
 
     override var view: SourceView? = null
@@ -52,14 +50,6 @@ class SourcesPresenter
 
     fun onSourceClicked(index: Int) {
         view?.openSubscribeScreen(sources[index])
-
-//        subscriptionInteractor.subscribe(SubscribeRequest("new_episode", mapOf(
-//                                Pair("alert_offset_days", "-10000"),
-//                                Pair("show", "1"))))
-//                                .subscribe(SubscribeSourceSubscriber())
-//        subscriptionInteractor.subscribe(SubscribeRequest("newsmailru", mapOf(
-//                Pair("category", "main"))))
-//                .subscribe(SubscribeSourceSubscriber())
     }
 
     inner class LoadSourcesSubscriber : Subscriber<List<PresentationSource>>() {
@@ -78,17 +68,6 @@ class SourcesPresenter
             
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setSources(result)
-        }
-    }
-
-    inner class SubscribeSourceSubscriber : Subscriber<Any>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            t.printStackTrace()
-        }
-
-        override fun onNext(any: Any) {
         }
     }
 

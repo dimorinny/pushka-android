@@ -33,7 +33,7 @@ class ParamsPresenter
 
     fun onParamChanged(param: PresentationParam, newValue: String?) {
         if (param.required && newValue != null) {
-            view!!.setNoError(param)
+            view!!.setNoError(param.name)
         }
     }
 
@@ -41,9 +41,9 @@ class ParamsPresenter
         var errorFlag = false
         for (param in params) {
             if (param.required) {
-                val value = view!!.getValue(param)
+                val value = view!!.getValue(param.name)
                 if (value == null) {
-                    view!!.setError(param)
+                    view!!.setError(param.name)
                     errorFlag = true
                 }
             }
@@ -51,11 +51,17 @@ class ParamsPresenter
         return !errorFlag
     }
 
-    fun getParamsMap(): Map<String, String?> {
+    fun getValues(): Map<String, String?> {
         var map = HashMap<String, String?>()
         for (param in params) {
-            map.put(param.name, view!!.getValue(param))
+            map.put(param.name, view!!.getValue(param.name))
         }
         return map
+    }
+
+    fun setValues(values: Map<String, String?>) {
+        for ((key, value) in values) {
+            view!!.setValue(key, value)
+        }
     }
 }

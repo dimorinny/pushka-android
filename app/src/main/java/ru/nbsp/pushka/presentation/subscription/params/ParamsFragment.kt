@@ -12,12 +12,17 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.subscription.params.builders.ControlBuilder
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.util.bindView
+import java.io.Serializable
 import javax.inject.Inject
 
 /**
  * Created by egor on 16.03.16.
  */
 class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
+
+    companion object {
+        const val STATE_VALUES = "state_values"
+    }
 
     @Inject
     lateinit var presenter: ParamsPresenter
@@ -31,6 +36,7 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
     val container: ViewGroup by bindView(R.id.params_container)
     val layout: DictLayout by bindView(R.id.dict_layout)
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_params, container, false)
     }
@@ -38,7 +44,16 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         BaseApplication.graph.inject(this)
+
         initPresenter(presenter)
+        initValues(savedInstanceState)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun initValues(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_VALUES)) {
+            presenter.setValues(savedInstanceState.getSerializable(STATE_VALUES) as Map<String, String?>)
+        }
     }
 
     override fun initPresenter(presenter: ParamsPresenter) {
@@ -54,8 +69,8 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
         return presenter.validate()
     }
 
-    fun getParamsMap(): Map<String, String?> {
-        return presenter.getParamsMap()
+    fun getValues(): Map<String, String?> {
+        return presenter.getValues()
     }
 
     fun setParams(params: List<PresentationParam>) {
@@ -66,12 +81,12 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
         }
     }
 
-    override fun setNoError(param: PresentationParam) {
-        (layout.get(param.name) as Control).setNoError()
+    override fun setNoError(name: String) {
+        (layout.get(name) as Control).setNoError()
     }
 
-    override fun setError(param: PresentationParam) {
-        (layout.get(param.name) as Control).setError()
+    override fun setError(name: String) {
+        (layout.get(name) as Control).setError()
     }
 
     override fun addParam(param: PresentationParam) {
@@ -84,8 +99,12 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
         })
     }
 
-    override fun getValue(param: PresentationParam): String? {
-        return (layout.get(param.name) as Control).getValue()
+    override fun getValue(name: String): String? {
+        return (layout.get(name) as Control).getValue()
+    }
+
+    override fun setValue(name: String, value: String?) {
+        (layout.get(name) as Control).setValue(value)
     }
 
     override fun showParams() {
@@ -94,5 +113,10 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
     override fun hideParams() {
         container.visibility = View.GONE
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(STATE_VALUES, getValues() as Serializable)
+        super.onSaveInstanceState(outState)
     }
 }

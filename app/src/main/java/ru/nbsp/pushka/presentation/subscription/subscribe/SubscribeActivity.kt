@@ -83,7 +83,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     private fun initViews() {
         subscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
         subscribeButton.setOnClickListener {
-            presenter.subscribeButtonClicked(fragment.getParamsMap())
+            presenter.subscribeButtonClicked(fragment.getValues())
         }
     }
 

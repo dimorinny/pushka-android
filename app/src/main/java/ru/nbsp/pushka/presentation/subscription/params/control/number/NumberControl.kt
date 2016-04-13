@@ -48,6 +48,10 @@ class NumberControl(context: Context, val attributes: NumberAttributes, attrs: A
 
     override fun getValue(): String? = number.progress.toString()
 
+    override fun setValue(value: String?) {
+//        number.progress = value.toFloat().toInt()
+    }
+
     override fun setOnChangeListener(onChangeListener: Control.OnChangeListener) {
         number.setOnProgressChangeListener(object : DiscreteSeekBar.OnProgressChangeListener {
             override fun onProgressChanged(seekBar: DiscreteSeekBar?, value: Int, fromUser: Boolean) {
