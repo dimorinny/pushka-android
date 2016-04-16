@@ -48,7 +48,7 @@ class AccountManager
                 refreshToken = identity.refreshToken,
                 expiredTimestamp = timestampUtils.currentTimestamp() + identity.expires)
 
-        setAccount(account)
+        setAccount(newAccount)
         return newAccount
     }
 }

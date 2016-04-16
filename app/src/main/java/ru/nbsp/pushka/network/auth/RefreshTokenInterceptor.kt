@@ -18,11 +18,11 @@ class RefreshTokenInterceptor
 
     override fun intercept(chain: Interceptor.Chain): Response? {
         val request = chain.request()
-        val account = accountManager.getAccount()!!
+        var account = accountManager.getAccount()!!
 
         if (accountManager.isTokenExpired()) {
             val response = authService.refreshToken(account.accessToken, account.refreshToken).execute().body()
-            accountManager.assignAndSaveWithIdentity(response.identity)
+            account = accountManager.assignAndSaveWithIdentity(response.identity)
 
             val requestBuilder = request.newBuilder()
                     .header(TOKEN_HEADER, account.accessToken)
