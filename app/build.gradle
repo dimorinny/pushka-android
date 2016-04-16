@@ -55,6 +55,7 @@ dependencies {
     // Reactive
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-kotlin:0.4.0'
 
     // Social
     compile 'com.vk:androidsdk:1.6.2'

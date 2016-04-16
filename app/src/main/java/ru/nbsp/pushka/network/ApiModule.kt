@@ -14,6 +14,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.nbsp.pushka.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
+import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
 import ru.nbsp.pushka.network.service.*
 import javax.inject.Singleton
 
@@ -48,11 +49,12 @@ class ApiModule {
     @Singleton
     @Provides
     @AuthRequired
-    fun provideAuthRequiredClient(interceptor: AuthInterceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideAuthRequiredClient(tokenInterceptor: AuthInterceptor, refreshTokenInterceptor: RefreshTokenInterceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor(interceptor)
+                .addInterceptor(tokenInterceptor)
+                .addInterceptor(refreshTokenInterceptor)
                 .build()
     }
 

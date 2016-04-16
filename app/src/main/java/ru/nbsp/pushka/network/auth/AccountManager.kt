@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.network.auth
 
+import ru.nbsp.pushka.network.model.user.NetworkIdentity
 import ru.nbsp.pushka.repository.account.AccountRepository
 import ru.nbsp.pushka.util.TimestampUtils
 import javax.inject.Inject
@@ -29,5 +30,25 @@ class AccountManager
     fun isAccountValid(): Boolean {
         val account = accountRepository.getAccount() ?: return false
         return timestampUtils.afterNow(account.expiredTimestamp)
+    }
+
+    fun isTokenExpired(): Boolean {
+        return !timestampUtils.afterNow(accountRepository.getAccount()!!.expiredTimestamp)
+    }
+
+    fun assignAndSaveWithIdentity(identity: NetworkIdentity): Account {
+        val account = getAccount()!!
+
+        val newAccount = Account(
+                userId = account.userId,
+                firstName = account.firstName,
+                secondName = account.secondName,
+                photo = account.photo,
+                accessToken = identity.accessToken,
+                refreshToken = identity.refreshToken,
+                expiredTimestamp = timestampUtils.currentTimestamp() + identity.expires)
+
+        setAccount(account)
+        return newAccount
     }
 }

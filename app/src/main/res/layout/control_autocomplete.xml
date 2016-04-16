@@ -19,14 +19,33 @@
         android:layout_marginBottom="2dp"
         />
 
-    <AutoCompleteTextView
-        android:id="@+id/autocomplete"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
         android:layout_marginBottom="8dp"
-        />
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            />
+
+        <ProgressBar
+            android:id="@+id/autocomplete_progress"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/autocomplete_error"

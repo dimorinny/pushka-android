@@ -1,13 +1,14 @@
 package ru.nbsp.pushka.presentation.subscription.params.control.autocomplete
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
+import com.jakewharton.rxbinding.widget.textChanges
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationListItem
@@ -15,6 +16,9 @@ import ru.nbsp.pushka.presentation.core.model.subscription.control.ListAttribute
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.presentation.subscription.params.control.autocomplete.adapter.AutoCompleteAdapter
 import ru.nbsp.pushka.util.bindView
+import rx.android.schedulers.AndroidSchedulers
+import rx.subscriptions.CompositeSubscription
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -23,6 +27,10 @@ import javax.inject.Inject
 class AutoCompleteControl(context: Context, val attributes: ListAttributes, attrs: AttributeSet? = null)
         : LinearLayout(context, attrs), AutoCompleteControlView, Control {
 
+    companion object {
+        const val INPUT_DEBOUNCE = 200L
+    }
+
     @Inject
     lateinit var presenter: AutoCompleteControlPresenter
 
@@ -30,8 +38,11 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
     val title: TextView by bindView(R.id.autocomplete_title)
     val errorIndicator: TextView by bindView(R.id.autocomplete_error)
     val text: AutoCompleteTextView by bindView(R.id.autocomplete)
+    val progress: ProgressBar by bindView(R.id.autocomplete_progress)
 
     var currentValue: String? = null
+
+    val subscription = CompositeSubscription()
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -45,15 +56,14 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
     private fun initViews() {
         text.clearFocus()
         text.setAdapter(adapter)
-        text.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(value: CharSequence, start: Int, before: Int, count: Int) {
-                presenter.loadItems(value.toString())
-            }
-        })
+        text.textChanges()
+                .debounce(INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
+                .map { it.toString() }
+                .filter { !it.isEmpty() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { progress.visibility = View.VISIBLE }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe { presenter.loadItems(it) }
     }
 
     private fun initPresenter() {
@@ -63,6 +73,7 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
     }
 
     override fun setItems(items: List<PresentationListItem>) {
+        progress.visibility = View.INVISIBLE
         adapter.items = items
     }
 
@@ -94,6 +105,7 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        subscription.unsubscribe()
         presenter.onDestroy()
     }
 }
