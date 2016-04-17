@@ -26,12 +26,27 @@
             android:name=".presentation.source.feed.SourcesActivity"
             android:label="@string/empty"
             />
-        <activity android:name=".presentation.navigation.NavigationActivity">
+        <activity
+            android:name=".presentation.alert.feed.AlertsActivity"
+            android:label="@string/title_feed"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.category.feed.CategoriesActivity"
+            android:label="@string/title_sources"
+            />
+        <activity
+            android:name=".presentation.subscription.feed.SubscriptionsActivity"
+            android:label="@string/title_subscription"
+            />
+        <activity
+            android:name=".presentation.device.feed.container.DevicesActivity"
+            android:label="@string/title_devices"
+            />
         <activity
             android:name=".presentation.alert.detail.AlertActivity"
             android:label="@string/empty"

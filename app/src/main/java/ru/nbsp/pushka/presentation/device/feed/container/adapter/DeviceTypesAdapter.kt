@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.navigation.adapter
+package ru.nbsp.pushka.presentation.device.feed.container.adapter
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable

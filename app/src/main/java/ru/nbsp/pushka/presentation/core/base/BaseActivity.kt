@@ -15,6 +15,7 @@ open class BaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var accountManager: AccountManager
+    // TODO: remove exception class
     val exceptionActivities: Array<Class<*>> = arrayOf(LoginActivity::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {

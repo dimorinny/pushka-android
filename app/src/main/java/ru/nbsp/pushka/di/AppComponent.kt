@@ -13,7 +13,9 @@ import ru.nbsp.pushka.presentation.alert.feed.AlertsFragment
 import ru.nbsp.pushka.presentation.category.feed.CategoriesFragment
 import ru.nbsp.pushka.presentation.core.base.BaseActivity
 import ru.nbsp.pushka.presentation.core.base.OneFragmentActivity
+import ru.nbsp.pushka.presentation.core.base.OneFragmentNavigationActivity
 import ru.nbsp.pushka.presentation.device.feed.DevicesFragment
+import ru.nbsp.pushka.presentation.device.feed.container.DevicesActivity
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.presentation.settings.SettingsFragment
@@ -59,6 +61,8 @@ interface AppComponent {
     fun inject(loginActivity: LoginActivity)
     fun inject(navigationActivity: NavigationActivity)
     fun inject(oneFragmentActivity: OneFragmentActivity)
+    fun inject(oneFragmentNavigationActivity: OneFragmentNavigationActivity)
+    fun inject(devicesActivity: DevicesActivity)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(alertsFragment: AlertsFragment)
     fun inject(devicesFragment: DevicesFragment)
