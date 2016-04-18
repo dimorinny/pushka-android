@@ -10,7 +10,9 @@ import android.support.v7.app.ActionBar
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import ru.nbsp.pushka.BaseApplication
@@ -52,6 +54,11 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     val subscribeButton: Button by bindView(R.id.subscribe_button)
     val toolbar: Toolbar by bindView(R.id.toolbar)
 
+    val withSoundContainer: ViewGroup by bindView(R.id.subscribe_with_sound_container)
+    val withSoundCheckbox: CheckBox by bindView(R.id.subscribe_with_sound_checkbox)
+    val withAlertContainer: ViewGroup by bindView(R.id.subscribe_with_alert_container)
+    val withAlertCheckbox: CheckBox by bindView(R.id.subscribe_with_alert_checkbox)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subscribe)
@@ -84,6 +91,14 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         subscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
         subscribeButton.setOnClickListener {
             presenter.subscribeButtonClicked(fragment.getValues())
+        }
+
+        withSoundContainer.setOnClickListener {
+            withSoundCheckbox.isChecked = !withSoundCheckbox.isChecked
+        }
+
+        withAlertContainer.setOnClickListener {
+            withAlertCheckbox.isChecked = !withAlertCheckbox.isChecked
         }
     }
 

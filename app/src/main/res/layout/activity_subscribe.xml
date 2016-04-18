@@ -93,9 +93,12 @@
                     >
 
                     <LinearLayout
+                        android:id="@+id/subscribe_with_sound_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="@drawable/bg_clickable"
                         >
 
                         <TextView
@@ -106,10 +109,11 @@
                             android:singleLine="true"
                             android:layout_margin="16dp"
                             android:textSize="16sp"
-                            android:text="Со звуком"
+                            android:text="@string/subscribe_with_sound"
                             />
 
                         <CheckBox
+                            android:id="@+id/subscribe_with_sound_checkbox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -125,9 +129,12 @@
                         />
 
                     <LinearLayout
+                        android:id="@+id/subscribe_with_alert_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="@drawable/bg_clickable"
                         >
 
                         <TextView
@@ -138,10 +145,11 @@
                             android:singleLine="true"
                             android:layout_margin="16dp"
                             android:textSize="16sp"
-                            android:text="Получать уведомления"
+                            android:text="@string/subscribe_with_alert"
                             />
 
                         <CheckBox
+                            android:id="@+id/subscribe_with_alert_checkbox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -169,7 +177,7 @@
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:textColor="?attr/colorPrimary"
-                    android:text="Подписаться"
+                    android:text="@string/subscribe_subscribe_text"
                     style="?android:attr/borderlessButtonStyle"
                     />
 
