@@ -25,8 +25,9 @@ import ru.nbsp.pushka.repository.alert.StorageAlertsRepository
 import ru.nbsp.pushka.repository.category.ApiCategoriesRepository
 import ru.nbsp.pushka.repository.category.CategoriesRepository
 import ru.nbsp.pushka.repository.category.StorageCategoriesRepository
-import ru.nbsp.pushka.repository.device.ApiDevicesRepository
-import ru.nbsp.pushka.repository.device.DevicesRepository
+import ru.nbsp.pushka.repository.device.ApiDeviceRepository
+import ru.nbsp.pushka.repository.device.DeviceRepository
+import ru.nbsp.pushka.repository.device.StorageDeviceRepository
 import ru.nbsp.pushka.repository.source.ServerSourcesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.source.StorageSourcesRepository
@@ -106,8 +107,15 @@ class RepositoryModule {
     @ApiRepository
     @Singleton
     @Provides
-    fun provideApiDevicesRepository(api: PushkaDeviceService, presentationDeviceMapper: PresentationDeviceMapper, schedulersUtils: SchedulersUtils): DevicesRepository {
-        return ApiDevicesRepository(api, presentationDeviceMapper, schedulersUtils)
+    fun provideApiDevicesRepository(api: PushkaDeviceService, presentationDeviceMapper: PresentationDeviceMapper, schedulersUtils: SchedulersUtils): DeviceRepository {
+        return ApiDeviceRepository(api, presentationDeviceMapper, schedulersUtils)
+    }
+
+    @StorageRepository
+    @Singleton
+    @Provides
+    fun provideStorageDevicesRepository(dataManager: DataManager, presentationDeviceMapper: PresentationDeviceMapper): DeviceRepository {
+        return StorageDeviceRepository(dataManager, presentationDeviceMapper)
     }
 
     @ApiRepository

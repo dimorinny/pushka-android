@@ -28,6 +28,7 @@ class AlertsActivity : OneFragmentNavigationActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
         // Init here

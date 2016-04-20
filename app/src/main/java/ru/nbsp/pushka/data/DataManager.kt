@@ -3,6 +3,7 @@ package ru.nbsp.pushka.data
 import io.realm.Realm
 import io.realm.Sort
 import ru.nbsp.pushka.data.model.alert.DataAlert
+import ru.nbsp.pushka.data.model.device.DataDevice
 import ru.nbsp.pushka.data.model.source.DataCategory
 import ru.nbsp.pushka.data.model.source.DataSource
 import ru.nbsp.pushka.data.model.subscription.DataSubscription
@@ -176,6 +177,27 @@ class DataManager
 
     fun getSubscriptionsObservable(): Observable<List<DataSubscription>> {
         return realmProvider.get().where(DataSubscription::class.java)
+                .findAll()
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
+    }
+
+    fun clearDevices() {
+        realmProvider.get().executeTransaction {
+            it.clear(DataDevice::class.java)
+        }
+    }
+
+    fun putDevices(devices: List<DataDevice>) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(devices)
+        }
+    }
+
+    fun getDevicesObservable(): Observable<List<DataDevice>> {
+        return realmProvider.get().where(DataDevice::class.java)
                 .findAll()
                 .asObservable()
                 .map {

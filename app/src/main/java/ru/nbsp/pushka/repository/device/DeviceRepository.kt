@@ -6,6 +6,6 @@ import rx.Observable
 /**
  * Created by Dimorinny on 31.03.16.
  */
-interface DevicesRepository {
+interface DeviceRepository {
     fun getDevices(): Observable<List<PresentationDevice>>
 }

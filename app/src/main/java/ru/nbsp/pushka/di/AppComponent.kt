@@ -26,10 +26,7 @@ import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
 import ru.nbsp.pushka.presentation.subscription.params.control.autocomplete.AutoCompleteControl
 import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.repository.RepositoryModule
-import ru.nbsp.pushka.service.api.ApiAlertService
-import ru.nbsp.pushka.service.api.ApiAuthService
-import ru.nbsp.pushka.service.api.ApiSourceService
-import ru.nbsp.pushka.service.api.ApiSubscriptionService
+import ru.nbsp.pushka.service.api.*
 import javax.inject.Singleton
 
 /**
@@ -53,6 +50,7 @@ interface AppComponent {
     fun inject(sourceService: ApiSourceService)
     fun inject(authService: ApiAuthService)
     fun inject(subscriptionService: ApiSubscriptionService)
+    fun inject(deviceService: ApiDeviceService)
 
     // Interactors
 

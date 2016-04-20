@@ -63,4 +63,14 @@
     <string name="subscribe_with_sound">Со звуком</string>
     <string name="subscribe_with_alert">Получать уведомления</string>
     <string name="subscribe_subscribe_text">Подписаться</string>
+
+    <!-- Alerts -->
+    <string name="alert_empty_placeholder_title">Ваша лента пуста</string>
+    <string name="alert_empty_placeholder_subtitle">Подпишитесь на интересующие вас события</string>
+    <string name="alert_empty_placeholder_action">Подписаться</string>
+
+    <!-- Subscriptions -->
+    <string name="subscription_empty_placeholder_title">У вас нету подписок</string>
+    <string name="subscription_empty_placeholder_subtitle">Подпишитесь на интересующие вас события</string>
+    <string name="subscription_empty_placeholder_action">Подписаться</string>
 </resources>

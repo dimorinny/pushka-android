@@ -10,10 +10,10 @@ import java.util.*
 /**
  * Created by Dimorinny on 31.03.16.
  */
-class ApiDevicesRepository(
+class ApiDeviceRepository(
         val api: PushkaDeviceService,
         val deviceMapper: PresentationDeviceMapper,
-        val schedulersUtils: SchedulersUtils) : DevicesRepository {
+        val schedulersUtils: SchedulersUtils) : DeviceRepository {
 
     override fun getDevices(): Observable<List<PresentationDevice>> {
         return api

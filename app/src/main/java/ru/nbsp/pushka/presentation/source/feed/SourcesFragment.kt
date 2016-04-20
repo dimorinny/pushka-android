@@ -55,8 +55,8 @@ class SourcesFragment : PresentedFragment<SourcesPresenter>(), SourceView {
         initArguments()
         initPresenter(presenter)
         initRecyclerView()
-        presenter.loadSourcesFromCache()
         presenter.loadSourcesFromServer()
+        presenter.loadSourcesFromCache()
     }
 
     private fun initArguments() {

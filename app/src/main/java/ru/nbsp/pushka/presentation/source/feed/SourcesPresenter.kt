@@ -37,7 +37,7 @@ class SourcesPresenter
                         is LoadSourcesEvent.Success -> storageSourcesRepository.getSources(category.id)
                         is LoadSourcesEvent.Error -> Observable.error(it.t)
                     }
-                }.subscribe(LoadSourcesSubscriber()))
+                }.subscribe(LoadSourcesNetworkSubscriber()))
     }
 
     fun loadSourcesFromServer() {
@@ -45,14 +45,32 @@ class SourcesPresenter
     }
 
     fun loadSourcesFromCache() {
-        subscription.add(storageSourcesRepository.getSources(category.id).subscribe(LoadSourcesSubscriber()))
+        subscription.add(storageSourcesRepository.getSources(category.id).subscribe(LoadSourcesCacheSubscriber()))
     }
 
     fun onSourceClicked(index: Int) {
         view?.openSubscribeScreen(sources[index])
     }
 
-    inner class LoadSourcesSubscriber : Subscriber<List<PresentationSource>>() {
+    inner class LoadSourcesCacheSubscriber : Subscriber<List<PresentationSource>>() {
+        override fun onCompleted() {}
+
+        override fun onError(t: Throwable) {
+            t.printStackTrace()
+        }
+
+        override fun onNext(result: List<PresentationSource>) {
+            sources = result
+
+            if (!result.isEmpty()) {
+                view?.setState(State.STATE_NORMAL)
+            }
+
+            view?.setSources(result)
+        }
+    }
+
+    inner class LoadSourcesNetworkSubscriber : Subscriber<List<PresentationSource>>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {

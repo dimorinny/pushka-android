@@ -13,7 +13,7 @@ import ru.nbsp.pushka.presentation.category.feed.adapter.CategoriesAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.AnimatedGridStateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.util.ColorUtils
 import ru.nbsp.pushka.util.IconUtils
@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesView {
 
-    val recyclerView: AnimatedGridStateRecyclerView by bindView(R.id.categories_recycler_view)
+    val recyclerView: StateRecyclerView by bindView(R.id.categories_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.categories_refresh_layout)
 
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
@@ -87,10 +87,7 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     }
 
     override fun setCategories(categories: List<PresentationCategory>) {
-        recyclerView.executeTaskAfterAnimation {
-            adapter.categories = categories
-        }
-        recyclerView.scheduleLayoutAnimation()
+        adapter.categories = categories
     }
 
     override fun setState(state: State) {

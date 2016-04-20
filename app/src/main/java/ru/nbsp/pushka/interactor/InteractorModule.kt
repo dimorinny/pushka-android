@@ -9,6 +9,8 @@ import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractorImpl
 import ru.nbsp.pushka.interactor.device.ApiDeviceInteractor
 import ru.nbsp.pushka.interactor.device.ApiDeviceInteractorImpl
+import ru.nbsp.pushka.interactor.device.StorageDeviceInteractor
+import ru.nbsp.pushka.interactor.device.StorageDeviceInteractorImpl
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractorImpl
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
@@ -18,6 +20,7 @@ import ru.nbsp.pushka.interactor.subscription.StorageSubscriptionInteractorImpl
 import ru.nbsp.pushka.interactor.user.ApiUserInteractor
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.mapper.data.alert.DataAlertMapper
+import ru.nbsp.pushka.mapper.data.device.DataDeviceMapper
 import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
 import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
 import ru.nbsp.pushka.mapper.data.subscription.DataSubscriptionMapper
@@ -75,5 +78,11 @@ class InteractorModule {
     @Provides
     fun provideStorageCategoryInteractor(dataManager: DataManager, dataCategoryMapper: DataCategoryMapper): StorageCategoryInteractor {
         return StorageCategoryInteractorImpl(dataManager, dataCategoryMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStorageDeviceInteractor(dataManager: DataManager, dataDeviceMapper: DataDeviceMapper): StorageDeviceInteractor {
+        return StorageDeviceInteractorImpl(dataManager, dataDeviceMapper)
     }
 }

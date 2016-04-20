@@ -6,18 +6,21 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.detail.AlertActivity
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
+import ru.nbsp.pushka.presentation.category.feed.CategoriesActivity
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.GridAutofitLayoutManager
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
 import ru.nbsp.pushka.util.IconUtils
+import ru.nbsp.pushka.util.StringUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
 
@@ -37,6 +40,10 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
     val progressPlaceholder: View by bindView(R.id.progress_placeholder)
 
+    val emptyTitle: TextView by bindView(R.id.one_action_title)
+    val emptySubtitle: TextView by bindView(R.id.one_action_subtitle)
+    val emptyButton: TextView by bindView(R.id.one_action_button)
+
     @Inject
     lateinit var presenter: AlertsPresenter
 
@@ -45,6 +52,9 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     @Inject
     lateinit var iconUtils: IconUtils
+
+    @Inject
+    lateinit var stringUtils: StringUtils
 
     lateinit var alertsAdapter: AlertsAdapter
 
@@ -64,6 +74,11 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     }
 
     private fun initViews() {
+        emptyTitle.text = stringUtils.getString(R.string.alert_empty_placeholder_title)
+        emptySubtitle.text = stringUtils.getString(R.string.alert_empty_placeholder_subtitle)
+        emptyButton.text = stringUtils.getString(R.string.alert_empty_placeholder_action)
+        emptyButton.setOnClickListener { openCategoriesScreen() }
+
         refreshLayout.setColorSchemeResources(R.color.green,
                 R.color.blue,
                 R.color.orange);
@@ -109,6 +124,11 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     override fun openAlertScreen(alert: PresentationAlert) {
         val intent = Intent(activity, AlertActivity::class.java)
         intent.putExtra(AlertActivity.ARG_ALERT_ID, alert.id)
+        activity.startActivity(intent)
+    }
+
+    private fun openCategoriesScreen() {
+        val intent = Intent(activity, CategoriesActivity::class.java)
         activity.startActivity(intent)
     }
 }

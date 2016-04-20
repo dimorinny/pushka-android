@@ -14,7 +14,7 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.auth.social.SocialAuthListener
 import ru.nbsp.pushka.network.auth.social.SocialAuthManager
 import ru.nbsp.pushka.presentation.PresentedActivity
-import ru.nbsp.pushka.presentation.navigation.NavigationActivity
+import ru.nbsp.pushka.presentation.alert.feed.AlertsActivity
 import ru.nbsp.pushka.util.AlertUtils
 import ru.nbsp.pushka.util.bindView
 import javax.inject.Inject
@@ -110,7 +110,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     }
 
     override fun openNavigationWindow() {
-        val intent = Intent(this, NavigationActivity::class.java)
+        val intent = Intent(this, AlertsActivity::class.java)
         startActivity(intent)
         finish()
     }

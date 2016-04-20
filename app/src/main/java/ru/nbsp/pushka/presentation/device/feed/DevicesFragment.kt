@@ -48,7 +48,9 @@ class DevicesFragment : PresentedFragment<DevicesPresenter>(), DevicesView {
         initViews()
         initPresenter(presenter)
         initRecyclerView()
+
         presenter.loadDevicesFromServer()
+        presenter.loadDevicesFromCache()
     }
 
     private fun initViews() {

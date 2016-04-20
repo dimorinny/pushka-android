@@ -26,14 +26,13 @@
 
     <include
         android:id="@+id/empty_placeholder"
-        layout="@layout/empty_placeholder"/>
+        layout="@layout/placeholder_one_action"/>
 
     <include
         android:id="@+id/error_placeholder"
-        layout="@layout/error_placeholder"/>
+        layout="@layout/placeholder_error"/>
 
     <include
         android:id="@+id/progress_placeholder"
-        layout="@layout/progress_placeholder"/>
-
+        layout="@layout/placeholder_placeholder"/>
 </FrameLayout>
