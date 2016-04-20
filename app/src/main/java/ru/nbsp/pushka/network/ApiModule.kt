@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.nbsp.pushka.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
+import ru.nbsp.pushka.network.error.ErrorHandleInterceptor
 import ru.nbsp.pushka.network.service.*
 import javax.inject.Singleton
 
@@ -39,22 +40,24 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideClient(loggingInterceptor: HttpLoggingInterceptor, errorHandleInterceptor: ErrorHandleInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(errorHandleInterceptor)
                 .build()
     }
 
     @Singleton
     @Provides
     @AuthRequired
-    fun provideAuthRequiredClient(tokenInterceptor: AuthInterceptor, refreshTokenInterceptor: RefreshTokenInterceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideAuthRequiredClient(tokenInterceptor: AuthInterceptor, refreshTokenInterceptor: RefreshTokenInterceptor, loggingInterceptor: HttpLoggingInterceptor, errorHandleInterceptor: ErrorHandleInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(StethoInterceptor())
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(tokenInterceptor)
                 .addInterceptor(refreshTokenInterceptor)
+                .addInterceptor(errorHandleInterceptor)
                 .build()
     }
 
