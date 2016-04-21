@@ -5,6 +5,9 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="empty" />
+    
+    <!-- Connection -->
+    <string name="item_connection_miss">Интернет соединение отсутствует</string>
 
     <!-- Descriptions -->
     <string name="description_category_image">Изображение категории</string>

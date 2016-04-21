@@ -38,6 +38,14 @@ abstract class OneFragmentNavigationActivity : NavigationActivity() {
         }
     }
 
+    override fun hasConnectionIndicator(): Boolean {
+        return true
+    }
+
+    override fun getContentLayout(): Int {
+        return R.layout.activity_navigation_one_fragment
+    }
+
     protected abstract fun createFragment(): Fragment
 
     protected open fun getFragment(): Fragment {

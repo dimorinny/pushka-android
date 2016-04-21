@@ -11,9 +11,12 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.github.pwittchen.reactivenetwork.library.ConnectivityStatus
+import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.network.auth.Account
@@ -25,6 +28,7 @@ import ru.nbsp.pushka.presentation.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsActivity
 import ru.nbsp.pushka.util.bindView
+import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
@@ -44,10 +48,13 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     val drawerLayout: DrawerLayout by bindView(R.id.drawer)
     val navigationView: NavigationView by bindView(R.id.navigation)
     val toolbar: Toolbar by bindView(R.id.toolbar)
+    val connectionContainer: ViewGroup by bindView(R.id.item_connection_container)
 
     lateinit var headerName: TextView
     lateinit var headerEmail: TextView
     lateinit var headerPhoto: ImageView
+
+    val subscription = CompositeSubscription()
 
     @Inject
     lateinit var presenter: NavigationPresenter
@@ -58,6 +65,7 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     abstract fun getContentLayout(): Int
     abstract fun getDrawerItemId(): Int
     abstract fun injectActivity()
+    abstract fun hasConnectionIndicator(): Boolean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +79,8 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         initStatusBar()
         initToolbar()
         initViews()
+
+        initConnectionListener()
 
         initPresenter(presenter)
         presenter.loadAccount()
@@ -105,6 +115,16 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
         navigationView.setCheckedItem(getDrawerItemId())
     }
 
+    private fun initConnectionListener() {
+        if (hasConnectionIndicator()) {
+            subscription.add(ReactiveNetwork()
+                    .enableInternetCheck()
+                    .observeConnectivity(this)
+                    .subscribe {
+                        connectionContainer.visibility = if (it == ConnectivityStatus.OFFLINE) View.VISIBLE else View.GONE
+                    })
+        }
+    }
 
     override fun setFeedContent() {
         startActivityDelayed(AlertsActivity::class.java)
@@ -160,5 +180,10 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     override fun initPresenter(presenter: NavigationPresenter) {
         presenter.view = this
         super.initPresenter(presenter)
+    }
+
+    override fun onDestroy() {
+        subscription.unsubscribe()
+        super.onDestroy()
     }
 }

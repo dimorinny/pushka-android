@@ -11,10 +11,6 @@ import ru.nbsp.pushka.presentation.core.base.OneFragmentNavigationActivity
  */
 class SubscriptionsActivity : OneFragmentNavigationActivity() {
 
-    override fun getContentLayout(): Int {
-        return R.layout.activity_one_fragment
-    }
-
     override fun getDrawerItemId(): Int {
         return R.id.drawer_subscriptions
     }

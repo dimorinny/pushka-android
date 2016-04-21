@@ -24,6 +24,6 @@
 
     <include
         android:id="@+id/progress_placeholder"
-        layout="@layout/placeholder_placeholder"/>
+        layout="@layout/placeholder_progress"/>
 
 </FrameLayout>
