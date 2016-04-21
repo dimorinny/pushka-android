@@ -30,6 +30,10 @@ class SubscriptionsPresenter
     override fun onCreate() {
         super.onCreate()
 
+        observeLoadSubscriptionsEvent()
+    }
+
+    private fun observeLoadSubscriptionsEvent() {
         subscription.add(rxBus.events(LoadSubscriptionsEvent::class.java)
                 .flatMap {
                     when (it) {
@@ -71,15 +75,18 @@ class SubscriptionsPresenter
         override fun onError(t: Throwable) {
             t.printStackTrace()
 
-//            view?.disableSwipeRefresh()
+            view?.disableSwipeRefresh()
             if (subscriptions.size == 0) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            // Its workaround. I don't know, how to do it more elegant.
+            this@SubscriptionsPresenter.observeLoadSubscriptionsEvent()
         }
 
         override fun onNext(result: List<PresentationSubscription>) {
             subscriptions = result
-//            view?.disableSwipeRefresh()
+            view?.disableSwipeRefresh()
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setSubscriptions(result)
         }

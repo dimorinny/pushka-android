@@ -10,4 +10,5 @@ import ru.nbsp.pushka.presentation.core.state.State
 interface DevicesView : BaseView {
     fun setState(state: State)
     fun setDevices(devices: List<PresentationDevice>)
+    fun disableSwipeRefresh()
 }

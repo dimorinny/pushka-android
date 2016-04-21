@@ -30,6 +30,10 @@ class AlertsPresenter
 
     override fun onCreate() {
         super.onCreate()
+        observeLoadAlertsEvent()
+    }
+
+    private fun observeLoadAlertsEvent() {
         subscription.add(rxBus.events(LoadAlertsEvent::class.java)
                 .flatMap {
                     when (it) {
@@ -82,6 +86,9 @@ class AlertsPresenter
             if (alerts.size == 0) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            // Its workaround. I don't know, how to do it more elegant.
+            this@AlertsPresenter.observeLoadAlertsEvent()
         }
 
         override fun onNext(result: List<PresentationAlert>) {

@@ -71,6 +71,10 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         emptyButton.setOnClickListener { openCategoriesScreen() }
 
         refreshLayout.setOnRefreshListener { refreshLayout.isRefreshing = false }
+
+        refreshLayout.setColorSchemeResources(R.color.green,
+                R.color.blue,
+                R.color.orange);
     }
 
     override fun initPresenter(presenter: SubscriptionsPresenter) {
@@ -88,6 +92,10 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
         subscriptionsAdapter = SubscriptionsAdapter(iconUtils)
         recyclerView.adapter = subscriptionsAdapter
+    }
+
+    override fun disableSwipeRefresh() {
+        refreshLayout.isRefreshing = false
     }
 
     override fun setSubscriptions(subscriptions: List<PresentationSubscription>) {

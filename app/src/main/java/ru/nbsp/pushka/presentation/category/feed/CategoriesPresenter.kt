@@ -30,6 +30,10 @@ class CategoriesPresenter
     override fun onCreate() {
         super.onCreate()
 
+        observeLoadCategoriesEvent()
+    }
+
+    private fun observeLoadCategoriesEvent() {
         subscription.add(rxBus.events(LoadCategoriesEvent::class.java)
                 .flatMap {
                     when (it) {
@@ -75,13 +79,18 @@ class CategoriesPresenter
         override fun onError(t: Throwable) {
             t.printStackTrace()
 
+            view?.disableSwipeRefresh()
             if (categories.size == 0) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            // Its workaround. I don't know, how to do it more elegant.
+            this@CategoriesPresenter.observeLoadCategoriesEvent()
         }
 
         override fun onNext(result: List<PresentationCategory>) {
             categories = result
+            view?.disableSwipeRefresh()
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setCategories(result)
         }

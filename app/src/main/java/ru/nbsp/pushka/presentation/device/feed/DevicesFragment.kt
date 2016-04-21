@@ -54,7 +54,11 @@ class DevicesFragment : PresentedFragment<DevicesPresenter>(), DevicesView {
     }
 
     private fun initViews() {
-        refreshLayout.setOnRefreshListener { refreshLayout.isRefreshing = false }
+        refreshLayout.setOnRefreshListener { presenter.loadDevicesFromServer() }
+
+        refreshLayout.setColorSchemeResources(R.color.green,
+                R.color.blue,
+                R.color.orange);
     }
 
     override fun initPresenter(presenter: DevicesPresenter) {
@@ -72,6 +76,10 @@ class DevicesFragment : PresentedFragment<DevicesPresenter>(), DevicesView {
 
         devicesAdapter = DevicesAdapter(deviceTokenUtils)
         recyclerView.adapter = devicesAdapter
+    }
+
+    override fun disableSwipeRefresh() {
+        refreshLayout.isRefreshing = false
     }
 
     override fun setDevices(devices: List<PresentationDevice>) {

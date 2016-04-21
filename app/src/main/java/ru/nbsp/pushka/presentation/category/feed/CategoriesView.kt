@@ -11,4 +11,5 @@ interface CategoriesView : BaseView {
     fun setCategories(categories: List<PresentationCategory>)
     fun openCategoryScreen(presentationCategory: PresentationCategory)
     fun setState(state: State)
+    fun disableSwipeRefresh()
 }

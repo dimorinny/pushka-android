@@ -59,10 +59,11 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     }
 
     private fun initViews() {
-        refreshLayout.setOnRefreshListener {
-            presenter.loadCategoriesFromCache()
-            refreshLayout.isRefreshing = false
-        }
+        refreshLayout.setOnRefreshListener { presenter.loadCategoriesFromServer() }
+
+        refreshLayout.setColorSchemeResources(R.color.green,
+                R.color.blue,
+                R.color.orange);
     }
 
     override fun initPresenter(presenter: CategoriesPresenter) {
@@ -84,6 +85,10 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         }
 
         recyclerView.adapter = adapter
+    }
+
+    override fun disableSwipeRefresh() {
+        refreshLayout.isRefreshing = false
     }
 
     override fun setCategories(categories: List<PresentationCategory>) {

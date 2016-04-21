@@ -30,6 +30,10 @@ class DevicesPresenter
     override fun onCreate() {
         super.onCreate()
 
+        observeLoadDevicesEvent()
+    }
+
+    private fun observeLoadDevicesEvent() {
         subscription.add(rxBus.events(LoadDevicesEvent::class.java)
                 .flatMap {
                     when (it) {
@@ -72,15 +76,18 @@ class DevicesPresenter
         override fun onError(t: Throwable) {
             t.printStackTrace()
 
-//            view?.disableSwipeRefresh()
+            view?.disableSwipeRefresh()
             if (devices.size == 0) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            // Its workaround. I don't know, how to do it more elegant.
+            this@DevicesPresenter.observeLoadDevicesEvent()
         }
 
         override fun onNext(result: List<PresentationDevice>) {
             devices = result
-//            view?.disableSwipeRefresh()
+            view?.disableSwipeRefresh()
             view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
             view?.setDevices(result)
         }
