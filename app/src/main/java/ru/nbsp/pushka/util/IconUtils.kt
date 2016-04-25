@@ -17,6 +17,7 @@ class IconUtils @Inject constructor() {
             Pair("geektimes", R.drawable.ic_geektimes_white_36dp),
             Pair("megamozg", R.drawable.ic_megamozg_white_36dp),
             Pair("humor", R.drawable.ic_smile_white_36dp),
+            Pair("livejournal", R.drawable.ic_livejournal_white_36dp),
             Pair("android", R.drawable.ic_android_white_24dp),
             Pair("telegram", R.drawable.ic_telegram_white_24dp),
             Pair("category_news", R.drawable.ic_news_112dp),

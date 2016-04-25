@@ -56,14 +56,14 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
     private fun initViews() {
         text.clearFocus()
         text.setAdapter(adapter)
-        text.textChanges()
+        subscription.add(text.textChanges()
                 .debounce(INPUT_DEBOUNCE, TimeUnit.MILLISECONDS)
                 .map { it.toString() }
                 .filter { !it.isEmpty() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext { progress.visibility = View.VISIBLE }
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe { presenter.loadItems(it) }
+                .subscribe { presenter.loadItems(it) })
     }
 
     private fun initPresenter() {

@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.network.error
 
+import android.util.Log
 import com.github.salomonbrys.kotson.contains
 import com.google.gson.JsonParser
 import okhttp3.Interceptor
@@ -27,6 +28,7 @@ class ErrorHandleInterceptor
 
 
         if (body.contains(ERROR_CODE_KEY) && body.contains(ERROR_MESSAGE_KEY)) {
+            Log.v("Error", bodyString)
             throw ApiErrorException(
                     code = body.get(ERROR_CODE_KEY).asInt,
                     description = body.get(ERROR_MESSAGE_KEY).asString)
