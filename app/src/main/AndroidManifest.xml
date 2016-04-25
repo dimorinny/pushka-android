@@ -65,5 +65,6 @@
         <service android:name=".service.api.ApiSourceService"/>
         <service android:name=".service.api.ApiSubscriptionService"/>
         <service android:name=".service.api.ApiDeviceService"/>
+        <service android:name=".service.application.DataService"/>
     </application>
 </manifest>

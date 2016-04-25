@@ -204,4 +204,12 @@ class DataManager
                     realmProvider.get().copyFromRealm(it)
                 }
     }
+
+    fun clearAll() {
+        clearAlerts()
+        clearCategories()
+        clearDevices()
+        clearSources()
+        clearSubscriptions()
+    }
 }

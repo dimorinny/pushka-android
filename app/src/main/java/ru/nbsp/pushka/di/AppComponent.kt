@@ -27,6 +27,7 @@ import ru.nbsp.pushka.presentation.subscription.params.control.autocomplete.Auto
 import ru.nbsp.pushka.presentation.subscription.subscribe.SubscribeActivity
 import ru.nbsp.pushka.repository.RepositoryModule
 import ru.nbsp.pushka.service.api.*
+import ru.nbsp.pushka.service.application.DataService
 import javax.inject.Singleton
 
 /**
@@ -51,6 +52,7 @@ interface AppComponent {
     fun inject(authService: ApiAuthService)
     fun inject(subscriptionService: ApiSubscriptionService)
     fun inject(deviceService: ApiDeviceService)
+    fun inject(dataService: DataService)
 
     // Interactors
 

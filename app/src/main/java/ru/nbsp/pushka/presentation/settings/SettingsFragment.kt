@@ -1,15 +1,14 @@
 package ru.nbsp.pushka.presentation.settings
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceFragment
 import android.support.v7.app.AlertDialog
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.gcm.manage.GcmManager
+import ru.nbsp.pushka.interactor.app.ApplicationInteractor
 import ru.nbsp.pushka.network.auth.AccountManager
-import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
 
 /**
@@ -24,6 +23,9 @@ class SettingsFragment : PreferenceFragment() {
 
     @Inject
     lateinit var gcmManager: GcmManager
+
+    @Inject
+    lateinit var applicationInteractor: ApplicationInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,13 +67,7 @@ class SettingsFragment : PreferenceFragment() {
         logoutDialog.dismiss()
         accountManager.clear()
         gcmManager.clear()
-        openLoginActivity()
-    }
-
-    private fun openLoginActivity() {
-        val intent = Intent(activity, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        applicationInteractor.logout()
         activity.finish()
     }
 }

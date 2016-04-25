@@ -3,6 +3,7 @@ package ru.nbsp.pushka.service
 import android.content.Context
 import android.content.Intent
 import ru.nbsp.pushka.service.api.*
+import ru.nbsp.pushka.service.application.DataService
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -56,6 +57,12 @@ class ServiceManager
     fun loadDevices() {
         val intent = Intent(context, ApiDeviceService::class.java)
         intent.putExtra(ApiDeviceService.ARG_SERVICE_COMMAND, ApiDeviceService.COMMAND_LOAD_DEVICES)
+        context.startService(intent)
+    }
+
+    fun clearData() {
+        val intent = Intent(context, DataService::class.java)
+        intent.putExtra(DataService.ARG_SERVICE_COMMAND, DataService.COMMAND_CLEAR_ALL)
         context.startService(intent)
     }
 }

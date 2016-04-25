@@ -1,12 +1,17 @@
 package ru.nbsp.pushka.interactor
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractorImpl
+import ru.nbsp.pushka.interactor.app.ApplicationInteractor
+import ru.nbsp.pushka.interactor.app.ApplicationInteractorImpl
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractorImpl
+import ru.nbsp.pushka.interactor.data.DataInteractor
+import ru.nbsp.pushka.interactor.data.DataInteractorImpl
 import ru.nbsp.pushka.interactor.device.ApiDeviceInteractor
 import ru.nbsp.pushka.interactor.device.ApiDeviceInteractorImpl
 import ru.nbsp.pushka.interactor.device.StorageDeviceInteractor
@@ -27,6 +32,7 @@ import ru.nbsp.pushka.mapper.data.subscription.DataSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaDeviceService
 import ru.nbsp.pushka.network.service.PushkaSubscriptionService
+import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.DeviceUtils
 import ru.nbsp.pushka.util.SchedulersUtils
 import javax.inject.Singleton
@@ -84,5 +90,17 @@ class InteractorModule {
     @Provides
     fun provideStorageDeviceInteractor(dataManager: DataManager, dataDeviceMapper: DataDeviceMapper): StorageDeviceInteractor {
         return StorageDeviceInteractorImpl(dataManager, dataDeviceMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApplicationInteractor(context: Context, serviceManager: ServiceManager): ApplicationInteractor {
+        return ApplicationInteractorImpl(context, serviceManager)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDataInteractor(dataManager: DataManager): DataInteractor {
+        return DataInteractorImpl(dataManager)
     }
 }
