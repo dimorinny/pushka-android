@@ -11,4 +11,5 @@ interface SubscriptionsView : BaseView {
     fun setSubscriptions(subscriptions: List<PresentationSubscription>)
     fun setState(state: State)
     fun disableSwipeRefresh()
+    fun openSubscriptionScreen(subscription: PresentationSubscription)
 }

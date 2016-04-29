@@ -20,6 +20,16 @@ class DropdownAdapter(context: Context, layout: Int, items: List<Option>, placeh
         options = listOf(Option(placeholder, null)) + items
     }
 
+    fun getIndexByValue(value: String): Int? {
+        for ((key, option) in options.withIndex()) {
+            if (option.value == value) {
+                return key
+            }
+        }
+
+        return null
+    }
+
     override fun isEnabled(position: Int): Boolean {
         return position != 0
     }

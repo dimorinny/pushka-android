@@ -46,7 +46,13 @@ class DropdownControl(context: Context, values: List<Option>, attrs: AttributeSe
     override fun getValue(): String? = adapter.options[spinner.selectedItemPosition].value
 
     override fun setValue(value: String?) {
-        // Nothing to do here, because spinner save selected item position
+        if (value != null) {
+            val index = adapter.getIndexByValue(value)
+
+            if (index != null) {
+                spinner.setSelection(index)
+            }
+        }
     }
 
     override fun setOnChangeListener(onChangeListener: Control.OnChangeListener) {

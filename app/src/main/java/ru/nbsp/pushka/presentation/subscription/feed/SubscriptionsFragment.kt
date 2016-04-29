@@ -12,9 +12,11 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.category.feed.CategoriesActivity
+import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
+import ru.nbsp.pushka.presentation.subscription.detail.SubscriptionActivity
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
 import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.StringUtils
@@ -65,9 +67,9 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     }
 
     private fun initViews() {
-        emptyTitle.text = stringUtils.getString(R.string.subscription_empty_placeholder_title)
-        emptySubtitle.text = stringUtils.getString(R.string.subscription_empty_placeholder_subtitle)
-        emptyButton.text = stringUtils.getString(R.string.subscription_empty_placeholder_action)
+        emptyTitle.text = stringUtils.getString(R.string.subscriptions_empty_placeholder_title)
+        emptySubtitle.text = stringUtils.getString(R.string.subscriptions_empty_placeholder_subtitle)
+        emptyButton.text = stringUtils.getString(R.string.subscriptions_empty_placeholder_action)
         emptyButton.setOnClickListener { openCategoriesScreen() }
 
         refreshLayout.setOnRefreshListener { refreshLayout.isRefreshing = false }
@@ -91,6 +93,12 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.setState(State.STATE_PROGRESS)
 
         subscriptionsAdapter = SubscriptionsAdapter(iconUtils)
+
+        subscriptionsAdapter.itemClickListener = object : OnItemClickListener {
+            override fun onItemClicked(index: Int, view: View) {
+                presenter.onSubscriptionClicked(index)
+            }
+        }
         recyclerView.adapter = subscriptionsAdapter
     }
 
@@ -104,6 +112,14 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
     override fun setState(state: State) {
         recyclerView.setState(state)
+    }
+
+    override fun openSubscriptionScreen(subscription: PresentationSubscription) {
+        val intent = Intent(activity, SubscriptionActivity::class.java)
+        intent.putExtra(SubscriptionActivity.ARG_SUBSCRIPTION_ID, subscription.id)
+        intent.putExtra(SubscriptionActivity.ARG_SOURCE_ID, subscription.sourceId)
+        intent.putExtra(SubscriptionActivity.ARG_SOURCE_COLOR, subscription.color)
+        activity.startActivity(intent)
     }
 
     private fun openCategoriesScreen() {

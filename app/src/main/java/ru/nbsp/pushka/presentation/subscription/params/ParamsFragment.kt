@@ -32,6 +32,8 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
     lateinit var controlBuilder: ControlBuilder
 
     var paramsToSet: List<PresentationParam>? = null
+    var valuesToSet: Map<String, String?>? = null
+
     var presenterInited = false
 
     val container: ViewGroup by bindView(R.id.params_container)
@@ -53,7 +55,7 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
     @Suppress("UNCHECKED_CAST")
     private fun initValues(savedInstanceState: Bundle?) {
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_VALUES)) {
-            presenter.setValues(savedInstanceState.getSerializable(STATE_VALUES) as Map<String, String?>)
+            setValues(savedInstanceState.getSerializable(STATE_VALUES) as Map<String, String?>)
         }
     }
 
@@ -61,6 +63,10 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
         presenter.view = this
         if (paramsToSet != null) {
             presenter.params = paramsToSet!!
+        }
+
+        if (valuesToSet != null) {
+            presenter.setValues(valuesToSet!!)
         }
         super.initPresenter(presenter)
         presenterInited = true
@@ -72,6 +78,14 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
 
     fun getValues(): HashMap<String, String?> {
         return presenter.getValues()
+    }
+
+    fun setValues(values: Map<String, String?>) {
+        if (!presenterInited) {
+            valuesToSet = values
+        } else {
+            presenter.setValues(values)
+        }
     }
 
     fun setParams(params: List<PresentationParam>) {

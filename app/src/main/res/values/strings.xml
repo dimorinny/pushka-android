@@ -73,7 +73,11 @@
     <string name="alert_empty_placeholder_action">Подписаться</string>
 
     <!-- Subscriptions -->
-    <string name="subscription_empty_placeholder_title">У вас нету подписок</string>
-    <string name="subscription_empty_placeholder_subtitle">Подпишитесь на интересующие вас события</string>
-    <string name="subscription_empty_placeholder_action">Подписаться</string>
+    <string name="subscriptions_empty_placeholder_title">У вас нету подписок</string>
+    <string name="subscriptions_empty_placeholder_subtitle">Подпишитесь на интересующие вас события</string>
+    <string name="subscriptions_empty_placeholder_action">Подписаться</string>
+
+    <!-- Subscription -->
+    <string name="subscription_change">Изменить</string>
+    <string name="subscription_unsubscribe">Отписаться</string>
 </resources>

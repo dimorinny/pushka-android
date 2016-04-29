@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface SubscriptionRepository {
     fun getSubscriptions(): Observable<List<PresentationSubscription>>
+    fun getSubscription(subscriptionId: String): Observable<PresentationSubscription>
 }

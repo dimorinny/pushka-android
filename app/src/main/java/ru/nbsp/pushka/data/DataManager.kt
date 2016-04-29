@@ -169,6 +169,18 @@ class DataManager
         }
     }
 
+    fun getSubscriptionObservable(subscriptionId: String): Observable<DataSubscription> {
+        val result = realmProvider.get().where(DataSubscription::class.java)
+                .equalTo("id", subscriptionId)
+                .findFirst()
+
+        return if (result != null) {
+            result.asObservable<DataSubscription>()
+        } else {
+            Observable.empty()
+        }
+    }
+
     fun clearSubscription(subscriptionId: String) {
         realmProvider.get().executeTransaction {
             val subscription = it.where(DataSubscription::class.java)

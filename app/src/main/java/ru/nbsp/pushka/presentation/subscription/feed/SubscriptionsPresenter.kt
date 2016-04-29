@@ -51,6 +51,10 @@ class SubscriptionsPresenter
         serviceManager.loadSubscriptions()
     }
 
+    fun onSubscriptionClicked(index: Int) {
+        view?.openSubscriptionScreen(subscriptions[index])
+    }
+
     inner class LoadSubscriptionsCacheSubscriber : Subscriber<List<PresentationSubscription>>() {
         override fun onCompleted() {}
 

@@ -23,4 +23,9 @@ class StorageSubscriptionRepository(
                     result
                 }
     }
+
+    override fun getSubscription(subscriptionId: String): Observable<PresentationSubscription> {
+        return dataManager.getSubscriptionObservable(subscriptionId)
+                .map { subscriptionMapper.fromDataSubscription(it) }
+    }
 }

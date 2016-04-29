@@ -60,6 +60,11 @@
             android:name=".presentation.subscription.subscribe.SubscribeActivity"
             android:label="@string/empty"
             />
+        <activity
+            android:name=".presentation.subscription.detail.SubscriptionActivity"
+            android:label="@string/empty"
+            />
+
         <service android:name=".service.api.ApiAuthService"/>
         <service android:name=".service.api.ApiAlertService"/>
         <service android:name=".service.api.ApiSourceService"/>

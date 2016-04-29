@@ -26,4 +26,9 @@ class ApiSubscriptionRepository(
                 }
                 .compose(schedulersUtils.applySchedulers<List<PresentationSubscription>>())
     }
+
+    override fun getSubscription(subscriptionId: String): Observable<PresentationSubscription> {
+        // TODO: implement it
+        return Observable.empty()
+    }
 }
