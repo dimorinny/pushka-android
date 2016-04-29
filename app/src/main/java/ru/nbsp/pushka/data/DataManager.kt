@@ -163,6 +163,22 @@ class DataManager
                 }
     }
 
+    fun putSubscription(subscription: DataSubscription) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(subscription)
+        }
+    }
+
+    fun clearSubscription(subscriptionId: String) {
+        realmProvider.get().executeTransaction {
+            val subscription = it.where(DataSubscription::class.java)
+                    .equalTo("id", subscriptionId)
+                    .findFirst()
+
+            subscription?.removeFromRealm()
+        }
+    }
+
     fun clearSubscriptions() {
         realmProvider.get().executeTransaction {
             it.clear(DataSubscription::class.java)

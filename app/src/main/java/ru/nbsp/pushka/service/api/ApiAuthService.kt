@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.auth.LoginEvent
 import ru.nbsp.pushka.interactor.user.UserInteractor
 import ru.nbsp.pushka.network.auth.Account
 import ru.nbsp.pushka.network.auth.AccountManager
+import ru.nbsp.pushka.service.BaseEventSubscriber
 import ru.nbsp.pushka.util.TimestampUtils
-import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -83,20 +84,14 @@ class ApiAuthService : Service() {
                 .doOnNext {
                     accountManager.setAccount(it)
                 }
-                .subscribe(LoginSubscriber(startId))
-    }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoginEvent.Error(t)
+                    }
 
-    inner class LoginSubscriber(val startId: Int) : Subscriber<Account>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoginEvent.Error(t) as LoginEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(account: Account) {
-            bus.post(LoginEvent.Success() as LoginEvent)
-            stopSelf(startId)
-        }
+                    override fun success(): BaseEvent {
+                        return LoginEvent.Success()
+                    }
+                })
     }
 }

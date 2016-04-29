@@ -6,12 +6,16 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.subscription.LoadSubscriptionsEvent
+import ru.nbsp.pushka.bus.event.subscription.SubscribeEvent
+import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.interactor.subscription.StorageSubscriptionInteractor
-import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
+import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
-import rx.Subscriber
+import ru.nbsp.pushka.service.BaseEventSubscriber
 import rx.subscriptions.CompositeSubscription
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -28,11 +32,17 @@ class ApiSubscriptionService : Service() {
     @Inject
     lateinit var storageSubscriptionInteractor: StorageSubscriptionInteractor
 
+    @Inject
+    lateinit var apiSubscriptionInteractor: ApiSubscriptionInteractor
+
     private val subscription = CompositeSubscription()
 
     companion object {
         const val ARG_SERVICE_COMMAND = "arg_service_command"
+        const val ARG_SOURCE_ID = "arg_source_id"
+        const val ARG_SOURCE_PARAMS = "arg_source_params"
         const val COMMAND_LOAD_SUBSCRIPTIONS = "command_load_subscriptions"
+        const val COMMAND_SUBSCRIBE = "command_subscribe"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -58,9 +68,32 @@ class ApiSubscriptionService : Service() {
             COMMAND_LOAD_SUBSCRIPTIONS -> {
                 handleLoadSubscriptionsCommand(startId)
             }
+            COMMAND_SUBSCRIBE -> {
+                handleSubscribeCommand(intent, startId)
+            }
         }
 
         return Service.START_NOT_STICKY
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun handleSubscribeCommand(intent: Intent, startId: Int) {
+        val sourceId = intent.getStringExtra(ARG_SOURCE_ID)
+        val params = intent.getSerializableExtra(ARG_SOURCE_PARAMS) as HashMap<String, String?>
+
+        apiSubscriptionInteractor.subscribe(SubscribeRequest(sourceId, params))
+                .flatMap {
+                    storageSubscriptionInteractor.saveSubscription(it)
+                }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return SubscribeEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return SubscribeEvent.Success()
+                    }
+                })
     }
 
     private fun handleLoadSubscriptionsCommand(startId: Int) {
@@ -68,20 +101,14 @@ class ApiSubscriptionService : Service() {
                 .flatMap {
                     storageSubscriptionInteractor.saveSubscriptions(it)
                 }
-                .subscribe(LoadSubscriptionsSubscriber(startId))
-    }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadSubscriptionsEvent.Error(t)
+                    }
 
-    inner class LoadSubscriptionsSubscriber(val startId: Int): Subscriber<List<PresentationSubscription>>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadSubscriptionsEvent.Error(t) as LoadSubscriptionsEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(subscriptions: List<PresentationSubscription>) {
-            bus.post(LoadSubscriptionsEvent.Success() as LoadSubscriptionsEvent)
-            stopSelf(startId)
-        }
+                    override fun success(): BaseEvent {
+                        return LoadSubscriptionsEvent.Success()
+                    }
+                })
     }
 }

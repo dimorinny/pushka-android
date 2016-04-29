@@ -17,4 +17,10 @@ class StorageSubscriptionInteractorImpl(
         dataManager.putSubscriptions(subscriptions.map { dataSubscriptionMapper.fromPresentationSubscription(it) })
         return Observable.just(subscriptions)
     }
+
+    override fun saveSubscription(subscription: PresentationSubscription): Observable<PresentationSubscription> {
+        dataManager.clearSubscription(subscription.id)
+        dataManager.putSubscription(dataSubscriptionMapper.fromPresentationSubscription(subscription))
+        return Observable.just(subscription)
+    }
 }

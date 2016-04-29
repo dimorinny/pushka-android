@@ -31,6 +31,10 @@ class SourcesPresenter
     override fun onCreate() {
         super.onCreate()
 
+        observeLoadSources()
+    }
+
+    private fun observeLoadSources() {
         subscription.add(rxBus.events(LoadSourcesEvent::class.java)
                 .flatMap {
                     when (it) {
@@ -79,6 +83,9 @@ class SourcesPresenter
             if (sources.size == 0) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            // Its workaround. I don't know, how to do it more elegant.
+            this@SourcesPresenter.observeLoadSources()
         }
 
         override fun onNext(result: List<PresentationSource>) {

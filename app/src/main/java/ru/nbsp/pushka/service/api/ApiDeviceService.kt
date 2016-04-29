@@ -6,10 +6,12 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.device.LoadDevicesEvent
 import ru.nbsp.pushka.interactor.device.StorageDeviceInteractor
 import ru.nbsp.pushka.presentation.core.model.device.PresentationDevice
 import ru.nbsp.pushka.repository.device.DeviceRepository
+import ru.nbsp.pushka.service.BaseEventSubscriber
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -69,20 +71,14 @@ class ApiDeviceService : Service() {
                 .flatMap {
                     storageDeviceInteractor.saveDevices(it)
                 }
-                .subscribe(LoadDevicesSubscriber(startId))
-    }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadDevicesEvent.Error(t)
+                    }
 
-    inner class LoadDevicesSubscriber(val startId: Int) : Subscriber<List<PresentationDevice>>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadDevicesEvent.Error(t) as LoadDevicesEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(alerts: List<PresentationDevice>) {
-            bus.post(LoadDevicesEvent.Success() as LoadDevicesEvent)
-            stopSelf(startId)
-        }
+                    override fun success(): BaseEvent {
+                        return LoadDevicesEvent.Success()
+                    }
+                })
     }
 }

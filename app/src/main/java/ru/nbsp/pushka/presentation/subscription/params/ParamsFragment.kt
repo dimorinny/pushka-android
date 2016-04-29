@@ -13,6 +13,7 @@ import ru.nbsp.pushka.presentation.subscription.params.builders.ControlBuilder
 import ru.nbsp.pushka.presentation.subscription.params.control.Control
 import ru.nbsp.pushka.util.bindView
 import java.io.Serializable
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -69,7 +70,7 @@ class ParamsFragment : PresentedFragment<ParamsPresenter>(), ParamsView {
         return presenter.validate()
     }
 
-    fun getValues(): Map<String, String?> {
+    fun getValues(): HashMap<String, String?> {
         return presenter.getValues()
     }
 

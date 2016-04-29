@@ -6,15 +6,14 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.source.LoadCategoriesEvent
 import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
-import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
-import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.repository.category.CategoriesRepository
 import ru.nbsp.pushka.repository.source.SourcesRepository
-import rx.Subscriber
+import ru.nbsp.pushka.service.BaseEventSubscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -83,7 +82,15 @@ class ApiSourceService : Service() {
                 .flatMap {
                     storageCategoryInteractor.saveCategories(it)
                 }
-                .subscribe(LoadCategoriesSubscriber(startId))
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadCategoriesEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return LoadCategoriesEvent.Success()
+                    }
+                })
     }
 
     private fun handleLoadSourcesCommand(intent: Intent, startId: Int) {
@@ -93,34 +100,14 @@ class ApiSourceService : Service() {
                 .flatMap {
                     storageSourcesInteractor.saveSources(it, categoryId)
                 }
-                .subscribe(LoadSourcesSubscriber(startId))
-    }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadSourcesEvent.Error(t)
+                    }
 
-    inner class LoadCategoriesSubscriber(val startId: Int) : Subscriber<List<PresentationCategory>>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadCategoriesEvent.Error(t) as LoadCategoriesEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(categories: List<PresentationCategory>) {
-            bus.post(LoadCategoriesEvent.Success() as LoadCategoriesEvent)
-            stopSelf(startId)
-        }
-    }
-
-    inner class LoadSourcesSubscriber(val startId: Int) : Subscriber<List<PresentationSource>>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadSourcesEvent.Error(t) as LoadSourcesEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(sources: List<PresentationSource>) {
-            bus.post(LoadSourcesEvent.Success() as LoadSourcesEvent)
-            stopSelf(startId)
-        }
+                    override fun success(): BaseEvent {
+                        return LoadSourcesEvent.Success()
+                    }
+                })
     }
 }

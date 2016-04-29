@@ -29,6 +29,7 @@ import ru.nbsp.pushka.mapper.data.device.DataDeviceMapper
 import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
 import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
 import ru.nbsp.pushka.mapper.data.subscription.DataSubscriptionMapper
+import ru.nbsp.pushka.mapper.presentation.subscription.PresentationSubscriptionMapper
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaDeviceService
 import ru.nbsp.pushka.network.service.PushkaSubscriptionService
@@ -52,8 +53,8 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideApiSubscriptionInteractor(api: PushkaSubscriptionService, schedulersUtils: SchedulersUtils): ApiSubscriptionInteractor {
-        return ApiSubscriptionInteractorImpl(api, schedulersUtils)
+    fun provideApiSubscriptionInteractor(api: PushkaSubscriptionService, presentationSubscriptionMapper: PresentationSubscriptionMapper, schedulersUtils: SchedulersUtils): ApiSubscriptionInteractor {
+        return ApiSubscriptionInteractorImpl(api, presentationSubscriptionMapper, schedulersUtils)
     }
 
     @Singleton

@@ -100,7 +100,6 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
     override fun setSubscriptions(subscriptions: List<PresentationSubscription>) {
         subscriptionsAdapter.subscriptions = subscriptions
-        recyclerView.setState(if (subscriptions.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
     }
 
     override fun setState(state: State) {

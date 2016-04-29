@@ -6,12 +6,12 @@ import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.alert.LoadAlertEvent
 import ru.nbsp.pushka.bus.event.alert.LoadAlertsEvent
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
-import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.repository.alert.AlertsRepository
-import rx.Subscriber
+import ru.nbsp.pushka.service.BaseEventSubscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -76,7 +76,15 @@ class ApiAlertService : Service() {
                 .flatMap {
                     storageAlertInteractor.saveAlert(it)
                 }
-                .subscribe(LoadAlertSubscriber(startId))
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadAlertEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return LoadAlertEvent.Success(alertId)
+                    }
+                })
     }
 
     private fun handleLoadAlertsCommand(startId: Int) {
@@ -84,34 +92,14 @@ class ApiAlertService : Service() {
                 .flatMap {
                     storageAlertInteractor.saveAlerts(it)
                 }
-                .subscribe(LoadAlertsSubscriber(startId))
-    }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadAlertsEvent.Error(t)
+                    }
 
-    inner class LoadAlertsSubscriber(val startId: Int) : Subscriber<List<PresentationAlert>>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadAlertsEvent.Error(t) as LoadAlertsEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(alerts: List<PresentationAlert>) {
-            bus.post(LoadAlertsEvent.Success() as LoadAlertsEvent)
-            stopSelf(startId)
-        }
-    }
-
-    inner class LoadAlertSubscriber(val startId: Int) : Subscriber<PresentationAlert>() {
-        override fun onCompleted() {}
-
-        override fun onError(t: Throwable) {
-            bus.post(LoadAlertEvent.Error(t) as LoadAlertEvent)
-            stopSelf(startId)
-        }
-
-        override fun onNext(alert: PresentationAlert) {
-            bus.post(LoadAlertEvent.Success(alert.id) as LoadAlertEvent)
-            stopSelf(startId)
-        }
+                    override fun success(): BaseEvent {
+                        return LoadAlertsEvent.Success()
+                    }
+                })
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import ru.nbsp.pushka.service.api.*
 import ru.nbsp.pushka.service.application.DataService
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -51,6 +52,14 @@ class ServiceManager
     fun loadSubscriptions() {
         val intent = Intent(context, ApiSubscriptionService::class.java)
         intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_LOAD_SUBSCRIPTIONS)
+        context.startService(intent)
+    }
+
+    fun subscribe(sourceId: String, params: HashMap<String, String?>) {
+        val intent = Intent(context, ApiSubscriptionService::class.java)
+        intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_SUBSCRIBE)
+        intent.putExtra(ApiSubscriptionService.ARG_SOURCE_ID, sourceId)
+        intent.putExtra(ApiSubscriptionService.ARG_SOURCE_PARAMS, params)
         context.startService(intent)
     }
 
