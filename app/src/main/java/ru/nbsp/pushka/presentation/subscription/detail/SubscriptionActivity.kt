@@ -80,6 +80,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
         initViews()
 
         presenter.loadSourceAndSubscriptionFromCache(sourceId, subscriptionId)
+        presenter.loadSourceAndSubscriptionFromNetwork(sourceId, subscriptionId)
     }
 
     private fun initFragment() {

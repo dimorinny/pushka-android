@@ -55,6 +55,21 @@ class ServiceManager
         context.startService(intent)
     }
 
+    fun loadSubscription(subscriptionId: String) {
+        val intent = Intent(context, ApiSubscriptionService::class.java)
+        intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_LOAD_SUBSCRIPTION)
+        intent.putExtra(ApiSubscriptionService.ARG_SUBSCRIPTION_ID, subscriptionId)
+        context.startService(intent)
+    }
+
+    fun loadSourceAndSubscription(sourceId: String, subscriptionId: String) {
+        val intent = Intent(context, ApiSubscriptionService::class.java)
+        intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_LOAD_SOURCE_AND_SUBSCRIPTION)
+        intent.putExtra(ApiSubscriptionService.ARG_SOURCE_ID, sourceId)
+        intent.putExtra(ApiSubscriptionService.ARG_SUBSCRIPTION_ID, subscriptionId)
+        context.startService(intent)
+    }
+
     fun subscribe(sourceId: String, params: HashMap<String, String?>) {
         val intent = Intent(context, ApiSubscriptionService::class.java)
         intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_SUBSCRIBE)

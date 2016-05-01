@@ -2,13 +2,16 @@ package ru.nbsp.pushka.presentation.subscription.detail
 
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
 import ru.nbsp.pushka.service.ServiceManager
+import rx.Observable
 import rx.Subscriber
+import rx.functions.Action1
 import rx.subscriptions.CompositeSubscription
 import java.util.*
 import javax.inject.Inject
@@ -19,7 +22,7 @@ import javax.inject.Inject
 class SubscriptionPresenter
         @Inject constructor(
                 @StorageRepository val sourcesRepository: SourcesRepository,
-                @StorageRepository val subscriptionRepository: SubscriptionRepository,
+                @StorageRepository val storageSubscriptionRepository: SubscriptionRepository,
                 val rxBus: RxBus,
                 val serviceManager: ServiceManager): BasePresenter {
 
@@ -28,25 +31,56 @@ class SubscriptionPresenter
     var subscription: PresentationSubscription? = null
     val compositeSubscription: CompositeSubscription = CompositeSubscription()
 
-    fun loadSourceAndSubscriptionFromCache(sourceId: String, subscriptionId: String) {
-        compositeSubscription.add(sourcesRepository.getSource(sourceId)
-                .doOnNext {
-                    if (it != source) {
-                        if (it.params.size != 0) {
-                            view?.setParams(it.params)
-                        }
-                    }
+    override fun onCreate() {
+        super.onCreate()
 
-                    source = it
+        observeLoadSourceAndSubscriptionEvent()
+    }
+
+    private fun observeLoadSourceAndSubscriptionEvent() {
+        compositeSubscription.add(rxBus.events(LoadSourceAndSubscriptionEvent::class.java)
+                .flatMap {
+                    when (it) {
+                        is LoadSourceAndSubscriptionEvent.Success -> loadSourceAndSubscriptionFromCacheObservable(it.sourceId, it.subscriptionId)
+                        is LoadSourceAndSubscriptionEvent.Error -> Observable.error(it.t)
+                    }
                 }
-                .flatMap { subscriptionRepository.getSubscription(subscriptionId) }
                 .subscribe(LoadSubscriptionSubscriber()))
     }
 
+    fun loadSourceAndSubscriptionFromNetwork(sourceId: String, subscriptionId: String) {
+        serviceManager.loadSourceAndSubscription(sourceId, subscriptionId)
+    }
+
+    fun loadSourceAndSubscriptionFromCache(sourceId: String, subscriptionId: String) {
+        compositeSubscription.add(loadSourceAndSubscriptionFromCacheObservable(sourceId, subscriptionId)
+                .subscribe(LoadSubscriptionSubscriber()))
+    }
+
+    private fun loadSourceAndSubscriptionFromCacheObservable(sourceId: String,
+            subscriptionId: String): Observable<PresentationSubscription> {
+
+        return sourcesRepository.getSource(sourceId)
+                .doOnNext(SourceLoadedAction())
+                .flatMap { storageSubscriptionRepository.getSubscription(subscriptionId) }
+    }
+
     fun subscribeButtonClicked(params: HashMap<String, String?>) {
-        if (view!!.validateFields()) {
-            view?.showUnsubscribeProgressDialog()
-            serviceManager.subscribe(source!!.id, params)
+//        if (view!!.validateFields()) {
+//            view?.showUnsubscribeProgressDialog()
+//            serviceManager.subscribe(source!!.id, params)
+//        }
+    }
+
+    inner class SourceLoadedAction() : Action1<PresentationSource> {
+        override fun call(result: PresentationSource) {
+            if (result != source) {
+                if (result.params.size != 0) {
+                    view?.setParams(result.params)
+                }
+            }
+
+            source = result
         }
     }
 

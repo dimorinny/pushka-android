@@ -96,18 +96,6 @@ class DataManager
                 }
     }
 
-    fun getSourceObservable(sourceId: String): Observable<DataSource> {
-        val result = realmProvider.get().where(DataSource::class.java)
-                .equalTo("id", sourceId)
-                .findFirst()
-
-        return if (result != null) {
-            result.asObservable<DataSource>()
-        } else {
-            Observable.empty()
-        }
-    }
-
     fun clearSources() {
         realmProvider.get().executeTransaction {
             it.clear(DataSource::class.java)
@@ -139,6 +127,34 @@ class DataManager
     fun putSources(sources: List<DataSource>) {
         realmProvider.get().executeTransaction {
             it.copyToRealm(sources)
+        }
+    }
+
+    fun putSource(source: DataSource) {
+        realmProvider.get().executeTransaction {
+            it.copyToRealm(source)
+        }
+    }
+
+    fun clearSource(sourceId: String) {
+        realmProvider.get().executeTransaction {
+            val subscription = it.where(DataSource::class.java)
+                    .equalTo("id", sourceId)
+                    .findFirst()
+
+            subscription?.removeFromRealm()
+        }
+    }
+
+    fun getSourceObservable(sourceId: String): Observable<DataSource> {
+        val result = realmProvider.get().where(DataSource::class.java)
+                .equalTo("id", sourceId)
+                .findFirst()
+
+        return if (result != null) {
+            result.asObservable()
+        } else {
+            Observable.empty()
         }
     }
 

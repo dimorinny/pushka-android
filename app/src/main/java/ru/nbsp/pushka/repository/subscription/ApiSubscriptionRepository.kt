@@ -28,7 +28,8 @@ class ApiSubscriptionRepository(
     }
 
     override fun getSubscription(subscriptionId: String): Observable<PresentationSubscription> {
-        // TODO: implement it
-        return Observable.empty()
+        return apiPushka.getSubscription(subscriptionId)
+                .map { subscriptionMapper.fromNetworkSubscription(it.subscription) }
+                .compose(schedulersUtils.applySchedulers<PresentationSubscription>())
     }
 }

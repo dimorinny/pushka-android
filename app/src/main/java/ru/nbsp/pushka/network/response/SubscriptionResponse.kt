@@ -6,6 +6,6 @@ import ru.nbsp.pushka.network.model.subscription.NetworkSubscription
 /**
  * Created by Dimorinny on 27.04.16.
  */
-data class SubscribeResponse(
+data class SubscriptionResponse(
         @SerializedName("subscription") val subscription: NetworkSubscription
 )

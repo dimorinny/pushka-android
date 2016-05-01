@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface StorageSourceInteractor {
     fun saveSources(sources: List<PresentationSource>, categoryId: String): Observable<List<PresentationSource>>
+    fun saveSource(source: PresentationSource): Observable<PresentationSource>
 }

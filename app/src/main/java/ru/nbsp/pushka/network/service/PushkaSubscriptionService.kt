@@ -3,7 +3,7 @@ package ru.nbsp.pushka.network.service
 import retrofit2.http.*
 import ru.nbsp.pushka.network.request.SubscribeRequest
 import ru.nbsp.pushka.network.response.ListResponse
-import ru.nbsp.pushka.network.response.SubscribeResponse
+import ru.nbsp.pushka.network.response.SubscriptionResponse
 import ru.nbsp.pushka.network.response.SubscriptionsResponse
 import rx.Observable
 
@@ -12,10 +12,13 @@ import rx.Observable
  */
 interface  PushkaSubscriptionService {
     @POST("subscription/")
-    fun subscribe(@Body subscribeRequest: SubscribeRequest): Observable<SubscribeResponse>
+    fun subscribe(@Body subscribeRequest: SubscribeRequest): Observable<SubscriptionResponse>
 
     @GET("subscription/")
     fun getSubscriptions(): Observable<SubscriptionsResponse>
+
+    @GET("subscription/{id}")
+    fun getSubscription(@Path("id") subscriptionId: String): Observable<SubscriptionResponse>
 
     @GET("list/{source_id}/{list_id}")
     fun getListItems(@Path("source_id") sourceId: String,

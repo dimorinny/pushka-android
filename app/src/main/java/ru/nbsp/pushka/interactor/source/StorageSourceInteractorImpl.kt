@@ -16,4 +16,10 @@ class StorageSourceInteractorImpl(val dataManager: DataManager,
         dataManager.putSources(sources.map { dataSourceMapper.fromPresentationSource(it) })
         return Observable.just(sources)
     }
+
+    override fun saveSource(source: PresentationSource): Observable<PresentationSource> {
+        dataManager.clearSource(source.id)
+        dataManager.putSource(dataSourceMapper.fromPresentationSource(source))
+        return Observable.just(source)
+    }
 }

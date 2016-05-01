@@ -29,6 +29,8 @@ class ServerSourcesRepository(
     }
 
     override fun getSource(sourceId: String): Observable<PresentationSource> {
-        throw UnsupportedOperationException()
+        return apiPushka.getSource(sourceId)
+            .map { sourceMapper.fromNetworkSource(it.source) }
+            .compose(schedulersUtils.applySchedulers<PresentationSource>())
     }
 }
