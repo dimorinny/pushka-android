@@ -55,6 +55,12 @@ class SubscriptionsPresenter
         view?.openSubscriptionScreen(subscriptions[index])
     }
 
+    fun onSearchQueryChanged(query: String) {
+        subscription.add(storageSubscriptionsRepository
+                .getSubscriptionsWithFilter(query)
+                .subscribe(LoadSubscriptionsCacheSubscriber()))
+    }
+
     inner class LoadSubscriptionsCacheSubscriber : Subscriber<List<PresentationSubscription>>() {
         override fun onCompleted() {}
 

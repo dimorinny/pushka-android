@@ -23,6 +23,7 @@
     <color name="white">#FFF</color>
     <color name="nearly_white">#FAFAFA</color>
     <color name="grey">#757575</color>
+    <color name="light_grey">#858585</color>
     <color name="black">#000</color>
     <color name="transparent">#00000000</color>
     <color name="compatibility_pressed_color">#1a000000</color>

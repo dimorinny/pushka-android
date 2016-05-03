@@ -14,7 +14,7 @@
 
         <include layout="@layout/toolbar"/>
 
-        <include layout="@layout/item_connection_indecator"/>
+        <include layout="@layout/item_connection_indicator"/>
 
         <FrameLayout
             android:id="@+id/main_container"

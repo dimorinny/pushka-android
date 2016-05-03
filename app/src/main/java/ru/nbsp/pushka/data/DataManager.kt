@@ -228,6 +228,20 @@ class DataManager
                 }
     }
 
+    fun getSubscriptionsWithFilterObservable(query: String): Observable<List<DataSubscription>> {
+        return realmProvider.get().where(DataSubscription::class.java)
+                .beginGroup()
+                    .contains("title", query)
+                    .or()
+                    .contains("sourceTitle", query)
+                .endGroup()
+                .findAll()
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
+    }
+
     fun clearDevices() {
         realmProvider.get().executeTransaction {
             it.clear(DataDevice::class.java)

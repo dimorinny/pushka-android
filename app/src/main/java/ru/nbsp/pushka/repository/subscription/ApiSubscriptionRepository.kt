@@ -32,4 +32,8 @@ class ApiSubscriptionRepository(
                 .map { subscriptionMapper.fromNetworkSubscription(it.subscription) }
                 .compose(schedulersUtils.applySchedulers<PresentationSubscription>())
     }
+
+    override fun getSubscriptionsWithFilter(query: String): Observable<List<PresentationSubscription>> {
+        throw UnsupportedOperationException()
+    }
 }

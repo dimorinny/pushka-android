@@ -127,4 +127,8 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         val intent = Intent(activity, CategoriesActivity::class.java)
         activity.startActivity(intent)
     }
+
+    fun onSearchQueryChanged(query: String) {
+        presenter.onSearchQueryChanged(query)
+    }
 }

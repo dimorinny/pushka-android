@@ -73,6 +73,7 @@ dependencies {
     compile 'com.github.salomonbrys.kotson:kotson:2.1.0'
 
     // View
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'de.hdodenhof:circleimageview:2.0.0'
