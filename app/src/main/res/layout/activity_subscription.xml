@@ -9,200 +9,223 @@
 
     <include layout="@layout/toolbar"/>
 
-    <ScrollView
+    <ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
+        android:id="@+id/subscription_state_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             >
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
+                android:id="@+id/subscription_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="0dp"
+                android:visibility="gone"
+                android:orientation="vertical"
                 >
 
-                <LinearLayout
-                    android:id="@+id/source_container"
-                    android:orientation="horizontal"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardCornerRadius="0dp"
+                    >
 
-                    <include
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="16dp"
-                        android:layout_gravity="center"
-                        layout="@layout/item_icon"
-                        />
+                    <LinearLayout
+                        android:id="@+id/source_container"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_margin="16dp"
+                            android:layout_gravity="center"
+                            layout="@layout/item_icon"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginEnd="16dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/subscription_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:textSize="18sp"
+                                android:textColor="@color/colorPrimaryText"
+                                />
+
+                            <TextView
+                                android:id="@+id/subscription_subtitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorSecondaryText"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardCornerRadius="0dp"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginEnd="16dp"
                         >
 
-                        <TextView
-                            android:id="@+id/subscription_title"
+                        <LinearLayout
+                            android:id="@+id/subscribe_with_sound_container"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:textSize="18sp"
-                            android:textColor="@color/colorPrimaryText"
+                            android:orientation="horizontal"
+                            android:clickable="true"
+                            android:background="@drawable/bg_clickable"
+                            >
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/colorPrimaryText"
+                                android:singleLine="true"
+                                android:layout_margin="16dp"
+                                android:textSize="16sp"
+                                android:text="@string/subscribe_with_sound"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/subscribe_with_sound_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginLeft="16dp"
+                                />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider"
                             />
 
-                        <TextView
-                            android:id="@+id/subscription_subtitle"
+                        <LinearLayout
+                            android:id="@+id/subscribe_with_alert_container"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorSecondaryText"
-                            />
+                            android:orientation="horizontal"
+                            android:clickable="true"
+                            android:background="@drawable/bg_clickable"
+                            >
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/colorPrimaryText"
+                                android:singleLine="true"
+                                android:layout_margin="16dp"
+                                android:textSize="16sp"
+                                android:text="@string/subscribe_with_alert"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/subscribe_with_alert_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginLeft="16dp"
+                                />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
 
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="0dp"
-                >
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="4dp"
+                    card_view:cardBackgroundColor="@color/white"
+                    card_view:cardCornerRadius="0dp"
                     >
 
                     <LinearLayout
-                        android:id="@+id/subscribe_with_sound_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:clickable="true"
-                        android:background="@drawable/bg_clickable"
                         >
 
-                        <TextView
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/colorPrimaryText"
-                            android:singleLine="true"
-                            android:layout_margin="16dp"
-                            android:textSize="16sp"
-                            android:text="@string/subscribe_with_sound"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/subscribe_with_sound_checkbox"
+                        <Button
+                            android:id="@+id/change_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginLeft="16dp"
-                            />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorDivider"
-                        />
-
-                    <LinearLayout
-                        android:id="@+id/subscribe_with_alert_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:clickable="true"
-                        android:background="@drawable/bg_clickable"
-                        >
-
-                        <TextView
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/colorPrimaryText"
-                            android:singleLine="true"
-                            android:layout_margin="16dp"
-                            android:textSize="16sp"
-                            android:text="@string/subscribe_with_alert"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginRight="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:textColor="?attr/colorPrimary"
+                            android:text="@string/subscription_change"
+                            style="?android:attr/borderlessButtonStyle"
                             />
 
-                        <CheckBox
-                            android:id="@+id/subscribe_with_alert_checkbox"
+                        <Button
+                            android:id="@+id/unsubscribe_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:textColor="@color/red"
+                            android:text="@string/subscription_unsubscribe"
+                            style="?android:attr/borderlessButtonStyle"
                             />
                     </LinearLayout>
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
 
-            </android.support.v7.widget.CardView>
+        <include
+            android:id="@+id/empty_placeholder"
+            layout="@layout/placeholder_empty"/>
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="4dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="0dp"
-                >
+        <include
+            android:id="@+id/error_placeholder"
+            layout="@layout/placeholder_error"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+        <include
+            android:id="@+id/progress_placeholder"
+            layout="@layout/placeholder_progress"/>
 
-                    <Button
-                        android:id="@+id/change_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginRight="3dp"
-                        android:layout_marginEnd="3dp"
-                        android:textColor="?attr/colorPrimary"
-                        android:text="@string/subscription_change"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
-
-                    <Button
-                        android:id="@+id/unsubscribe_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginEnd="6dp"
-                        android:textColor="@color/red"
-                        android:text="@string/subscription_unsubscribe"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+    </ru.nbsp.pushka.presentation.core.widget.StateFrameLayout>
 </LinearLayout>

@@ -20,6 +20,8 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
+import ru.nbsp.pushka.presentation.core.state.State
+import ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
 import ru.nbsp.pushka.util.ColorUtils
 import ru.nbsp.pushka.util.IconUtils
@@ -34,6 +36,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     companion object {
         const val ARG_SOURCE_ID = "arg_source"
         const val ARG_SUBSCRIPTION_ID = "arg_subscription_id"
+        const val ARG_SUBSCRIPTION_TITLE ="arg_subscription_title"
         const val ARG_SOURCE_COLOR = "arg_source_color"
     }
 
@@ -49,13 +52,20 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     lateinit var fragment: ParamsFragment
     lateinit var sourceId: String
     lateinit var subscriptionId: String
+    lateinit var subscriptionTitle: String
+    lateinit var subscription: String
     lateinit var sourceColor: String
 
     val unsubscribeProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     val changeSubscriptionProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
 
-    val subscriptionTitle: TextView by bindView(R.id.subscription_title)
-    val subscriptionSubtitle: TextView by bindView(R.id.subscription_subtitle)
+    val errorPlaceholder: View by bindView(R.id.error_placeholder)
+    val progressPlaceholder: View by bindView(R.id.progress_placeholder)
+    val subscriptionStateLayout: StateFrameLayout by bindView(R.id.subscription_state_layout)
+    val subscriptionContainer: ViewGroup by bindView(R.id.subscription_container)
+
+    val subscriptionTitleView: TextView by bindView(R.id.subscription_title)
+    val subscriptionSubtitleView: TextView by bindView(R.id.subscription_subtitle)
     val icon: ImageView by bindView(R.id.item_icon)
     val iconBackground: View by bindView(R.id.item_icon_background)
     val changeButton: Button by bindView(R.id.change_button)
@@ -73,6 +83,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
         BaseApplication.graph.inject(this)
 
         initArgs()
+        initStateLayout()
         initToolbar()
         initColors()
         initFragment()
@@ -96,8 +107,17 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
         fragment = cachedFragment as ParamsFragment
     }
 
+    private fun initStateLayout() {
+        subscriptionStateLayout.setNormalView(subscriptionContainer)
+        subscriptionStateLayout.setErrorView(errorPlaceholder)
+        subscriptionStateLayout.setProgressView(progressPlaceholder)
+        subscriptionStateLayout.setState(State.STATE_PROGRESS)
+    }
+
     private fun initViews() {
+        title = subscriptionTitle
         unsubscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
+
         changeButton.setOnClickListener {
             presenter.subscribeButtonClicked(fragment.getValues())
         }
@@ -115,6 +135,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
         sourceId = intent.extras.getString(ARG_SOURCE_ID)
         sourceColor = intent.extras.getString(ARG_SOURCE_COLOR)
         subscriptionId = intent.extras.getString(ARG_SUBSCRIPTION_ID)
+        subscriptionTitle = intent.extras.getString(ARG_SUBSCRIPTION_TITLE)
     }
 
     private fun initColors() {
@@ -125,12 +146,16 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     }
 
     override fun setSubscriptionData(subscription: PresentationSubscription) {
-        subscriptionTitle.text = subscription.title
-        subscriptionSubtitle.text = subscription.sourceTitle
+        subscriptionTitleView.text = subscription.title
+        subscriptionSubtitleView.text = subscription.sourceTitle
         fragment.setValues(subscription.values)
         (iconBackground.background as GradientDrawable)
                 .setColor(Color.parseColor(subscription.color))
         icon.setImageResource(iconUtils.getIcon(subscription.icon))
+    }
+
+    override fun setState(state: State) {
+        subscriptionStateLayout.setState(state)
     }
 
     override fun validateFields(): Boolean {

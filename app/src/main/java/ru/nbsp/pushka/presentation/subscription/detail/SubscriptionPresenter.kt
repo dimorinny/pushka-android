@@ -6,6 +6,7 @@ import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
 import ru.nbsp.pushka.service.ServiceManager
@@ -41,11 +42,14 @@ class SubscriptionPresenter
         compositeSubscription.add(rxBus.events(LoadSourceAndSubscriptionEvent::class.java)
                 .flatMap {
                     when (it) {
-                        is LoadSourceAndSubscriptionEvent.Success -> loadSourceAndSubscriptionFromCacheObservable(it.sourceId, it.subscriptionId)
-                        is LoadSourceAndSubscriptionEvent.Error -> Observable.error(it.t)
+                        is LoadSourceAndSubscriptionEvent.Success ->
+                            loadSourceAndSubscriptionFromCacheObservable(it.sourceId, it.subscriptionId)
+
+                        is LoadSourceAndSubscriptionEvent.Error ->
+                            Observable.error(it.t)
                     }
                 }
-                .subscribe(LoadSubscriptionSubscriber()))
+                .subscribe(LoadSubscriptionNetworkSubscriber()))
     }
 
     fun loadSourceAndSubscriptionFromNetwork(sourceId: String, subscriptionId: String) {
@@ -54,7 +58,7 @@ class SubscriptionPresenter
 
     fun loadSourceAndSubscriptionFromCache(sourceId: String, subscriptionId: String) {
         compositeSubscription.add(loadSourceAndSubscriptionFromCacheObservable(sourceId, subscriptionId)
-                .subscribe(LoadSubscriptionSubscriber()))
+                .subscribe(LoadSubscriptionCacheSubscriber()))
     }
 
     private fun loadSourceAndSubscriptionFromCacheObservable(sourceId: String,
@@ -84,7 +88,7 @@ class SubscriptionPresenter
         }
     }
 
-    inner class LoadSubscriptionSubscriber : Subscriber<PresentationSubscription>() {
+    inner class LoadSubscriptionCacheSubscriber : Subscriber<PresentationSubscription>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
@@ -92,6 +96,31 @@ class SubscriptionPresenter
         }
 
         override fun onNext(result: PresentationSubscription) {
+            view?.setState(State.STATE_NORMAL)
+
+            if (result != subscription) {
+                view?.setSubscriptionData(result)
+                view?.setTitle(result.title)
+            }
+
+            subscription = result
+        }
+    }
+
+    inner class LoadSubscriptionNetworkSubscriber : Subscriber<PresentationSubscription>() {
+        override fun onCompleted() {}
+
+        override fun onError(t: Throwable) {
+            t.printStackTrace()
+
+            if (subscription == null) {
+                view?.setState(State.STATE_ERROR)
+            }
+        }
+
+        override fun onNext(result: PresentationSubscription) {
+            view?.setState(State.STATE_NORMAL)
+
             if (result != subscription) {
                 view?.setSubscriptionData(result)
                 view?.setTitle(result.title)
