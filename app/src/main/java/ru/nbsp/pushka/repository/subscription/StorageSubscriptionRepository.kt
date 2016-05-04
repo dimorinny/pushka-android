@@ -25,7 +25,7 @@ class StorageSubscriptionRepository(
     }
 
     override fun getSubscriptionsWithFilter(query: String): Observable<List<PresentationSubscription>> {
-        return dataManager.getSubscriptionsWithFilterObservable(query)
+        return dataManager.getSubscriptionsWithFilter(query)
                 .map {
                     var result = ArrayList<PresentationSubscription>()
                     for (alert in it) {

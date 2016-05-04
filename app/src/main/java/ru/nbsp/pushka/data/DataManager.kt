@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.data
 
-import io.realm.Case
 import io.realm.Realm
 import io.realm.Sort
 import ru.nbsp.pushka.data.model.alert.DataAlert
@@ -65,15 +64,17 @@ class DataManager
         }
     }
 
-    fun getAlertsWithFilterObservable(query: String): Observable<List<DataAlert>> {
+    fun getAlertsWithFilter(query: String): Observable<List<DataAlert>> {
+        // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
+        // For more information look https://realm.io/docs/java/latest/#current-limitations
+
         return realmProvider.get().where(DataAlert::class.java)
-                .beginGroup()
-                    .contains("title", query, Case.INSENSITIVE)
-                    .or()
-                    .contains("sourceTitle", query, Case.INSENSITIVE)
-                .endGroup()
                 .findAllSorted("date", Sort.DESCENDING)
                 .asObservable()
+                .first()
+                .flatMapIterable { it }
+                .filter { it.title.contains(query, true) || it.sourceTitle.contains(query, true) }
+                .toList()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
@@ -243,15 +244,17 @@ class DataManager
                 }
     }
 
-    fun getSubscriptionsWithFilterObservable(query: String): Observable<List<DataSubscription>> {
+    fun getSubscriptionsWithFilter(query: String): Observable<List<DataSubscription>> {
+        // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
+        // For more information look https://realm.io/docs/java/latest/#current-limitations
+
         return realmProvider.get().where(DataSubscription::class.java)
-                .beginGroup()
-                    .contains("title", query, Case.INSENSITIVE)
-                    .or()
-                    .contains("sourceTitle", query, Case.INSENSITIVE)
-                .endGroup()
                 .findAll()
                 .asObservable()
+                .first()
+                .flatMapIterable { it }
+                .filter { it.title.contains(query, true) || it.sourceTitle.contains(query, true) }
+                .toList()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }

@@ -25,7 +25,7 @@ class StorageAlertsRepository(
     }
 
     override fun getAlertsWithFilter(query: String): Observable<List<PresentationAlert>> {
-        return dataManager.getAlertsWithFilterObservable(query)
+        return dataManager.getAlertsWithFilter(query)
                 .map {
                     var result = ArrayList<PresentationAlert>()
                     for (alert in it) {
