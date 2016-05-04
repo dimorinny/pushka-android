@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.data
 
+import io.realm.Case
 import io.realm.Realm
 import io.realm.Sort
 import ru.nbsp.pushka.data.model.alert.DataAlert
@@ -62,6 +63,20 @@ class DataManager
         } else {
             Observable.empty()
         }
+    }
+
+    fun getAlertsWithFilterObservable(query: String): Observable<List<DataAlert>> {
+        return realmProvider.get().where(DataAlert::class.java)
+                .beginGroup()
+                    .contains("title", query, Case.INSENSITIVE)
+                    .or()
+                    .contains("sourceTitle", query, Case.INSENSITIVE)
+                .endGroup()
+                .findAllSorted("date", Sort.DESCENDING)
+                .asObservable()
+                .map {
+                    realmProvider.get().copyFromRealm(it)
+                }
     }
 
     fun putAlert(alert: DataAlert) {
@@ -231,9 +246,9 @@ class DataManager
     fun getSubscriptionsWithFilterObservable(query: String): Observable<List<DataSubscription>> {
         return realmProvider.get().where(DataSubscription::class.java)
                 .beginGroup()
-                    .contains("title", query)
+                    .contains("title", query, Case.INSENSITIVE)
                     .or()
-                    .contains("sourceTitle", query)
+                    .contains("sourceTitle", query, Case.INSENSITIVE)
                 .endGroup()
                 .findAll()
                 .asObservable()

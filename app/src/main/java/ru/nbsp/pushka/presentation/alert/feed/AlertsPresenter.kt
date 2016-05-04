@@ -50,6 +50,12 @@ class AlertsPresenter
                 .subscribe(LoadAlertsCacheSubscriber()))
     }
 
+    fun onSearchQueryChanged(query: String) {
+        subscription.add(storageAlertsRepository.getAlertsWithFilter(query)
+                .unsubscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(LoadAlertsCacheSubscriber()))
+    }
+
     fun loadAlertsFromServer() {
         serviceManager.loadAlerts()
     }

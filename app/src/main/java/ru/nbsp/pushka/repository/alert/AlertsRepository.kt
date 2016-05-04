@@ -8,5 +8,6 @@ import rx.Observable
  */
 interface AlertsRepository {
     fun getAlerts(): Observable<List<PresentationAlert>>
+    fun getAlertsWithFilter(query: String): Observable<List<PresentationAlert>>
     fun getAlert(alertId: String): Observable<PresentationAlert>
 }

@@ -35,4 +35,8 @@ class ApiAlertsRepository(
                 }
                 .compose(schedulersUtils.applySchedulers<PresentationAlert>())
     }
+
+    override fun getAlertsWithFilter(query: String): Observable<List<PresentationAlert>> {
+        throw UnsupportedOperationException()
+    }
 }

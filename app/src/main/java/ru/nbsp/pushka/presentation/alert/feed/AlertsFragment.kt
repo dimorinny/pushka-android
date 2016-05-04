@@ -131,4 +131,8 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         val intent = Intent(activity, CategoriesActivity::class.java)
         activity.startActivity(intent)
     }
+
+    fun onSearchQueryChanged(query: String) {
+        presenter.onSearchQueryChanged(query)
+    }
 }
