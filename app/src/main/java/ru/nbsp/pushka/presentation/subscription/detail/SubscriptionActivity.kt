@@ -11,10 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
@@ -116,10 +113,14 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
 
     private fun initViews() {
         title = subscriptionTitle
-        unsubscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
+        unsubscribeProgressDialog.setMessage(resources.getString(R.string.subscription_unsubscribe_dialog_message))
 
         changeButton.setOnClickListener {
-            presenter.subscribeButtonClicked(fragment.getValues())
+            presenter.changeSubscriptionButtonClicked(fragment.getValues())
+        }
+
+        unsubscribeButton.setOnClickListener {
+            presenter.unsubscribeButtonClicked()
         }
 
         withSoundContainer.setOnClickListener {
@@ -181,6 +182,14 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
 
     override fun hideUnsubscribeProgressDialog() {
         unsubscribeProgressDialog.dismiss()
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun closeScreen() {
+        finish()
     }
 
     private fun initToolbar() {

@@ -23,4 +23,9 @@ class StorageSubscriptionInteractorImpl(
         dataManager.putSubscription(dataSubscriptionMapper.fromPresentationSubscription(subscription))
         return Observable.just(subscription)
     }
+
+    override fun clearSubscription(subscriptionId: String): Observable<String> {
+        dataManager.clearSubscription(subscriptionId)
+        return Observable.just(subscriptionId)
+    }
 }

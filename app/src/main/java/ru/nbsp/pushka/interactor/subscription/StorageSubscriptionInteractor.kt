@@ -9,4 +9,5 @@ import rx.Observable
 interface StorageSubscriptionInteractor {
     fun saveSubscriptions(subscriptions: List<PresentationSubscription>): Observable<List<PresentationSubscription>>
     fun saveSubscription(subscription: PresentationSubscription): Observable<PresentationSubscription>
+    fun clearSubscription(subscriptionId: String): Observable<String>
 }

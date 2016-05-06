@@ -1,8 +1,10 @@
 package ru.nbsp.pushka.presentation.subscription.detail
 
+import ru.nbsp.pushka.R
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
+import ru.nbsp.pushka.bus.event.subscription.UnsubscribeEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
@@ -10,6 +12,7 @@ import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.repository.subscription.SubscriptionRepository
 import ru.nbsp.pushka.service.ServiceManager
+import ru.nbsp.pushka.util.StringUtils
 import rx.Observable
 import rx.Subscriber
 import rx.functions.Action1
@@ -25,7 +28,8 @@ class SubscriptionPresenter
                 @StorageRepository val sourcesRepository: SourcesRepository,
                 @StorageRepository val storageSubscriptionRepository: SubscriptionRepository,
                 val rxBus: RxBus,
-                val serviceManager: ServiceManager): BasePresenter {
+                val serviceManager: ServiceManager,
+                val stringUtils: StringUtils): BasePresenter {
 
     override var view: SubscriptionView? = null
     var source: PresentationSource? = null
@@ -36,6 +40,7 @@ class SubscriptionPresenter
         super.onCreate()
 
         observeLoadSourceAndSubscriptionEvent()
+        observeUnsubscribeEvent()
     }
 
     private fun observeLoadSourceAndSubscriptionEvent() {
@@ -50,6 +55,20 @@ class SubscriptionPresenter
                     }
                 }
                 .subscribe(LoadSubscriptionNetworkSubscriber()))
+    }
+
+    private fun observeUnsubscribeEvent() {
+        compositeSubscription.add(rxBus.events(UnsubscribeEvent::class.java)
+                .flatMap {
+                    when (it) {
+                        is UnsubscribeEvent.Success ->
+                            Observable.just(it.id)
+
+                        is UnsubscribeEvent.Error ->
+                            Observable.error(it.t)
+                    }
+                }
+                .subscribe(UnsubscribeSubscriber()))
     }
 
     fun loadSourceAndSubscriptionFromNetwork(sourceId: String, subscriptionId: String) {
@@ -69,11 +88,16 @@ class SubscriptionPresenter
                 .flatMap { storageSubscriptionRepository.getSubscription(subscriptionId) }
     }
 
-    fun subscribeButtonClicked(params: HashMap<String, String?>) {
+    fun changeSubscriptionButtonClicked(params: HashMap<String, String?>) {
 //        if (view!!.validateFields()) {
 //            view?.showUnsubscribeProgressDialog()
 //            serviceManager.subscribe(source!!.id, params)
 //        }
+    }
+
+    fun unsubscribeButtonClicked() {
+        view?.showUnsubscribeProgressDialog()
+        serviceManager.unsubscribe(subscription!!.id)
     }
 
     inner class SourceLoadedAction() : Action1<PresentationSource> {
@@ -116,6 +140,8 @@ class SubscriptionPresenter
             if (subscription == null) {
                 view?.setState(State.STATE_ERROR)
             }
+
+            observeLoadSourceAndSubscriptionEvent()
         }
 
         override fun onNext(result: PresentationSubscription) {
@@ -127,6 +153,25 @@ class SubscriptionPresenter
             }
 
             subscription = result
+        }
+    }
+
+    inner class UnsubscribeSubscriber : Subscriber<String>() {
+        override fun onCompleted() {
+            throw UnsupportedOperationException()
+        }
+
+        override fun onError(e: Throwable) {
+            e.printStackTrace()
+            view?.hideUnsubscribeProgressDialog()
+            view?.showMessage(stringUtils.getString(R.string.subscription_unsubscribe_fail_message))
+            observeUnsubscribeEvent()
+        }
+
+        override fun onNext(t: String) {
+            view?.hideUnsubscribeProgressDialog()
+            view?.showMessage(stringUtils.getString(R.string.subscription_unsubscribe_success_message))
+            view?.closeScreen()
         }
     }
 

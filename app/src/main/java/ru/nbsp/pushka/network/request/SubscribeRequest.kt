@@ -7,5 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class SubscribeRequest(
         @SerializedName("src_id") val srcId: String,
+        @SerializedName("sound") val sound: Boolean,
+        @SerializedName("notification") val notification: Boolean,
         @SerializedName("params") val params: Map<String, String?>
 )

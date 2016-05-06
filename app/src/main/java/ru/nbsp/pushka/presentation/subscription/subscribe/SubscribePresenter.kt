@@ -46,10 +46,10 @@ class SubscribePresenter
                 .subscribe(LoadSourceSubscriber()))
     }
 
-    fun subscribeButtonClicked(params: HashMap<String, String?>) {
+    fun subscribeButtonClicked(sound: Boolean, notification: Boolean, params: HashMap<String, String?>) {
         if (view!!.validateFields()) {
             view?.showSubscribeProgressDialog()
-            serviceManager.subscribe(source!!.id, params)
+            serviceManager.subscribe(source!!.id, sound, notification, params)
         }
     }
 
@@ -80,7 +80,7 @@ class SubscribePresenter
             e.printStackTrace()
             view?.hideSubscribeProgressDialog()
 
-            this@SubscribePresenter.observeSubscribe()
+            observeSubscribe()
         }
 
         override fun onNext(result: Any) {

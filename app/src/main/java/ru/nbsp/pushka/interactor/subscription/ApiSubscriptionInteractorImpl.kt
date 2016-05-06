@@ -20,4 +20,10 @@ class ApiSubscriptionInteractorImpl(
                 .map { presentationSubscriptionMapper.fromNetworkSubscription(it.subscription) }
                 .compose(schedulersUtils.applySchedulers<PresentationSubscription>())
     }
+
+    override fun unsubscribe(subscriptionId: String): Observable<String> {
+        return apiPushka.unsubscribe(subscriptionId)
+                .map { it.subscriptionId }
+                .compose(schedulersUtils.applySchedulers<String>())
+    }
 }

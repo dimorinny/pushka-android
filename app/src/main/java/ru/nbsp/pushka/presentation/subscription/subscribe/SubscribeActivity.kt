@@ -90,7 +90,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     private fun initViews() {
         subscribeProgressDialog.setMessage(resources.getString(R.string.subscribe_dialog_message))
         subscribeButton.setOnClickListener {
-            presenter.subscribeButtonClicked(fragment.getValues())
+            presenter.subscribeButtonClicked(withSoundCheckbox.isChecked, withAlertCheckbox.isChecked, fragment.getValues())
         }
 
         withSoundContainer.setOnClickListener {

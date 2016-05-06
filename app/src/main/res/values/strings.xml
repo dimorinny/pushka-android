@@ -81,4 +81,7 @@
     <!-- Subscription -->
     <string name="subscription_change">Изменить</string>
     <string name="subscription_unsubscribe">Отписаться</string>
+    <string name="subscription_unsubscribe_dialog_message">Подождите, сейчас мы вас отпишем</string>
+    <string name="subscription_unsubscribe_success_message">Вы успешно отписались</string>
+    <string name="subscription_unsubscribe_fail_message">Что-то пошло не так при отписке</string>
 </resources>

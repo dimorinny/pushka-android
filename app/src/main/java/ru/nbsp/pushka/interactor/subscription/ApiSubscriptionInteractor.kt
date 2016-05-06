@@ -9,4 +9,5 @@ import rx.Observable
  */
 interface ApiSubscriptionInteractor {
     fun subscribe(subscribeRequest: SubscribeRequest): Observable<PresentationSubscription>
+    fun unsubscribe(subscriptionId: String): Observable<String>
 }

@@ -7,10 +7,7 @@ import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.BaseEvent
-import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
-import ru.nbsp.pushka.bus.event.subscription.LoadSubscriptionEvent
-import ru.nbsp.pushka.bus.event.subscription.LoadSubscriptionsEvent
-import ru.nbsp.pushka.bus.event.subscription.SubscribeEvent
+import ru.nbsp.pushka.bus.event.subscription.*
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
 import ru.nbsp.pushka.interactor.subscription.ApiSubscriptionInteractor
 import ru.nbsp.pushka.interactor.subscription.StorageSubscriptionInteractor
@@ -49,13 +46,19 @@ class ApiSubscriptionService : Service() {
 
     companion object {
         const val ARG_SERVICE_COMMAND = "arg_service_command"
+
         const val ARG_SOURCE_ID = "arg_source_id"
         const val ARG_SOURCE_PARAMS = "arg_source_params"
+
         const val ARG_SUBSCRIPTION_ID = "arg_subscription_id"
+        const val ARG_SOUND = "arg_sound"
+        const val ARG_NOTIFICATION = "arg_notification"
+
         const val COMMAND_LOAD_SUBSCRIPTIONS = "command_load_subscriptions"
         const val COMMAND_LOAD_SOURCE_AND_SUBSCRIPTION = "command_load_source_and_subscription"
         const val COMMAND_LOAD_SUBSCRIPTION = "command_load_subscription"
         const val COMMAND_SUBSCRIBE = "command_subscribe"
+        const val COMMAND_UNSUBSCRIBE = "command_unsubscribe"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -90,6 +93,9 @@ class ApiSubscriptionService : Service() {
             COMMAND_SUBSCRIBE -> {
                 handleSubscribeCommand(intent, startId)
             }
+            COMMAND_UNSUBSCRIBE -> {
+                handleUnsubscribeCommand(intent, startId)
+            }
         }
 
         return Service.START_NOT_STICKY
@@ -98,9 +104,12 @@ class ApiSubscriptionService : Service() {
     @Suppress("UNCHECKED_CAST")
     private fun handleSubscribeCommand(intent: Intent, startId: Int) {
         val sourceId = intent.getStringExtra(ARG_SOURCE_ID)
+        val sound = intent.getBooleanExtra(ARG_SOUND, false)
+        val notification = intent.getBooleanExtra(ARG_NOTIFICATION, false)
+
         val params = intent.getSerializableExtra(ARG_SOURCE_PARAMS) as HashMap<String, String?>
 
-        apiSubscriptionInteractor.subscribe(SubscribeRequest(sourceId, params))
+        apiSubscriptionInteractor.subscribe(SubscribeRequest(sourceId, sound, notification, params))
                 .flatMap { storageSubscriptionInteractor.saveSubscription(it) }
                 .subscribe(object : BaseEventSubscriber(this, startId, bus) {
                     override fun error(t: Throwable): BaseEvent {
@@ -109,6 +118,22 @@ class ApiSubscriptionService : Service() {
 
                     override fun success(): BaseEvent {
                         return SubscribeEvent.Success()
+                    }
+                })
+    }
+
+    private fun handleUnsubscribeCommand(intent: Intent, startId: Int) {
+        val subscriptionId = intent.getStringExtra(ARG_SUBSCRIPTION_ID)
+
+        apiSubscriptionInteractor.unsubscribe(subscriptionId)
+                .flatMap { storageSubscriptionInteractor.clearSubscription(it) }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return UnsubscribeEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return UnsubscribeEvent.Success(subscriptionId)
                     }
                 })
     }

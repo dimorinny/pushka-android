@@ -16,4 +16,6 @@ interface SubscriptionView : BaseView {
     fun validateFields(): Boolean
     fun showUnsubscribeProgressDialog()
     fun hideUnsubscribeProgressDialog()
+    fun showMessage(message: String)
+    fun closeScreen()
 }

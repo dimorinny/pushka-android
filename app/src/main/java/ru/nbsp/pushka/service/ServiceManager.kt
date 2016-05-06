@@ -70,11 +70,20 @@ class ServiceManager
         context.startService(intent)
     }
 
-    fun subscribe(sourceId: String, params: HashMap<String, String?>) {
+    fun subscribe(sourceId: String, sound: Boolean, notification: Boolean, params: HashMap<String, String?>) {
         val intent = Intent(context, ApiSubscriptionService::class.java)
         intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_SUBSCRIBE)
         intent.putExtra(ApiSubscriptionService.ARG_SOURCE_ID, sourceId)
+        intent.putExtra(ApiSubscriptionService.ARG_SOUND, sound)
+        intent.putExtra(ApiSubscriptionService.ARG_NOTIFICATION, notification)
         intent.putExtra(ApiSubscriptionService.ARG_SOURCE_PARAMS, params)
+        context.startService(intent)
+    }
+
+    fun unsubscribe(subscriptionId: String) {
+        val intent = Intent(context, ApiSubscriptionService::class.java)
+        intent.putExtra(ApiSubscriptionService.ARG_SERVICE_COMMAND, ApiSubscriptionService.COMMAND_UNSUBSCRIBE)
+        intent.putExtra(ApiSubscriptionService.ARG_SUBSCRIPTION_ID, subscriptionId)
         context.startService(intent)
     }
 
