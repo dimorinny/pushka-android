@@ -69,28 +69,27 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (isFinishing) {
-            return
+
+        if (!isFinishing) {
+            setContentView(R.layout.activity_navigation)
+            initContentLayout()
+            injectActivity()
+
+            initStatusBar()
+            initToolbar()
+            initViews()
+
+            initConnectionListener()
+
+            initPresenter(presenter)
+            presenter.loadAccount()
         }
-        setContentView(R.layout.activity_navigation)
-        initContentLayout()
-        injectActivity()
-
-        initStatusBar()
-        initToolbar()
-        initViews()
-
-        initConnectionListener()
-
-        initPresenter(presenter)
-        presenter.loadAccount()
     }
 
     private fun initContentLayout() {
         val content = getContentLayout()
         LayoutInflater.from(this).inflate(content, container)
     }
-
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)

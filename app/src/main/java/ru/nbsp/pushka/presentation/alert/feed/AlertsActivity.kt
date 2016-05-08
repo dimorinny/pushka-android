@@ -39,7 +39,9 @@ class AlertsActivity : OneFragmentNavigationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViews()
+        if (!isFinishing) {
+            initViews()
+        }
     }
 
     private fun initViews() {
