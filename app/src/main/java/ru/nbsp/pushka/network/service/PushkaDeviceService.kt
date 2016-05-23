@@ -1,9 +1,7 @@
 package ru.nbsp.pushka.network.service
 
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.PUT
+import retrofit2.http.*
+import ru.nbsp.pushka.network.response.DeviceIdResponse
 import ru.nbsp.pushka.network.response.DevicesResponse
 import rx.Observable
 
@@ -14,9 +12,12 @@ interface PushkaDeviceService {
     @GET("device")
     fun getDevices(): Observable<DevicesResponse>
 
+    @DELETE("device/{id}")
+    fun deleteDevice(@Path("id") id: String): Observable<DeviceIdResponse>
+
     @FormUrlEncoded
-    @PUT("device")
-    fun putDevice(@Field("id") id: String,
+    @PUT("device/{id}")
+    fun putDevice(@Path("id") id: String,
                   @Field("type") type: String,
                   @Field("token") token: String,
                   @Field("name") name: String): Observable<Any>

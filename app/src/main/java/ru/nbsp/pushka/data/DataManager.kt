@@ -266,6 +266,16 @@ class DataManager
         }
     }
 
+    fun clearDevice(deviceId: String) {
+        realmProvider.get().executeTransaction {
+            val subscription = it.where(DataDevice::class.java)
+                    .equalTo("id", deviceId)
+                    .findFirst()
+
+            subscription?.removeFromRealm()
+        }
+    }
+
     fun putDevices(devices: List<DataDevice>) {
         realmProvider.get().executeTransaction {
             it.copyToRealm(devices)

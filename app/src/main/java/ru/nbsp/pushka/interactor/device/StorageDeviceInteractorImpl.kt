@@ -17,4 +17,9 @@ class StorageDeviceInteractorImpl(
         dataManager.putDevices(devices.map { deviceMapper.fromPresentationDevice(it) })
         return Observable.just(devices)
     }
+
+    override fun removeDevice(deviceId: String): Observable<String> {
+        dataManager.clearDevice(deviceId)
+        return Observable.just(deviceId)
+    }
 }

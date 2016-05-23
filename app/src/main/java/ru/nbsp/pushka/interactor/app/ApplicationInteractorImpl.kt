@@ -2,6 +2,8 @@ package ru.nbsp.pushka.interactor.app
 
 import android.content.Context
 import android.content.Intent
+import ru.nbsp.pushka.gcm.manage.GcmManager
+import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.presentation.login.LoginActivity
 import ru.nbsp.pushka.service.ServiceManager
 
@@ -9,11 +11,15 @@ import ru.nbsp.pushka.service.ServiceManager
  * Created by Dimorinny on 26.04.16.
  */
 class ApplicationInteractorImpl(val context: Context,
-                                val serviceManager: ServiceManager) : ApplicationInteractor {
+                                val serviceManager: ServiceManager,
+                                val accountManager: AccountManager,
+                                val gcmManager: GcmManager) : ApplicationInteractor {
 
     override fun logout() {
         serviceManager.clearData()
-        openLoginActivity()
+        gcmManager.clear()
+        accountManager.clear()
+//        openLoginActivity()
     }
 
     private fun openLoginActivity() {

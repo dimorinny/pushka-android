@@ -1,44 +1,46 @@
 package ru.nbsp.pushka.presentation.settings
 
+import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceFragment
 import android.support.v7.app.AlertDialog
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.gcm.manage.GcmManager
-import ru.nbsp.pushka.interactor.app.ApplicationInteractor
-import ru.nbsp.pushka.network.auth.AccountManager
+import ru.nbsp.pushka.presentation.login.LoginActivity
 import javax.inject.Inject
 
 /**
  * Created by Dimorinny on 24.02.16.
  */
-class SettingsFragment : PreferenceFragment() {
+class SettingsFragment : PreferenceFragment(), SettingsView {
 
     lateinit var logoutDialog: AlertDialog
+    val logoutProgressDialog: ProgressDialog by lazy { ProgressDialog(activity) }
 
     @Inject
-    lateinit var accountManager: AccountManager
-
-    @Inject
-    lateinit var gcmManager: GcmManager
-
-    @Inject
-    lateinit var applicationInteractor: ApplicationInteractor
+    lateinit var settingsPresenter: SettingsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.preferences)
         BaseApplication.graph.inject(this)
 
+        initPresenter()
         initDialog()
         initViews()
     }
 
+    fun initPresenter() {
+        settingsPresenter.view = this
+        settingsPresenter.onCreate()
+    }
+
     private fun initViews() {
         findPreference(getString(R.string.pref_logout)).setOnPreferenceClickListener {
-            showLogoutDialog()
+            settingsPresenter.logoutItemClicked()
+            true
         }
     }
 
@@ -47,7 +49,7 @@ class SettingsFragment : PreferenceFragment() {
 
         val dialogClickListener = DialogInterface.OnClickListener { dialogInterface, which ->
             if (which == DialogInterface.BUTTON_POSITIVE) {
-                onLogoutDialogPositiveClicked()
+                settingsPresenter.logoutDialogPositiveClicked()
             }
         }
 
@@ -56,18 +58,45 @@ class SettingsFragment : PreferenceFragment() {
                 .setPositiveButton(getString(R.string.yes), dialogClickListener)
                 .setNegativeButton(getString(R.string.no), dialogClickListener)
                 .create()
+
+        logoutProgressDialog.setMessage(resources.getString(R.string.pref_logout_progress_dialog_message))
     }
 
-    private fun showLogoutDialog(): Boolean {
+    override fun showLogoutDialog() {
         logoutDialog.show()
-        return true
     }
 
-    private fun onLogoutDialogPositiveClicked() {
+    override fun hideLogoutDialog() {
         logoutDialog.dismiss()
-        accountManager.clear()
-        gcmManager.clear()
-        applicationInteractor.logout()
+    }
+
+    override fun showLogoutProgressDialog() {
+        logoutProgressDialog.show()
+    }
+
+    override fun hideLogoutProgressDialog() {
+        logoutProgressDialog.dismiss()
+    }
+
+    override fun openLoginScreen() {
+        val intent = Intent(activity, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
         activity.finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        settingsPresenter.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        settingsPresenter.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        settingsPresenter.onDestroy()
     }
 }

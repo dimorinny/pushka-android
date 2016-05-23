@@ -57,7 +57,7 @@ class DevicesActivity : OneFragmentNavigationActivity(), DevicesContainerView {
         super.onCreate(savedInstanceState)
 
         initViews()
-        initPresenter(devicesPresenter)
+        initPresenter()
     }
 
     fun initViews() {
@@ -114,8 +114,7 @@ class DevicesActivity : OneFragmentNavigationActivity(), DevicesContainerView {
         }
     }
 
-    fun initPresenter(presenter: DevicesContainerPresenter) {
-        devicesPresenter = presenter
+    fun initPresenter() {
         devicesPresenter.view = this
         devicesPresenter.onCreate()
     }

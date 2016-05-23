@@ -8,11 +8,11 @@ import ru.nbsp.pushka.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.device.LoadDevicesEvent
+import ru.nbsp.pushka.bus.event.device.RemoveGcmDeviceEvent
+import ru.nbsp.pushka.interactor.device.ApiDeviceInteractor
 import ru.nbsp.pushka.interactor.device.StorageDeviceInteractor
-import ru.nbsp.pushka.presentation.core.model.device.PresentationDevice
 import ru.nbsp.pushka.repository.device.DeviceRepository
 import ru.nbsp.pushka.service.BaseEventSubscriber
-import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -30,11 +30,15 @@ class ApiDeviceService : Service() {
     @Inject
     lateinit var storageDeviceInteractor: StorageDeviceInteractor
 
+    @Inject
+    lateinit var apiDeviceInteractor: ApiDeviceInteractor
+
     private val subscription = CompositeSubscription()
 
     companion object {
         const val ARG_SERVICE_COMMAND = "arg_service_command"
         const val COMMAND_LOAD_DEVICES = "command_load_devices"
+        const val COMMAND_REMOVE_DEVICE = "command_remove_device"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -60,11 +64,29 @@ class ApiDeviceService : Service() {
             COMMAND_LOAD_DEVICES -> {
                 handleLoadDevicesCommand(startId)
             }
+            COMMAND_REMOVE_DEVICE -> {
+                handleRemoveDeviceCommand(startId)
+            }
         }
 
         return START_NOT_STICKY
     }
 
+    private fun handleRemoveDeviceCommand(startId: Int) {
+        apiDeviceInteractor.removeGcmDevice()
+                .flatMap {
+                    storageDeviceInteractor.removeDevice(it)
+                }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return RemoveGcmDeviceEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return RemoveGcmDeviceEvent.Success()
+                    }
+                })
+    }
 
     private fun handleLoadDevicesCommand(startId: Int) {
         apiDeviceRepository.getDevices()

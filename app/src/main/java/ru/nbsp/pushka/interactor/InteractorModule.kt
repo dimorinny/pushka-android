@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import ru.nbsp.pushka.data.DataManager
+import ru.nbsp.pushka.gcm.manage.GcmManager
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractorImpl
 import ru.nbsp.pushka.interactor.app.ApplicationInteractor
@@ -30,6 +31,7 @@ import ru.nbsp.pushka.mapper.data.source.DataCategoryMapper
 import ru.nbsp.pushka.mapper.data.source.DataSourceMapper
 import ru.nbsp.pushka.mapper.data.subscription.DataSubscriptionMapper
 import ru.nbsp.pushka.mapper.presentation.subscription.PresentationSubscriptionMapper
+import ru.nbsp.pushka.network.auth.AccountManager
 import ru.nbsp.pushka.network.service.PushkaAuthService
 import ru.nbsp.pushka.network.service.PushkaDeviceService
 import ru.nbsp.pushka.network.service.PushkaSubscriptionService
@@ -95,8 +97,8 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provideApplicationInteractor(context: Context, serviceManager: ServiceManager): ApplicationInteractor {
-        return ApplicationInteractorImpl(context, serviceManager)
+    fun provideApplicationInteractor(context: Context, serviceManager: ServiceManager, accountMananager: AccountManager, gcmManager: GcmManager): ApplicationInteractor {
+        return ApplicationInteractorImpl(context, serviceManager, accountMananager, gcmManager)
     }
 
     @Singleton

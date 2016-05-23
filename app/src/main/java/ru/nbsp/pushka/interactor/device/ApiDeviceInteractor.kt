@@ -7,4 +7,6 @@ import rx.Observable
  */
 interface ApiDeviceInteractor {
     fun addGcmDevice(token: String): Observable<Any>
+    fun removeGcmDevice(): Observable<String>
+    fun removeDevice(deviceId: String): Observable<String>
 }

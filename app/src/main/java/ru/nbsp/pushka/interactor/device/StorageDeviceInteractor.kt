@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface StorageDeviceInteractor {
     fun saveDevices(devices: List<PresentationDevice>): Observable<List<PresentationDevice>>
+    fun removeDevice(deviceId: String): Observable<String>
 }

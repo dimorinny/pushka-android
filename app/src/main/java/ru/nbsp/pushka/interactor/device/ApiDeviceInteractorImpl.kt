@@ -24,4 +24,16 @@ class ApiDeviceInteractorImpl(
                 deviceUtils.getDeviceName())
                 .compose(schedulersUtils.applySchedulers<Any>())
     }
+
+    override fun removeGcmDevice(): Observable<String> {
+        return api.deleteDevice(deviceUtils.getDeviceUUID())
+                .map { it.deviceId }
+                .compose(schedulersUtils.applySchedulers<String>())
+    }
+
+    override fun removeDevice(deviceId: String): Observable<String> {
+        return api.deleteDevice(deviceId)
+                .map { it.deviceId }
+                .compose(schedulersUtils.applySchedulers<String>())
+    }
 }

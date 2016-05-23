@@ -93,6 +93,12 @@ class ServiceManager
         context.startService(intent)
     }
 
+    fun removeGcmDevice() {
+        val intent = Intent(context, ApiDeviceService::class.java)
+        intent.putExtra(ApiDeviceService.ARG_SERVICE_COMMAND, ApiDeviceService.COMMAND_REMOVE_DEVICE)
+        context.startService(intent)
+    }
+
     fun clearData() {
         val intent = Intent(context, DataService::class.java)
         intent.putExtra(DataService.ARG_SERVICE_COMMAND, DataService.COMMAND_CLEAR_ALL)
