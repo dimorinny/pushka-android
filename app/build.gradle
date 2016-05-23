@@ -103,7 +103,7 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 
 buildscript {
-    ext.kotlin_version = '1.0.1'
+    ext.kotlin_version = '1.0.2'
     repositories {
         mavenCentral()
     }
