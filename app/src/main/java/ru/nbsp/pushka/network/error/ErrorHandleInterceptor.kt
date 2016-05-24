@@ -25,8 +25,7 @@ class ErrorHandleInterceptor
         val parser = JsonParser()
         val bodyString = response.body().string()
         val body = parser.parse(bodyString).asJsonObject
-
-
+        
         if (body.contains(ERROR_CODE_KEY) && body.contains(ERROR_MESSAGE_KEY)) {
             Log.v("Error", bodyString)
             throw ApiErrorException(

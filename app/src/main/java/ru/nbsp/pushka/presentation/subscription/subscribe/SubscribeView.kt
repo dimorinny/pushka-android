@@ -14,4 +14,6 @@ interface SubscribeView: BaseView {
     fun validateFields(): Boolean
     fun showSubscribeProgressDialog()
     fun hideSubscribeProgressDialog()
+    fun showError(message: String)
+    fun showSubscribeConnectionError(message: String)
 }

@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.Toolbar
@@ -54,6 +56,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     val subscribeButton: Button by bindView(R.id.subscribe_button)
     val toolbar: Toolbar by bindView(R.id.toolbar)
 
+    val coordinatorContainer: CoordinatorLayout by bindView(R.id.coordinator_container)
     val withSoundContainer: ViewGroup by bindView(R.id.subscribe_with_sound_container)
     val withSoundCheckbox: CheckBox by bindView(R.id.subscribe_with_sound_checkbox)
     val withAlertContainer: ViewGroup by bindView(R.id.subscribe_with_alert_container)
@@ -103,8 +106,8 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     }
 
     private fun initArgs() {
-        sourceId = intent.extras.getString(ARG_SOURCE_ID)
-        sourceColor = intent.extras.getString(ARG_SOURCE_COLOR)
+        sourceId = intent.getStringExtra(ARG_SOURCE_ID)
+        sourceColor = intent.getStringExtra(ARG_SOURCE_COLOR)
     }
 
     private fun initColors() {
@@ -152,6 +155,16 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         if (supportActionBar != null) {
             (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    override fun showError(message: String) {
+        Snackbar.make(coordinatorContainer, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showSubscribeConnectionError(message: String) {
+        Snackbar.make(coordinatorContainer, message, Snackbar.LENGTH_SHORT).setAction(getString(R.string.snack_retry), {
+            presenter.subscribeButtonClicked(withSoundCheckbox.isChecked, withAlertCheckbox.isChecked, fragment.getValues())
+        }).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

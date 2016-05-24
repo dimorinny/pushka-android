@@ -3,10 +3,13 @@ package ru.nbsp.pushka.presentation.subscription.subscribe
 import ru.nbsp.pushka.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.subscription.SubscribeEvent
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriber
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriberDelegate
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.service.ServiceManager
+import ru.nbsp.pushka.util.ErrorUtils
 import rx.Observable
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -19,7 +22,8 @@ import javax.inject.Inject
 class SubscribePresenter
     @Inject constructor(@StorageRepository val sourcesRepository: SourcesRepository,
                         val rxBus: RxBus,
-                        val serviceManager: ServiceManager): BasePresenter {
+                        val serviceManager: ServiceManager,
+                        val errorUtils: ErrorUtils): BasePresenter {
 
     override var view: SubscribeView? = null
     var source: PresentationSource? = null
@@ -38,7 +42,7 @@ class SubscribePresenter
                         is SubscribeEvent.Success -> Observable.just(Any())
                         is SubscribeEvent.Error -> Observable.error(it.t)
                     }
-                }.subscribe(SubscribeSourceSubscriber()))
+                }.subscribe(ApiSubscriber(SubscribeSourceSubscriber())))
     }
 
     fun loadSourceFromCache(sourceId: String) {
@@ -73,17 +77,27 @@ class SubscribePresenter
         }
     }
 
-    inner class SubscribeSourceSubscriber : Subscriber<Any>() {
-        override fun onCompleted() {}
+    inner class SubscribeSourceSubscriber : ApiSubscriberDelegate<Any> {
+        override fun onApiError(t: Throwable, code: Int) {
+            t.printStackTrace()
+            view?.hideSubscribeProgressDialog()
 
-        override fun onError(e: Throwable) {
-            e.printStackTrace()
+            when (code) {
+                ErrorUtils.CONNECTION_ERROR_CODE -> view?.showSubscribeConnectionError(errorUtils.errorMessage(code))
+                else -> view?.showError(errorUtils.errorMessage(code))
+            }
+
+            observeSubscribe()
+        }
+
+        override fun onError(t: Throwable) {
+            t.printStackTrace()
             view?.hideSubscribeProgressDialog()
 
             observeSubscribe()
         }
 
-        override fun onNext(result: Any) {
+        override fun onNext(data: Any) {
             view?.hideSubscribeProgressDialog()
         }
     }
