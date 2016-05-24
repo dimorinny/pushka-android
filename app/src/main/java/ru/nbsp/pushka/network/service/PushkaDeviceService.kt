@@ -16,8 +16,8 @@ interface PushkaDeviceService {
     fun deleteDevice(@Path("id") id: String): Observable<DeviceIdResponse>
 
     @FormUrlEncoded
-    @PUT("device/{id}")
-    fun putDevice(@Path("id") id: String,
+    @PUT("device")
+    fun putDevice(@Field("id") id: String,
                   @Field("type") type: String,
                   @Field("token") token: String,
                   @Field("name") name: String): Observable<Any>
