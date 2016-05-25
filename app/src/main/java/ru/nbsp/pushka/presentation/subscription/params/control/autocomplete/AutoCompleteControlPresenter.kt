@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.params.control.autocomplete
 
-import ru.nbsp.pushka.annotation.ApiRepository
+import ru.nbsp.pushka.di.annotation.ApiRepository
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.subscription.control.ListAttributes
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationListItem

@@ -1,6 +1,6 @@
 package ru.nbsp.pushka.presentation.device.feed
 
-import ru.nbsp.pushka.annotation.StorageRepository
+import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.device.LoadDevicesEvent
 import ru.nbsp.pushka.presentation.core.base.BasePresenter

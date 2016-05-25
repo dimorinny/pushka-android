@@ -12,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.nbsp.pushka.annotation.AuthRequired
+import ru.nbsp.pushka.di.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
 import ru.nbsp.pushka.network.error.ErrorHandleInterceptor

@@ -4,8 +4,8 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import ru.nbsp.pushka.annotation.ApiRepository
-import ru.nbsp.pushka.annotation.StorageRepository
+import ru.nbsp.pushka.di.annotation.ApiRepository
+import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.data.DataManager
 import ru.nbsp.pushka.mapper.presentation.alert.PresentationAlertMapper
 import ru.nbsp.pushka.mapper.presentation.device.PresentationDeviceMapper

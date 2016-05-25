@@ -4,7 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.annotation.ApiRepository
+import ru.nbsp.pushka.di.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.subscription.*

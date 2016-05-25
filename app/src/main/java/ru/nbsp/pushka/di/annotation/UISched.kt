@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.annotation
+package ru.nbsp.pushka.di.annotation
 
 import javax.inject.Qualifier
 
@@ -7,4 +7,4 @@ import javax.inject.Qualifier
  */
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class IOSched
+annotation class UISched

@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.util
 
-import ru.nbsp.pushka.annotation.IOSched
-import ru.nbsp.pushka.annotation.UISched
+import ru.nbsp.pushka.di.annotation.IOSched
+import ru.nbsp.pushka.di.annotation.UISched
 import rx.Observable
 import rx.Scheduler
 import javax.inject.Inject

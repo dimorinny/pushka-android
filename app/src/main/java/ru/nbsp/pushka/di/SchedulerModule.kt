@@ -2,8 +2,8 @@ package ru.nbsp.pushka.di
 
 import dagger.Module
 import dagger.Provides
-import ru.nbsp.pushka.annotation.IOSched
-import ru.nbsp.pushka.annotation.UISched
+import ru.nbsp.pushka.di.annotation.IOSched
+import ru.nbsp.pushka.di.annotation.UISched
 import rx.Scheduler
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

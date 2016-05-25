@@ -1,7 +1,7 @@
 package ru.nbsp.pushka.presentation.subscription.detail
 
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.annotation.StorageRepository
+import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
 import ru.nbsp.pushka.bus.event.subscription.UnsubscribeEvent
