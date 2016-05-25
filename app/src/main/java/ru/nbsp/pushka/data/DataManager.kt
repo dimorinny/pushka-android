@@ -38,11 +38,11 @@ class DataManager
 
                 for (j in 0..alert.actions.size - 1) {
                     val action = alert.actions[j]
-                    action.removeFromRealm()
+                    action.deleteFromRealm()
                 }
             }
 
-            alerts.clear()
+            alerts.deleteAllFromRealm()
         }
     }
 
@@ -95,9 +95,9 @@ class DataManager
             if (alert != null) {
                 for (i in 0..alert.actions.size - 1) {
                     val action = alert.actions[i]
-                    action.removeFromRealm()
+                    action.deleteFromRealm()
                 }
-                alert.removeFromRealm()
+                alert.deleteFromRealm()
             }
         }
     }
@@ -105,7 +105,7 @@ class DataManager
     fun getSourcesObservable(categoryId: String): Observable<List<DataSource>> {
         return realmProvider.get().where(DataSource::class.java)
                 .equalTo("category", categoryId)
-                .findAll()
+                .findAllSorted("name")
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
@@ -114,7 +114,7 @@ class DataManager
 
     fun clearSources() {
         realmProvider.get().executeTransaction {
-            it.clear(DataSource::class.java)
+            it.delete(DataSource::class.java)
         }
     }
 
@@ -131,12 +131,12 @@ class DataManager
 
                 for (j in 0..source.params.size - 1) {
                     val param = source.params[j]
-                    param.control.removeFromRealm()
-                    param.removeFromRealm()
+                    param.control.deleteFromRealm()
+                    param.deleteFromRealm()
                 }
             }
 
-            sources.clear()
+            sources.deleteAllFromRealm()
         }
     }
 
@@ -158,7 +158,7 @@ class DataManager
                     .equalTo("id", sourceId)
                     .findFirst()
 
-            subscription?.removeFromRealm()
+            subscription?.deleteFromRealm()
         }
     }
 
@@ -182,7 +182,7 @@ class DataManager
 
     fun clearCategories() {
         realmProvider.get().executeTransaction {
-            it.clear(DataCategory::class.java)
+            it.delete(DataCategory::class.java)
         }
     }
 
@@ -219,13 +219,13 @@ class DataManager
                     .equalTo("id", subscriptionId)
                     .findFirst()
 
-            subscription?.removeFromRealm()
+            subscription?.deleteFromRealm()
         }
     }
 
     fun clearSubscriptions() {
         realmProvider.get().executeTransaction {
-            it.clear(DataSubscription::class.java)
+            it.delete(DataSubscription::class.java)
         }
     }
 
@@ -237,7 +237,7 @@ class DataManager
 
     fun getSubscriptionsObservable(): Observable<List<DataSubscription>> {
         return realmProvider.get().where(DataSubscription::class.java)
-                .findAll()
+                .findAllSorted("title")
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
@@ -249,7 +249,7 @@ class DataManager
         // For more information look https://realm.io/docs/java/latest/#current-limitations
 
         return realmProvider.get().where(DataSubscription::class.java)
-                .findAll()
+                .findAllSorted("title")
                 .asObservable()
                 .first()
                 .flatMapIterable { it }
@@ -262,7 +262,7 @@ class DataManager
 
     fun clearDevices() {
         realmProvider.get().executeTransaction {
-            it.clear(DataDevice::class.java)
+            it.delete(DataDevice::class.java)
         }
     }
 
@@ -272,7 +272,7 @@ class DataManager
                     .equalTo("id", deviceId)
                     .findFirst()
 
-            subscription?.removeFromRealm()
+            subscription?.deleteFromRealm()
         }
     }
 

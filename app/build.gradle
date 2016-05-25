@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 23
@@ -81,11 +82,6 @@ dependencies {
     compile('com.github.afollestad:sectioned-recyclerview:0.2.0') {
         transitive = true
     }
-
-    // Data
-    compile 'io.realm:realm-android:0.87.5'
-    kapt "io.realm:realm-annotations-processor:0.87.5"
-    kapt "io.realm:realm-annotations:0.87.5"
 
     // Di
     compile 'com.google.dagger:dagger:2.0.2'
