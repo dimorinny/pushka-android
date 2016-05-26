@@ -69,8 +69,9 @@ class PushkaGcmListener : GcmListener {
 
     override fun onMessage(from: String, data: Bundle) {
         Log.v("PushkaGcmListener", "On message called from: $from + ${data.toString()}")
-
         val alert = gson.fromJson<NetworkAlert>(data.getString(KEY_ALERT))
+
+        // TODO: add sound handling
 
         val mBuilder = NotificationCompat
                 .Builder(context)

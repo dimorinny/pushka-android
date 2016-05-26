@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.WindowManager
 import java.util.*
 import javax.inject.Inject
@@ -24,9 +23,6 @@ class DeviceUtils
 
         val deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID);
         val sizes = "${metrics.widthPixels} ${metrics.heightPixels}"
-
-        Log.v("device", "DeviceId: $deviceId")
-        Log.v("device", "Sizes: $sizes")
 
         val uuid = UUID(deviceId.hashCode().toLong(), sizes.hashCode().toLong())
         return uuid.toString()

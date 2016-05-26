@@ -7,5 +7,6 @@ import com.google.gson.annotations.SerializedName
  */
 data class NetworkAlert(
         @SerializedName("_id") val id: String,
-        @SerializedName("notification") val notification: NetworkNotification
+        @SerializedName("notification") val notification: NetworkNotification,
+        @SerializedName("options") val options: NetworkAlertOptions?
 )
