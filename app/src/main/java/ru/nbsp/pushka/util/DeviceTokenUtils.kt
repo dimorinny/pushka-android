@@ -17,7 +17,7 @@ class DeviceTokenUtils @Inject constructor(val context: Context) {
     private val deviceNames = mapOf(
             Pair("android", DeviceInfo("Android", ContextCompat.getColor(context, R.color.android), R.drawable.ic_android_white_24dp)),
             Pair("telegram", DeviceInfo("Telegram", ContextCompat.getColor(context, R.color.telegram), R.drawable.ic_telegram_white_24dp)),
-            Pair("chrome", DeviceInfo("Google Chrome", ContextCompat.getColor(context, R.color.chrome), R.drawable.ic_chrome_white_24dp))
+            Pair("web", DeviceInfo("Google Chrome", ContextCompat.getColor(context, R.color.chrome), R.drawable.ic_chrome_white_24dp))
     )
 
     fun getDeviceInfoById(id: String): DeviceInfo {
