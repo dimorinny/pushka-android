@@ -11,4 +11,5 @@ interface SettingsView : BaseView {
     fun showLogoutProgressDialog()
     fun hideLogoutProgressDialog()
     fun openLoginScreen()
+    fun showLogoutConnectionError(message: String)
 }

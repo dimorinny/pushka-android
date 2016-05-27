@@ -3,10 +3,13 @@ package ru.nbsp.pushka.presentation.settings
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.device.RemoveGcmDeviceEvent
 import ru.nbsp.pushka.interactor.app.ApplicationInteractor
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriber
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriberDelegate
+import ru.nbsp.pushka.network.error.subscription.annotation.ErrorHandler
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.service.ServiceManager
+import ru.nbsp.pushka.util.ErrorUtils
 import rx.Observable
-import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -17,7 +20,8 @@ class SettingsPresenter
     @Inject constructor(
             val rxBus: RxBus,
             val serviceManager: ServiceManager,
-            val applicationInteractor: ApplicationInteractor) : BasePresenter {
+            val applicationInteractor: ApplicationInteractor,
+            val errorUtils: ErrorUtils) : BasePresenter {
 
     override var view: SettingsView? = null
     val subscription: CompositeSubscription = CompositeSubscription()
@@ -36,7 +40,7 @@ class SettingsPresenter
                     }
                 }
                 .doOnNext { applicationInteractor.logout() }
-                .subscribe(ClearDeviceSubscriber()))
+                .subscribe(ApiSubscriber(ClearDeviceSubscriber())))
 
     }
 
@@ -50,17 +54,29 @@ class SettingsPresenter
         serviceManager.removeGcmDevice()
     }
 
-    inner class ClearDeviceSubscriber : Subscriber<Any>() {
-        override fun onCompleted() {}
+    inner class ClearDeviceSubscriber : ApiSubscriberDelegate<Any> {
+
+        @ErrorHandler(code=ErrorUtils.CONNECTION_ERROR_CODE)
+        fun handleLogoutConnectionError(t: Throwable, code: Int) {
+            t.printStackTrace()
+            view?.hideLogoutProgressDialog()
+            view?.showLogoutConnectionError(errorUtils.errorMessage(code))
+            observeRemoveGcmDeviceEvent()
+        }
+
+        override fun onApiError(t: Throwable, code: Int) {
+            t.printStackTrace()
+            view?.hideLogoutProgressDialog()
+            observeRemoveGcmDeviceEvent()
+        }
 
         override fun onError(t: Throwable) {
             t.printStackTrace()
             view?.hideLogoutProgressDialog()
-
             observeRemoveGcmDeviceEvent()
         }
 
-        override fun onNext(t: Any) {
+        override fun onNext(data: Any) {
             view?.hideLogoutProgressDialog()
             view?.openLoginScreen()
         }

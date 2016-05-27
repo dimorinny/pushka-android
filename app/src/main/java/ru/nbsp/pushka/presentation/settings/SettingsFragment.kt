@@ -1,11 +1,12 @@
 package ru.nbsp.pushka.presentation.settings
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceFragment
 import android.support.v7.app.AlertDialog
+import com.github.machinarius.preferencefragment.PreferenceFragment
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.login.LoginActivity
@@ -17,6 +18,8 @@ import javax.inject.Inject
 class SettingsFragment : PreferenceFragment(), SettingsView {
 
     lateinit var logoutDialog: AlertDialog
+    var settingsActivityCallback: SettingsActivityCallback? = null
+
     val logoutProgressDialog: ProgressDialog by lazy { ProgressDialog(activity) }
 
     @Inject
@@ -26,7 +29,6 @@ class SettingsFragment : PreferenceFragment(), SettingsView {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.preferences)
         BaseApplication.graph.inject(this)
-
         initPresenter()
         initDialog()
         initViews()
@@ -35,6 +37,10 @@ class SettingsFragment : PreferenceFragment(), SettingsView {
     fun initPresenter() {
         settingsPresenter.view = this
         settingsPresenter.onCreate()
+    }
+
+    fun logout() {
+        settingsPresenter.logoutDialogPositiveClicked()
     }
 
     private fun initViews() {
@@ -60,6 +66,10 @@ class SettingsFragment : PreferenceFragment(), SettingsView {
                 .create()
 
         logoutProgressDialog.setMessage(resources.getString(R.string.pref_logout_progress_dialog_message))
+    }
+
+    override fun showLogoutConnectionError(message: String) {
+        settingsActivityCallback?.showLogoutConnectionError(message)
     }
 
     override fun showLogoutDialog() {
@@ -98,5 +108,15 @@ class SettingsFragment : PreferenceFragment(), SettingsView {
     override fun onDestroy() {
         super.onDestroy()
         settingsPresenter.onDestroy()
+    }
+
+    override fun onAttach(context: Context) {
+        settingsActivityCallback = activity as SettingsActivityCallback
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        settingsActivityCallback = null
+        super.onDetach()
     }
 }

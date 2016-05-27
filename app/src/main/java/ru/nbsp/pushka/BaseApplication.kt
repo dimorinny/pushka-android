@@ -24,10 +24,13 @@ class BaseApplication : Application() {
         super.onCreate()
         initAppComponent()
 
-        LeakCanary.install(this)
-        StrictMode.enableDefaults()
+        if (BuildConfig.DEBUG) {
+            LeakCanary.install(this)
+            initStetho()
+            StrictMode.enableDefaults()
+        }
+
         initSocial()
-        initStetho()
         EasyGcm.setGcmListener(PushkaGcmListener())
     }
 
