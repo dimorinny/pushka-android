@@ -15,7 +15,6 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_settings_grey_24dp"
         />
 
     <TextView
@@ -29,10 +28,9 @@
         />
 
     <TextView
-        android:id="@+id/header_email"
+        android:id="@+id/header_backend_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="didika914@gmail.com"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

@@ -16,7 +16,7 @@ data class Account(
     val secondName: String,
 
     @SerializedName("photo")
-    val photo: String,
+    val photo: String?,
 
     @SerializedName("access_token")
     val accessToken: String,

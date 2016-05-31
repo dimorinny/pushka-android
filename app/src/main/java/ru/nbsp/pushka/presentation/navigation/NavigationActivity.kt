@@ -27,6 +27,7 @@ import ru.nbsp.pushka.presentation.device.feed.container.DevicesActivity
 import ru.nbsp.pushka.presentation.navigation.drawer.DisableToogleAnimation
 import ru.nbsp.pushka.presentation.settings.SettingsActivity
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsActivity
+import ru.nbsp.pushka.util.AuthBackendUtils
 import ru.nbsp.pushka.util.bindView
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -51,7 +52,7 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     val connectionContainer: ViewGroup by bindView(R.id.item_connection_container)
 
     lateinit var headerName: TextView
-    lateinit var headerEmail: TextView
+    lateinit var headerBackendInfo: TextView
     lateinit var headerPhoto: ImageView
 
     val subscription = CompositeSubscription()
@@ -61,6 +62,9 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
     @Inject
     lateinit var picasso: Picasso
+
+    @Inject
+    lateinit var authBackendUtils: AuthBackendUtils
 
     abstract fun getContentLayout(): Int
     abstract fun getDrawerItemId(): Int
@@ -107,7 +111,7 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
     private fun initViews() {
         val headerView = navigationView.getHeaderView(0)
         headerName = headerView.findViewById(R.id.header_name) as TextView
-        headerEmail = headerView.findViewById(R.id.header_email) as TextView
+        headerBackendInfo = headerView.findViewById(R.id.header_backend_info) as TextView
         headerPhoto = headerView.findViewById(R.id.header_photo) as ImageView
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -173,7 +177,12 @@ abstract class NavigationActivity : PresentedActivity<NavigationPresenter>(),
 
     override fun setAccount(account: Account) {
         headerName.text = "${account.firstName} ${account.secondName}"
-        picasso.load(account.photo).into(headerPhoto)
+        headerBackendInfo.text = authBackendUtils.backendNameById(account.userId)
+
+        if (account.photo != null) {
+            picasso.load(account.photo)
+                    .into(headerPhoto)
+        }
     }
 
     override fun initPresenter(presenter: NavigationPresenter) {
