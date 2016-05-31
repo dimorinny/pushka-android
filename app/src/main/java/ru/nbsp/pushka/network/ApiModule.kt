@@ -27,7 +27,7 @@ import javax.inject.Singleton
 class ApiModule {
 
     companion object {
-        private const val BASE_URL = "https://dev.pushka.xyz/api/v1/"
+        private val BASE_URL = "https://pushka.xyz/api/v1/"
     }
 
     @Singleton
