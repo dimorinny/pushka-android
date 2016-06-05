@@ -82,27 +82,16 @@ class SubscribePresenter
 
         @ErrorHandler(code=ErrorUtils.CONNECTION_ERROR_CODE)
         fun handleConnectionError(t: Throwable, code: Int) {
-            t.printStackTrace()
-
-            view?.hideSubscribeProgressDialog()
             view?.showSubscribeConnectionError(errorUtils.errorMessage(code))
-
-            observeSubscribe()
         }
 
         override fun onApiError(t: Throwable, code: Int) {
-            t.printStackTrace()
-
-            view?.hideSubscribeProgressDialog()
             view?.showError(errorUtils.errorMessage(code))
-
-            observeSubscribe()
         }
 
-        override fun onError(t: Throwable) {
+        override fun baseErrorHandler(t: Throwable) {
             t.printStackTrace()
             view?.hideSubscribeProgressDialog()
-
             observeSubscribe()
         }
 

@@ -7,6 +7,7 @@ package ru.nbsp.pushka.network.error.subscription
 interface ApiSubscriberDelegate<T> {
     fun onApiError(t: Throwable, code: Int)
     fun onCompleted() {}
-    fun onError(t: Throwable)
+    fun onError(t: Throwable) {}
+    fun baseErrorHandler(t: Throwable) {}
     fun onNext(data: T)
 }

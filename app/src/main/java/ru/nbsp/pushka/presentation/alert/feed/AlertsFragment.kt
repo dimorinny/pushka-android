@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.alert.feed
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -32,6 +33,8 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     companion object {
         const val GRID_FIXED_ALERT_WIDTH = 800
     }
+
+    var alertsActivityCallback: AlertsActivityCallback? = null
 
     val recyclerView: StateRecyclerView by bindView(R.id.alerts_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.alerts_refresh_layout)
@@ -70,6 +73,10 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         initViews()
         initRecyclerView()
         presenter.loadAlertsFromCache()
+        presenter.loadAlertsFromServer()
+    }
+
+    fun loadAlertsFromServer() {
         presenter.loadAlertsFromServer()
     }
 
@@ -127,6 +134,14 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         activity.startActivity(intent)
     }
 
+    override fun showMessage(message: String) {
+        alertsActivityCallback?.showMessage(message)
+    }
+
+    override fun showLoadConnectionAlertsError(message: String) {
+        alertsActivityCallback?.showLoadAlertsConnectionError(message)
+    }
+
     private fun openCategoriesScreen() {
         val intent = Intent(activity, CategoriesActivity::class.java)
         activity.startActivity(intent)
@@ -134,5 +149,15 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
     fun onSearchQueryChanged(query: String) {
         presenter.onSearchQueryChanged(query)
+    }
+
+    override fun onAttach(context: Context) {
+        alertsActivityCallback = activity as AlertsActivityCallback
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        alertsActivityCallback = null
+        super.onDetach()
     }
 }

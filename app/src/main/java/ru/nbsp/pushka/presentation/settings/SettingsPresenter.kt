@@ -58,19 +58,12 @@ class SettingsPresenter
 
         @ErrorHandler(code=ErrorUtils.CONNECTION_ERROR_CODE)
         fun handleLogoutConnectionError(t: Throwable, code: Int) {
-            t.printStackTrace()
-            view?.hideLogoutProgressDialog()
             view?.showLogoutConnectionError(errorUtils.errorMessage(code))
-            observeRemoveGcmDeviceEvent()
         }
 
-        override fun onApiError(t: Throwable, code: Int) {
-            t.printStackTrace()
-            view?.hideLogoutProgressDialog()
-            observeRemoveGcmDeviceEvent()
-        }
+        override fun onApiError(t: Throwable, code: Int) {}
 
-        override fun onError(t: Throwable) {
+        override fun baseErrorHandler(t: Throwable) {
             t.printStackTrace()
             view?.hideLogoutProgressDialog()
             observeRemoveGcmDeviceEvent()

@@ -1,13 +1,17 @@
 package ru.nbsp.pushka.presentation.alert.feed
 
-import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.alert.LoadAlertsEvent
+import ru.nbsp.pushka.di.annotation.StorageRepository
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriber
+import ru.nbsp.pushka.network.error.subscription.ApiSubscriberDelegate
+import ru.nbsp.pushka.network.error.subscription.annotation.ErrorHandler
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.service.ServiceManager
+import ru.nbsp.pushka.util.ErrorUtils
 import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -21,7 +25,8 @@ import javax.inject.Inject
 class AlertsPresenter
         @Inject constructor(@StorageRepository val storageAlertsRepository: AlertsRepository,
                             val rxBus: RxBus,
-                            val serviceManager: ServiceManager) : BasePresenter {
+                            val serviceManager: ServiceManager,
+                            val errorUtils: ErrorUtils) : BasePresenter {
 
     override var view: AlertsView? = null
 
@@ -41,7 +46,7 @@ class AlertsPresenter
                         is LoadAlertsEvent.Error -> Observable.error(it.t)
                     }
                 }
-                .subscribe(LoadAlertsNetworkSubscriber()))
+                .subscribe(ApiSubscriber(LoadAlertsNetworkSubscriberDelegate())))
     }
 
     fun loadAlertsFromCache() {
@@ -82,26 +87,37 @@ class AlertsPresenter
         }
     }
 
-    inner class LoadAlertsNetworkSubscriber : Subscriber<List<PresentationAlert>>() {
-        override fun onCompleted() {}
+    inner class LoadAlertsNetworkSubscriberDelegate : ApiSubscriberDelegate<List<PresentationAlert>> {
 
-        override fun onError(t: Throwable) {
+        @ErrorHandler(code=ErrorUtils.CONNECTION_ERROR_CODE)
+        fun handleConnectionError(t: Throwable, code: Int) {
+            if (alerts.isNotEmpty()) {
+                view?.showLoadConnectionAlertsError(errorUtils.errorMessage(code))
+            }
+        }
+
+        override fun onApiError(t: Throwable, code: Int) {
+            if (alerts.isNotEmpty()) {
+                view?.showMessage(errorUtils.errorMessage(code))
+            }
+        }
+
+        override fun baseErrorHandler(t: Throwable) {
             t.printStackTrace()
 
             view?.disableSwipeRefresh()
-            if (alerts.size == 0) {
+            if (alerts.isEmpty()) {
                 view?.setState(State.STATE_ERROR)
             }
 
-            // Its workaround. I don't know, how to do it more elegant.
-            this@AlertsPresenter.observeLoadAlertsEvent()
+            observeLoadAlertsEvent()
         }
 
-        override fun onNext(result: List<PresentationAlert>) {
-            alerts = result
+        override fun onNext(data: List<PresentationAlert>) {
+            alerts = data
             view?.disableSwipeRefresh()
-            view?.setState(if (result.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
-            view?.setAlerts(result)
+            view?.setState(if (data.isEmpty()) State.STATE_EMPTY else State.STATE_NORMAL)
+            view?.setAlerts(data)
         }
     }
 

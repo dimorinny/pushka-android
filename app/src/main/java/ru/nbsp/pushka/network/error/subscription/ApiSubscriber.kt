@@ -13,6 +13,7 @@ import java.util.*
  */
 class ApiSubscriber<T>(val delegate: ApiSubscriberDelegate<T>) : Subscriber<T>() {
     override fun onError(t: Throwable) {
+        delegate.baseErrorHandler(t)
         when (t) {
             is ApiErrorException -> {
                 executeDelegateHandlers(t, t.code)

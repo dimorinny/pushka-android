@@ -3,6 +3,7 @@ package ru.nbsp.pushka.presentation.alert.feed
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.ColorRes
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.Menu
@@ -15,7 +16,7 @@ import ru.nbsp.pushka.util.bindView
 /**
  * Created by Dimorinny on 17.04.16.
  */
-class AlertsActivity : OneFragmentNavigationActivity() {
+class AlertsActivity : OneFragmentNavigationActivity(), AlertsActivityCallback {
 
     val searchView: MaterialSearchView by bindView(R.id.search_view)
 
@@ -78,5 +79,15 @@ class AlertsActivity : OneFragmentNavigationActivity() {
         searchView.setMenuItem(item)
 
         return true
+    }
+
+    override fun showMessage(message: String) {
+        Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showLoadAlertsConnectionError(message: String) {
+        Snackbar.make(container, message, Snackbar.LENGTH_SHORT).setAction(getString(R.string.snack_retry), {
+            (getFragment() as AlertsFragment).loadAlertsFromServer()
+        }).show()
     }
 }

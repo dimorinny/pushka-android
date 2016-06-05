@@ -12,4 +12,6 @@ interface AlertsView : BaseView {
     fun setState(state: State)
     fun openAlertScreen(alert: PresentationAlert)
     fun disableSwipeRefresh()
+    fun showMessage(message: String)
+    fun showLoadConnectionAlertsError(message: String)
 }
