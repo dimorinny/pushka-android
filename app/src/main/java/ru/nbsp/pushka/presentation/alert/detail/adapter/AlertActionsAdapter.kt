@@ -41,6 +41,7 @@ class AlertActionsAdapter : RecyclerView.Adapter<AlertActionsAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: AlertActionsAdapter.ViewHolder, position: Int) {
+        // TODO: add action info
         val action = actions[position]
         holder.actionTitle.text = "Открыть урл"
     }

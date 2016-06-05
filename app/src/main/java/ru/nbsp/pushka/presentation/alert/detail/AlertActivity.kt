@@ -77,7 +77,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         contentWebView.setWebViewClient(WebViewClient())
         contentWebView.settings.javaScriptEnabled = true
 
-        sheetFab = MaterialSheetFab(floatingActionButton, sheetLayout, overlay, resources.getColor(R.color.white), resources.getColor(R.color.white))
+        sheetFab = MaterialSheetFab(floatingActionButton, sheetLayout, overlay, resources.getColor(R.color.white, theme), resources.getColor(R.color.white, theme))
         sheetFab.setEventListener(object : MaterialSheetFabEventListener() {
 
             var statusBarColor: Int? = null
@@ -85,7 +85,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
             override fun onShowSheet() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     statusBarColor = window.statusBarColor
-                    window.statusBarColor = resources.getColor(R.color.colorPrimaryDark2)
+                    window.statusBarColor = resources.getColor(R.color.colorPrimaryDark2, theme)
                 }
             }
 

@@ -93,6 +93,7 @@
     <string name="error_already_subscribed">Вы уже подписаны на данную подписку</string>
     <string name="error_source_not_found">Такого источника не существует</string>
     <string name="error_subscription_not_found">Такой подписки не существует</string>
+    <string name="error_something_wrong">Что-то пошло не так</string>
 
     <!-- -->
     <string name="snack_retry">ПОВТОРИТЬ</string>

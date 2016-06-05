@@ -19,10 +19,9 @@ class ApplicationInteractorImpl(val context: Context,
         serviceManager.clearData()
         gcmManager.clear()
         accountManager.clear()
-//        openLoginActivity()
     }
 
-    private fun openLoginActivity() {
+    override fun openLoginActivity() {
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)

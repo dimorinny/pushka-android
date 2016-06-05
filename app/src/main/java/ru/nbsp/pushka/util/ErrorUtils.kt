@@ -17,13 +17,16 @@ class ErrorUtils
         const val ALREADY_SUBSCRIBED_CODE = 450
         const val SOURCE_NOT_FOUND_CODE = 439
         const val SUBSCRIPTION_NOT_FOUND_CODE = 451
+        const val INTERNAL_SERVER_ERROR_CODE = 500
+        const val AUTH_ERROR_CODE = 401
     }
 
     private val errorMessages = mapOf(
             Pair(CONNECTION_ERROR_CODE, R.string.error_connection),
             Pair(ALREADY_SUBSCRIBED_CODE, R.string.error_already_subscribed),
             Pair(SOURCE_NOT_FOUND_CODE, R.string.error_source_not_found),
-            Pair(SUBSCRIPTION_NOT_FOUND_CODE, R.string.error_subscription_not_found)
+            Pair(SUBSCRIPTION_NOT_FOUND_CODE, R.string.error_subscription_not_found),
+            Pair(INTERNAL_SERVER_ERROR_CODE, R.string.error_something_wrong)
     )
 
     fun errorMessage(code: Int): String {

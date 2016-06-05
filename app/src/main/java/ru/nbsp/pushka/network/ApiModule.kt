@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.nbsp.pushka.BuildConfig
 import ru.nbsp.pushka.di.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
@@ -27,7 +28,8 @@ import javax.inject.Singleton
 class ApiModule {
 
     companion object {
-        private val BASE_URL = "https://pushka.xyz/api/v1/"
+        private const val VERSION = "v1"
+        private val BASE_URL = if (BuildConfig.DEBUG) "https://dev.pushka.xyz/api/$VERSION/" else "https://pushka.xyz/api/$VERSION/"
     }
 
     @Singleton

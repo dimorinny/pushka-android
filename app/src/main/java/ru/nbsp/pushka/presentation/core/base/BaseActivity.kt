@@ -15,7 +15,6 @@ open class BaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var accountManager: AccountManager
-    // TODO: remove exception class
     val exceptionActivities: Array<Class<*>> = arrayOf(LoginActivity::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +42,7 @@ open class BaseActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+        overridePendingTransition(0, 0)
         finish()
     }
 }
