@@ -13,10 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
@@ -165,6 +162,14 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         Snackbar.make(coordinatorContainer, message, Snackbar.LENGTH_SHORT).setAction(getString(R.string.snack_retry), {
             presenter.subscribeButtonClicked(withSoundCheckbox.isChecked, withAlertCheckbox.isChecked, fragment.getValues())
         }).show()
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun closeScreen() {
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

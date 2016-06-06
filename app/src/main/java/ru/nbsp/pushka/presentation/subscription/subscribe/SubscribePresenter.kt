@@ -1,5 +1,6 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
+import ru.nbsp.pushka.R
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.subscription.SubscribeEvent
 import ru.nbsp.pushka.di.annotation.StorageRepository
@@ -11,6 +12,7 @@ import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.ErrorUtils
+import ru.nbsp.pushka.util.StringUtils
 import rx.Observable
 import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
@@ -24,7 +26,8 @@ class SubscribePresenter
     @Inject constructor(@StorageRepository val sourcesRepository: SourcesRepository,
                         val rxBus: RxBus,
                         val serviceManager: ServiceManager,
-                        val errorUtils: ErrorUtils): BasePresenter {
+                        val errorUtils: ErrorUtils,
+                        val stringUtils: StringUtils): BasePresenter {
 
     override var view: SubscribeView? = null
     var source: PresentationSource? = null
@@ -97,6 +100,8 @@ class SubscribePresenter
 
         override fun onNext(data: Any) {
             view?.hideSubscribeProgressDialog()
+            view?.showMessage(stringUtils.getString(R.string.subscription_subscribe_success_message))
+            view?.closeScreen()
         }
     }
 

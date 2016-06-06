@@ -2,6 +2,7 @@ package ru.nbsp.pushka.presentation.alert.detail
 
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
@@ -77,7 +78,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         contentWebView.setWebViewClient(WebViewClient())
         contentWebView.settings.javaScriptEnabled = true
 
-        sheetFab = MaterialSheetFab(floatingActionButton, sheetLayout, overlay, resources.getColor(R.color.white, theme), resources.getColor(R.color.white, theme))
+        sheetFab = MaterialSheetFab(floatingActionButton, sheetLayout, overlay, ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.white))
         sheetFab.setEventListener(object : MaterialSheetFabEventListener() {
 
             var statusBarColor: Int? = null
@@ -85,7 +86,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
             override fun onShowSheet() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     statusBarColor = window.statusBarColor
-                    window.statusBarColor = resources.getColor(R.color.colorPrimaryDark2, theme)
+                    window.statusBarColor = ContextCompat.getColor(this@AlertActivity, R.color.colorPrimaryDark2)
                 }
             }
 
