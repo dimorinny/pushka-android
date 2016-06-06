@@ -21,7 +21,7 @@ class ApplicationInteractorImpl(val context: Context,
         accountManager.clear()
     }
 
-    override fun openLoginActivity() {
+    override fun openLoginScreen() {
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)

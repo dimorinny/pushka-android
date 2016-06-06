@@ -1,11 +1,11 @@
 package ru.nbsp.pushka.network.service
 
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 import ru.nbsp.pushka.network.response.LoginResponse
-import ru.nbsp.pushka.network.response.RefreshTokenResponse
 import rx.Observable
 
 /**
@@ -20,5 +20,5 @@ interface PushkaAuthService {
     @FormUrlEncoded
     @POST("token/refresh")
     fun refreshToken(@Field("access_token") accessToken: String,
-                     @Field("refresh_token") refreshToken: String): Call<RefreshTokenResponse>
+                     @Field("refresh_token") refreshToken: String): Call<JsonObject>
 }

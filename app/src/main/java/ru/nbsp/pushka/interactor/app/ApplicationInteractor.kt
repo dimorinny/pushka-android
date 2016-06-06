@@ -5,5 +5,5 @@ package ru.nbsp.pushka.interactor.app
  */
 interface ApplicationInteractor {
     fun logout()
-    fun openLoginActivity()
+    fun openLoginScreen()
 }

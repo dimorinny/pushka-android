@@ -12,7 +12,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.nbsp.pushka.BuildConfig
 import ru.nbsp.pushka.di.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
@@ -26,11 +25,6 @@ import javax.inject.Singleton
 @Singleton
 @Module
 class ApiModule {
-
-    companion object {
-        private const val VERSION = "v1"
-        private val BASE_URL = if (BuildConfig.DEBUG) "https://dev.pushka.xyz/api/$VERSION/" else "https://pushka.xyz/api/$VERSION/"
-    }
 
     @Singleton
     @Provides
@@ -73,7 +67,7 @@ class ApiModule {
     @Provides
     fun provideRestAdapter(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(ApiConfig.BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -85,7 +79,7 @@ class ApiModule {
     @AuthRequired
     fun provideAuthRequiredRestAdapter(@AuthRequired client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(ApiConfig.BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
