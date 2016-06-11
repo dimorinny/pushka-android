@@ -16,7 +16,7 @@ class StorageAlertsRepository(
     override fun getAlerts(): Observable<List<PresentationAlert>> {
         return dataManager.getAlertsObservable()
                 .map {
-                    var result = ArrayList<PresentationAlert>()
+                    val result = ArrayList<PresentationAlert>()
                     for (alert in it) {
                         result.add(alertMapper.fromDataAlert(alert))
                     }
@@ -24,10 +24,14 @@ class StorageAlertsRepository(
                 }
     }
 
+    override fun getMoreAlerts(firstItemTime: Long, offset: Int): Observable<List<PresentationAlert>> {
+        throw UnsupportedOperationException()
+    }
+
     override fun getAlertsWithFilter(query: String): Observable<List<PresentationAlert>> {
         return dataManager.getAlertsWithFilter(query)
                 .map {
-                    var result = ArrayList<PresentationAlert>()
+                    val result = ArrayList<PresentationAlert>()
                     for (alert in it) {
                         result.add(alertMapper.fromDataAlert(alert))
                     }

@@ -109,12 +109,33 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         alertsAdapter = AlertsAdapter(context, picasso, iconUtils)
         recyclerView.adapter = alertsAdapter
 
+//        initAttacher()
+
         alertsAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onAlertClicked(index)
             }
         }
     }
+
+//    private fun initAttacher() {
+//        val attacher = Mugen.with(recyclerView, object : MugenCallbacks {
+//            override fun onLoadMore() {
+//                alertsAdapter.isProgress = true
+//                presenter.loadMoreAlertsFromServer()
+//            }
+//
+//            override fun hasLoadedAllItems(): Boolean {
+//                return presenter.hasLoadedAllAlerts
+//            }
+//
+//            override fun isLoading(): Boolean {
+//                return presenter.isAlertsLoading
+//            }
+//        }).start()
+//
+//        attacher.isLoadMoreEnabled = true
+//    }
 
     override fun setAlerts(alerts: List<PresentationAlert>) {
         alertsAdapter.alerts = alerts

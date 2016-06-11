@@ -11,6 +11,11 @@ import rx.Observable
 class StorageAlertInteractorImpl(val dataManager: DataManager,
                                  val dataAlertMapper: DataAlertMapper) : StorageAlertInteractor {
 
+    override fun addAlerts(alerts: List<PresentationAlert>): Observable<List<PresentationAlert>> {
+        dataManager.putAlerts(alerts.map { dataAlertMapper.fromPresentationAlert(it) })
+        return Observable.just(alerts)
+    }
+
     override fun saveAlerts(alerts: List<PresentationAlert>): Observable<List<PresentationAlert>> {
         dataManager.clearAlerts()
         dataManager.putAlerts(alerts.map { dataAlertMapper.fromPresentationAlert(it) })

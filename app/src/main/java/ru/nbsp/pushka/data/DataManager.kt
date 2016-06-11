@@ -52,6 +52,12 @@ class DataManager
         }
     }
 
+//    fun addAlerts(alerts: List<DataAlert>) {
+//        realmProvider.get().executeTransaction {
+//            it.add
+//        }
+//    }
+
     fun getAlertObservable(alertId: String): Observable<DataAlert> {
         val result = realmProvider.get().where(DataAlert::class.java)
                 .equalTo("id", alertId)

@@ -14,6 +14,7 @@ import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.ErrorUtils
 import rx.Observable
 import rx.Subscriber
+import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.subscriptions.CompositeSubscription
 import java.util.*
@@ -28,10 +29,19 @@ class AlertsPresenter
                             val serviceManager: ServiceManager,
                             val errorUtils: ErrorUtils) : BasePresenter {
 
+    companion object {
+        private const val STEP_SIZE = 20
+    }
+
     override var view: AlertsView? = null
 
     val subscription: CompositeSubscription = CompositeSubscription()
+    var loadAlertsSubscription: Subscription? = null
+
     var alerts: List<PresentationAlert> = ArrayList()
+
+//    var hasLoadedAllAlerts = false
+//    var isAlertsLoading = false
 
     override fun onCreate() {
         super.onCreate()
@@ -39,14 +49,17 @@ class AlertsPresenter
     }
 
     private fun observeLoadAlertsEvent() {
-        subscription.add(rxBus.events(LoadAlertsEvent::class.java)
+        loadAlertsSubscription = rxBus.events(LoadAlertsEvent::class.java)
+//                .doOnNext { isAlertsLoading = false }
                 .flatMap {
                     when (it) {
                         is LoadAlertsEvent.Success -> storageAlertsRepository.getAlerts()
                         is LoadAlertsEvent.Error -> Observable.error(it.t)
                     }
                 }
-                .subscribe(ApiSubscriber(LoadAlertsNetworkSubscriberDelegate())))
+                .subscribe(ApiSubscriber(LoadAlertsNetworkSubscriberDelegate()))
+
+        subscription.add(loadAlertsSubscription)
     }
 
     fun loadAlertsFromCache() {
@@ -64,6 +77,11 @@ class AlertsPresenter
     fun loadAlertsFromServer() {
         serviceManager.loadAlerts()
     }
+
+//    fun loadMoreAlertsFromServer() {
+//        serviceManager.loadMoreAlerts(alerts.first().date, alerts.size)
+//        isAlertsLoading = true
+//    }
 
     fun onAlertClicked(index: Int) {
         view?.openAlertScreen(alerts[index])

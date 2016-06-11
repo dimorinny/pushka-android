@@ -29,6 +29,14 @@ class ServiceManager
         context.startService(intent)
     }
 
+    fun loadMoreAlerts(firstItemTime: Long, offset: Int) {
+        val intent = Intent(context, ApiAlertService::class.java)
+        intent.putExtra(ApiAlertService.ARG_SERVICE_COMMAND, ApiAlertService.COMMAND_LOAD_MORE_ALERTS)
+        intent.putExtra(ApiAlertService.ARG_FIRST_ITEM_TIME, firstItemTime)
+        intent.putExtra(ApiAlertService.ARG_OFFSET, offset)
+        context.startService(intent)
+    }
+
     fun loadAlert(alertId: String) {
         val intent = Intent(context, ApiAlertService::class.java)
         intent.putExtra(ApiAlertService.ARG_SERVICE_COMMAND, ApiAlertService.COMMAND_LOAD_ALERT)

@@ -89,6 +89,7 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
+    compile 'com.vinaysshenoy:mugen:1.0.2'
     compile('com.github.afollestad:sectioned-recyclerview:0.2.0') {
         transitive = true
     }

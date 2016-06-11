@@ -4,11 +4,11 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import ru.nbsp.pushka.BaseApplication
-import ru.nbsp.pushka.di.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.alert.LoadAlertEvent
 import ru.nbsp.pushka.bus.event.alert.LoadAlertsEvent
+import ru.nbsp.pushka.di.annotation.ApiRepository
 import ru.nbsp.pushka.interactor.alert.StorageAlertInteractor
 import ru.nbsp.pushka.repository.alert.AlertsRepository
 import ru.nbsp.pushka.service.BaseEventSubscriber
@@ -34,7 +34,11 @@ class ApiAlertService : Service() {
     companion object {
         const val ARG_SERVICE_COMMAND = "arg_service_command"
         const val ARG_ALERT_ID = "arg_alert_id"
+        const val ARG_FIRST_ITEM_TIME = "arg_first_item_time"
+        const val ARG_OFFSET = "arg_offset"
+
         const val COMMAND_LOAD_ALERTS = "command_load_alerts"
+        const val COMMAND_LOAD_MORE_ALERTS = "command_load_more_alerts"
         const val COMMAND_LOAD_ALERT = "command_load_alert"
     }
 
@@ -64,9 +68,31 @@ class ApiAlertService : Service() {
             COMMAND_LOAD_ALERT -> {
                 handleLoadAlertCommand(intent, startId)
             }
+            COMMAND_LOAD_MORE_ALERTS -> {
+                handleLoadMoreAlertsCommand(intent, startId)
+            }
         }
 
         return START_NOT_STICKY
+    }
+
+    private fun handleLoadMoreAlertsCommand(intent: Intent, startId: Int) {
+        val firstItemTime = intent.getLongExtra(ARG_FIRST_ITEM_TIME, 0)
+        val offset = intent.getIntExtra(ARG_OFFSET, 0)
+
+        apiAlertsRepository.getMoreAlerts(firstItemTime, offset)
+                .flatMap {
+                    storageAlertInteractor.addAlerts(it)
+                }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadAlertsEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return LoadAlertsEvent.Success()
+                    }
+                })
     }
 
     private fun handleLoadAlertCommand(intent: Intent, startId: Int) {

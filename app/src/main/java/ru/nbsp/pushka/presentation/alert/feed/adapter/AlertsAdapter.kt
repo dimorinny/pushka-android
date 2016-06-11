@@ -21,15 +21,18 @@ import java.util.*
 /**
  * Created by Dimorinny on 24.02.16.
  */
-class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: IconUtils)
-        : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlertsAdapter(val context: Context,
+                    val picasso: Picasso,
+                    val iconUtils: IconUtils) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_IMAGE = 0
         private const val TYPE_PLAIN = 1
+//        private const val TYPE_PROGRESS = 3
     }
 
     var itemClickListener: OnItemClickListener? = null
+//    var isProgress: Boolean = false
 
     var alerts: List<PresentationAlert> = ArrayList()
         set(s : List<PresentationAlert>) {
@@ -38,7 +41,6 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
         }
 
     inner class ImageItem(holderView: View) : PlainItem(holderView) {
-        val alertImageContainer: ViewGroup by bindView(R.id.item_alert_image_container)
         val alertImage: ImageView by bindView(R.id.item_alert_image)
     }
 
@@ -60,7 +62,11 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
         }
     }
 
+//    class ProgressItem(val holderView: View) : RecyclerView.ViewHolder(holderView)
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//        if (holder is ProgressItem) return
+
         val holderItem = holder as PlainItem
         val alert = alerts[position]
 
@@ -77,8 +83,7 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
                 0)
 
         if (holder is ImageItem) {
-            picasso
-                    .load(alert.photo)
+            picasso.load(alert.photo)
                     .fit()
                     .centerCrop()
                     .into(holder.alertImage)
@@ -86,6 +91,14 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
     }
 
     override fun getItemViewType(position: Int): Int {
+//        return if (isProgress && getItemCountWithoutProgress() == position) {
+//            TYPE_PROGRESS
+//        } else if (alerts[position].photo == null) {
+//            TYPE_PLAIN
+//        } else {
+//            TYPE_IMAGE
+//        }
+
         return if (alerts[position].photo == null) {
             TYPE_PLAIN
         } else {
@@ -103,11 +116,25 @@ class AlertsAdapter(val context: Context, val picasso: Picasso, val iconUtils: I
                 val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_alert_plain, parent, false)
                 PlainItem(view)
             }
+//            TYPE_PROGRESS -> {
+//                val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_alert_progress, parent, false)
+//                ProgressItem(view)
+//            }
             else -> null
         }
     }
 
     override fun getItemCount(): Int {
+//        return if (isProgress) {
+//            getItemCountWithoutProgress() + 1
+//        } else {
+//            getItemCountWithoutProgress()
+//        }
+
+        return getItemCountWithoutProgress()
+    }
+
+    private fun getItemCountWithoutProgress(): Int {
         return alerts.size
     }
 }

@@ -19,7 +19,20 @@ class ApiAlertsRepository(
         return apiPushka
                 .getAlerts()
                 .map {
-                    var result = ArrayList<PresentationAlert>()
+                    val result = ArrayList<PresentationAlert>()
+                    for (alert in it.alerts) {
+                        result.add(alertMapper.fromNetworkAlert(alert))
+                    }
+                    result
+                }
+                .compose(schedulersUtils.applySchedulers<List<PresentationAlert>>())
+    }
+
+    override fun getMoreAlerts(firstItemTime: Long, offset: Int): Observable<List<PresentationAlert>> {
+        return apiPushka
+                .getMoreAlerts(firstItemTime, offset)
+                .map {
+                    val result = ArrayList<PresentationAlert>()
                     for (alert in it.alerts) {
                         result.add(alertMapper.fromNetworkAlert(alert))
                     }
