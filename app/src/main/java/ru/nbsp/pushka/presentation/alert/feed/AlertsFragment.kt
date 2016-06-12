@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
 import com.squareup.picasso.Picasso
 import ru.nbsp.pushka.BaseApplication
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedFragment
 import ru.nbsp.pushka.presentation.alert.detail.AlertActivity
 import ru.nbsp.pushka.presentation.alert.feed.adapter.AlertsAdapter
+import ru.nbsp.pushka.presentation.alert.feed.adapter.ad.AdMobNativeAdapter
 import ru.nbsp.pushka.presentation.category.feed.CategoriesActivity
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
@@ -59,7 +61,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     @Inject
     lateinit var stringUtils: StringUtils
 
-    lateinit var alertsAdapter: AlertsAdapter
+    lateinit var alertsAdapter: AdMobNativeAdapter<AlertsAdapter>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_alerts, container, false)
@@ -106,12 +108,17 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         recyclerView.setProgressView(progressPlaceholder)
         recyclerView.setState(State.STATE_PROGRESS)
 
-        alertsAdapter = AlertsAdapter(context, picasso, iconUtils)
+        val adRequest = AdRequest.Builder()
+                .addTestDevice("134C8B7A80A1936D85748EF141D344C4")
+                .build()
+
+        alertsAdapter = AdMobNativeAdapter(AlertsAdapter(context, picasso, iconUtils), adRequest)
+        alertsAdapter.setFrequency(8);
+
         recyclerView.adapter = alertsAdapter
 
 //        initAttacher()
-
-        alertsAdapter.itemClickListener = object : OnItemClickListener {
+        alertsAdapter.delegateAdapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
                 presenter.onAlertClicked(index)
             }
@@ -138,7 +145,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 //    }
 
     override fun setAlerts(alerts: List<PresentationAlert>) {
-        alertsAdapter.alerts = alerts
+        alertsAdapter.delegateAdapter.alerts = alerts
     }
 
     override fun setState(state: State) {

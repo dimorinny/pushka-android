@@ -29,7 +29,6 @@ class BaseApplication : Application() {
             initStetho()
             StrictMode.enableDefaults()
         }
-
         initSocial()
         EasyGcm.setGcmListener(PushkaGcmListener())
     }
