@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.nbsp.pushka.BuildConfig
 import ru.nbsp.pushka.di.annotation.AuthRequired
 import ru.nbsp.pushka.network.auth.AuthInterceptor
 import ru.nbsp.pushka.network.auth.RefreshTokenInterceptor
@@ -22,7 +23,6 @@ import javax.inject.Singleton
 /**
  * Created by Dimorinny on 12.02.16.
  */
-@Singleton
 @Module
 class ApiModule {
 
@@ -67,7 +67,7 @@ class ApiModule {
     @Provides
     fun provideRestAdapter(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(ApiConfig.BASE_URL)
+                .baseUrl(if (BuildConfig.DEBUG) ApiConfig.DEV_URL else ApiConfig.PROD_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -79,7 +79,7 @@ class ApiModule {
     @AuthRequired
     fun provideAuthRequiredRestAdapter(@AuthRequired client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(ApiConfig.BASE_URL)
+                .baseUrl(if (BuildConfig.DEBUG) ApiConfig.DEV_URL else ApiConfig.PROD_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))

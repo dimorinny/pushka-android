@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.alert.feed.adapter.ad;
+package ru.nbsp.pushka.presentation.core.ad;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;

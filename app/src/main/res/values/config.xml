@@ -2,5 +2,6 @@
 <resources>
     <integer name="com_vk_sdk_AppId">5301305</integer>
     <string name="google_client_server_id">1070437861086-tvbpn9i8eigs62v2hk8e0fkvsonmbqua.apps.googleusercontent.com</string>
-    <string name="admob_unit_id">ca-app-pub-7912953541322593/6821220935</string>
+    <string name="admob_unit_id_medium">ca-app-pub-7912953541322593/6821220935</string>
+    <string name="admob_unit_id">ca-app-pub-7912953541322593/1280888137</string>
 </resources>

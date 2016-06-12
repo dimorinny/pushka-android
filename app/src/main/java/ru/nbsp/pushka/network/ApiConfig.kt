@@ -1,7 +1,5 @@
 package ru.nbsp.pushka.network
 
-import ru.nbsp.pushka.BuildConfig
-
 /**
  * Created by Dimorinny on 07.06.16.
  */
@@ -12,6 +10,9 @@ class ApiConfig {
         const val ERROR_MESSAGE_KEY = "description"
 
         const val VERSION = "v1"
-        val BASE_URL = if (BuildConfig.DEBUG) "https://dev.pushka.xyz/api/$VERSION/" else "https://pushka.xyz/api/$VERSION/"
+        const val DEV_URL = "https://dev.pushka.xyz/api/$VERSION/"
+        const val PROD_URL = "https://pushka.xyz/api/$VERSION/"
+
+        const val DEVICE_ID = "134C8B7A80A1936D85748EF141D344C4"
     }
 }

@@ -1,11 +1,10 @@
-package ru.nbsp.pushka.presentation.alert.feed.adapter.ad;
+package ru.nbsp.pushka.presentation.core.ad;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.NativeExpressAdView;
 
 import ru.nbsp.pushka.R;
@@ -13,14 +12,14 @@ import ru.nbsp.pushka.R;
 /**
  * Created by Dimorinny on 12.06.16.
  */
-public class AdMobNativeAdapter<T extends RecyclerView.Adapter<RecyclerView.ViewHolder>>
+public class AdmobNativeAdapter<T extends RecyclerView.Adapter<RecyclerView.ViewHolder>>
         extends BaseAdAdapter<T> {
 
-    private AdRequest mAdRequest;
+    private BaseAdmobFetcher mAdmobFetcher;
 
-    public AdMobNativeAdapter(T adapter, AdRequest request) {
+    public AdmobNativeAdapter(T adapter, BaseAdmobFetcher fetcher) {
         super(adapter);
-        mAdRequest = request;
+        mAdmobFetcher = fetcher;
     }
 
     class AdViewHolder extends RecyclerView.ViewHolder {
@@ -48,7 +47,12 @@ public class AdMobNativeAdapter<T extends RecyclerView.Adapter<RecyclerView.View
     @Override
     void onBindAdViewHolder(RecyclerView.ViewHolder holder, int position) {
         AdViewHolder adHolder = (AdViewHolder) holder;
-        adHolder.mAdView.loadAd(mAdRequest);
+        mAdmobFetcher.setupAd(adHolder.mAdView);
+        mAdmobFetcher.fetchAd(adHolder.mAdView);
+    }
+
+    public void onDestroy() {
+        mAdmobFetcher.destroyAllAds();
     }
 }
 
