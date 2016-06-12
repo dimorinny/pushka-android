@@ -12,5 +12,7 @@ open class DataSubscription(
         open var color: String = "",
         open var sourceTitle: String = "",
         open var sourceId: String = "",
-        open var values: String = ""
+        open var values: String = "",
+        open var sound: Boolean = false,
+        open var notification: Boolean = false
 ) : RealmObject()

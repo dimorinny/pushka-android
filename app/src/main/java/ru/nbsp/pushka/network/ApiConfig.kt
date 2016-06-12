@@ -12,7 +12,5 @@ class ApiConfig {
         const val VERSION = "v1"
         const val DEV_URL = "https://dev.pushka.xyz/api/$VERSION/"
         const val PROD_URL = "https://pushka.xyz/api/$VERSION/"
-
-        const val DEVICE_ID = "134C8B7A80A1936D85748EF141D344C4"
     }
 }

@@ -12,5 +12,7 @@ data class NetworkSubscription(
         @SerializedName("icon") val icon: String,
         @SerializedName("color") val color: String,
         @SerializedName("source_name") val sourceTitle: String,
+        @SerializedName("notification") val notification: Boolean,
+        @SerializedName("sound") val sound: Boolean,
         @SerializedName("params") val params: Map<String, String>
 )

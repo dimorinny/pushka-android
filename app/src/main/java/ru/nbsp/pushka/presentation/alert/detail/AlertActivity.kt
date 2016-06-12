@@ -37,6 +37,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
 
     companion object {
         final val ARG_ALERT_ID = "arg_alert_id"
+        final val DIMORINNY_YOTAPHONE_ID = "134C8B7A80A1936D85748EF141D344C4"
     }
 
     val contentWebView: WebView by bindView(R.id.alert_web_view)
@@ -121,7 +122,7 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         val adBuilder = AdRequest.Builder()
 
         if (BuildConfig.DEBUG) {
-            adBuilder.addTestDevice("134C8B7A80A1936D85748EF141D344C4")
+            adBuilder.addTestDevice(DIMORINNY_YOTAPHONE_ID)
         }
 
         val adRequest = adBuilder.build()

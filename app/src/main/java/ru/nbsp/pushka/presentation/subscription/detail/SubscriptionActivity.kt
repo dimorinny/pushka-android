@@ -149,6 +149,10 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     override fun setSubscriptionData(subscription: PresentationSubscription) {
         subscriptionTitleView.text = subscription.title
         subscriptionSubtitleView.text = subscription.sourceTitle
+
+        withSoundCheckbox.isChecked = subscription.sound
+        withAlertCheckbox.isChecked = subscription.notification
+
         fragment.setValues(subscription.values)
         (iconBackground.background as GradientDrawable)
                 .setColor(Color.parseColor(subscription.color))

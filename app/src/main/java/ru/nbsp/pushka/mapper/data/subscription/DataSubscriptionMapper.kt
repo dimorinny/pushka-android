@@ -1,6 +1,5 @@
 package ru.nbsp.pushka.mapper.data.subscription
 
-import android.util.Log
 import com.google.gson.Gson
 import ru.nbsp.pushka.data.model.subscription.DataSubscription
 import ru.nbsp.pushka.network.model.subscription.NetworkSubscription
@@ -22,11 +21,12 @@ class DataSubscriptionMapper @Inject constructor(val gson: Gson) {
                 icon = networkSubscription.icon,
                 color = networkSubscription.color,
                 sourceId = networkSubscription.sourceId,
+                notification = networkSubscription.notification,
+                sound = networkSubscription.sound,
                 values = gson.toJson(networkSubscription.params))
     }
 
     fun fromPresentationSubscription(presentationSubscription: PresentationSubscription): DataSubscription {
-        Log.d("fromPresentationSubscription", presentationSubscription.values.toString())
         return DataSubscription(
                 id = presentationSubscription.id,
                 title = presentationSubscription.title,
@@ -34,6 +34,8 @@ class DataSubscriptionMapper @Inject constructor(val gson: Gson) {
                 icon = presentationSubscription.icon,
                 color = presentationSubscription.color,
                 sourceId = presentationSubscription.sourceId,
+                notification = presentationSubscription.notification,
+                sound = presentationSubscription.sound,
                 values = gson.toJson(presentationSubscription.values))
     }
 }

@@ -23,6 +23,8 @@ class PresentationSubscriptionMapper @Inject constructor(val gson: Gson) {
                 icon = networkSubscription.icon,
                 color = networkSubscription.color,
                 sourceId = networkSubscription.sourceId,
+                notification = networkSubscription.notification,
+                sound = networkSubscription.sound,
                 values = networkSubscription.params)
     }
 
@@ -35,6 +37,8 @@ class PresentationSubscriptionMapper @Inject constructor(val gson: Gson) {
                 icon = dataSubscription.icon,
                 color = dataSubscription.color,
                 sourceId = dataSubscription.sourceId,
+                notification = dataSubscription.notification,
+                sound = dataSubscription.sound,
                 values = gson.fromJson(dataSubscription.values, HashMap::class.java) as HashMap<String, String>)
 
     }

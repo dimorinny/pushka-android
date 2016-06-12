@@ -10,5 +10,7 @@ data class PresentationSubscription(
         val sourceTitle: String,
         val icon: String,
         val color: String,
+        val notification: Boolean,
+        val sound: Boolean,
         val values: Map<String, String>
 )
