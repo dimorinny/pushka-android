@@ -10,12 +10,17 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.gordonwong.materialsheetfab.DimOverlayFrameLayout
 import com.gordonwong.materialsheetfab.MaterialSheetFab
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener
 import ru.nbsp.pushka.BaseApplication
+import ru.nbsp.pushka.BuildConfig
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.alert.detail.adapter.AlertActionsAdapter
@@ -40,6 +45,8 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
     val overlay: DimOverlayFrameLayout by bindView(R.id.alert_overlay)
     val sheetLayout: CardView by bindView(R.id.alert_fab_sheet)
     val recyclerView: RecyclerView by bindView(R.id.alert_action_recycler_view)
+    val adContainer: ViewGroup by bindView(R.id.ad_container)
+    var ad: AdView? = null
 
     @Inject
     lateinit var presenter: AlertPresenter
@@ -57,6 +64,8 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         initState(savedInstanceState)
         initToolbar()
         initViews()
+        initAdView()
+        initAd()
 
         presenter.loadAlertFromCache(alertId)
         presenter.loadAlertFromServer(alertId)
@@ -72,6 +81,14 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         if (intent.extras.getString(ARG_ALERT_ID) != null) {
             alertId = intent.extras.getString(ARG_ALERT_ID)
         }
+    }
+
+    // I create ad view dynamically because stupid admob's programmers are monkeys
+    private fun initAdView() {
+        ad = AdView(applicationContext)
+        ad?.adSize = AdSize.SMART_BANNER
+        ad?.adUnitId = resources.getString(R.string.admob_unit_id)
+        adContainer.addView(ad)
     }
 
     private fun initViews() {
@@ -98,6 +115,17 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
         })
 
         initActionsRecyclerView()
+    }
+
+    private fun initAd() {
+        val adBuilder = AdRequest.Builder()
+
+        if (BuildConfig.DEBUG) {
+            adBuilder.addTestDevice("134C8B7A80A1936D85748EF141D344C4")
+        }
+
+        val adRequest = adBuilder.build()
+        ad?.loadAd(adRequest)
     }
 
     private fun initActionsRecyclerView() {
@@ -161,5 +189,20 @@ class AlertActivity : PresentedActivity<AlertPresenter>(), AlertView {
     override fun onSaveInstanceState(outState: Bundle) {
         contentWebView.saveState(outState)
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onPause() {
+        ad?.pause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        ad?.destroy()
+        super.onStop()
+    }
+
+    override fun onResume() {
+        ad?.resume()
+        super.onResume()
     }
 }

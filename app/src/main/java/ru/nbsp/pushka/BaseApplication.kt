@@ -5,6 +5,7 @@ import android.os.StrictMode
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import com.vk.sdk.VKSdk
+import com.yandex.metrica.YandexMetrica
 import eu.inloop.easygcm.EasyGcm
 import ru.nbsp.pushka.di.AppComponent
 import ru.nbsp.pushka.di.AppModule
@@ -28,7 +29,10 @@ class BaseApplication : Application() {
             LeakCanary.install(this)
             initStetho()
             StrictMode.enableDefaults()
+        } else {
+            initYandexMetric()
         }
+
         initSocial()
         EasyGcm.setGcmListener(PushkaGcmListener())
     }
@@ -39,6 +43,11 @@ class BaseApplication : Application() {
 
     private fun initSocial() {
         VKSdk.initialize(applicationContext)
+    }
+
+    private fun initYandexMetric() {
+        YandexMetrica.activate(this, resources.getString(R.string.yandex_metric_api_key))
+        YandexMetrica.enableActivityAutoTracking(this)
     }
 
     fun initAppComponent() {

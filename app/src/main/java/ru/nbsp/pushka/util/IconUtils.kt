@@ -21,11 +21,13 @@ class IconUtils @Inject constructor() {
             Pair("twitch", R.drawable.ic_twitch_white_36dp),
             Pair("android", R.drawable.ic_android_white_24dp),
             Pair("telegram", R.drawable.ic_telegram_white_24dp),
+            Pair("rutracker", R.drawable.ic_rutracker_white_36dp),
             Pair("category_news", R.drawable.ic_news_112dp),
             Pair("category_films", R.drawable.ic_films_112dp),
             Pair("category_social", R.drawable.ic_bullhorn_112dp),
             Pair("category_games", R.drawable.ic_gamepad_112dp),
-            Pair("category_it", R.drawable.ic_listing_112dp)
+            Pair("category_it", R.drawable.ic_listing_112dp),
+            Pair("category_utilities", R.drawable.ic_utilities_112dp)
     )
 
     fun getIcon(name: String): Int {
