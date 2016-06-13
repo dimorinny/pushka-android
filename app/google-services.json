@@ -1,27 +1,23 @@
 {
   "project_info": {
-    "project_id": "pushka-1224",
     "project_number": "1070437861086",
-    "name": "Pushka"
+    "project_id": "pushka-1224"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:1070437861086:android:af6138fcba102a69",
-        "client_id": "android:ru.nbsp.pushka",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "ru.nbsp.pushka",
-          "certificate_hash": []
+          "package_name": "ru.nbsp.pushka"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1070437861086-b4mm95e38tsfm3jme3bsvitridsl5fod.apps.googleusercontent.com",
+          "client_id": "1070437861086-42bh68u7aa23oevb3s6ig8snrd0a60r2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ru.nbsp.pushka",
-            "certificate_hash": "A5B9DBB5532751FA31B82FBA70E191D371E8E957"
+            "certificate_hash": "0615691EF7E9A075EED64604E45F75F40C3D3AF0"
           }
         },
         {
@@ -29,21 +25,57 @@
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACBFMbv-AobwM4BF2X8awr97KL5wpbfIA"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
-          "status": 2
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070437861086:android:bd17a84ec2573e29",
+        "android_client_info": {
+          "package_name": "ru.nbsp.pushka.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070437861086-cdgsuu29glmq99lnk9q9tfl3f1br0nrv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.nbsp.pushka.dev",
+            "certificate_hash": "7DF34B475A0E93209C16C62406E8076D71DA6BD3"
+          }
+        },
+        {
+          "client_id": "1070437861086-tvbpn9i8eigs62v2hk8e0fkvsonmbqua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACBFMbv-AobwM4BF2X8awr97KL5wpbfIA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 1
@@ -51,6 +83,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

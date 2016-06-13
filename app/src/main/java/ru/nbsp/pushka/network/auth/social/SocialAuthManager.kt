@@ -40,7 +40,7 @@ class SocialAuthManager(val authListener: SocialAuthListener) : GoogleApiClient.
 
     fun initGoogleAuth(activity: FragmentActivity) {
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(stringUtils.getString(R.string.google_client_server_id))
+                .requestIdToken(getGoogleIdToken())
                 .requestEmail()
                 .requestProfile()
                 .build()
@@ -49,6 +49,10 @@ class SocialAuthManager(val authListener: SocialAuthListener) : GoogleApiClient.
                 .enableAutoManage(activity, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions!!)
                 .build()
+    }
+
+    private fun getGoogleIdToken(): String {
+        return stringUtils.getString(R.string.google_client_server_id)
     }
 
     override fun onConnectionFailed(result: ConnectionResult) {

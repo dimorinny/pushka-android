@@ -3,5 +3,5 @@
     <integer name="com_vk_sdk_AppId">5301305</integer>
     <string name="google_client_server_id">1070437861086-tvbpn9i8eigs62v2hk8e0fkvsonmbqua.apps.googleusercontent.com</string>
     <string name="admob_unit_id">ca-app-pub-7912953541322593/3828898535</string>
-    <string name="yandex_metric_api_key">ce786062-fc6c-4465-a99a-8eafba0b6f5b</string>
+    <string name="yandex_metrica_api_key">ce786062-fc6c-4465-a99a-8eafba0b6f5b</string>
 </resources>

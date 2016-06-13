@@ -4,8 +4,8 @@ import ru.nbsp.pushka.network.error.ApiErrorException
 import ru.nbsp.pushka.network.error.subscription.annotation.ErrorHandler
 import ru.nbsp.pushka.util.ErrorUtils
 import rx.Subscriber
+import java.io.IOException
 import java.lang.reflect.Method
-import java.net.UnknownHostException
 import java.util.*
 
 /**
@@ -18,7 +18,7 @@ class ApiSubscriber<T>(val delegate: ApiSubscriberDelegate<T>) : Subscriber<T>()
             is ApiErrorException -> {
                 executeDelegateHandlers(t, t.code)
             }
-            is UnknownHostException -> {
+            is IOException -> {
                 executeDelegateHandlers(t, ErrorUtils.CONNECTION_ERROR_CODE)
             }
             else -> delegate.onError(t)

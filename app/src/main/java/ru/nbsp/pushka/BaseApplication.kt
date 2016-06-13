@@ -30,7 +30,7 @@ class BaseApplication : Application() {
             initStetho()
             StrictMode.enableDefaults()
         } else {
-            initYandexMetric()
+            initYandexMetrica()
         }
 
         initSocial()
@@ -45,8 +45,8 @@ class BaseApplication : Application() {
         VKSdk.initialize(applicationContext)
     }
 
-    private fun initYandexMetric() {
-        YandexMetrica.activate(this, resources.getString(R.string.yandex_metric_api_key))
+    private fun initYandexMetrica() {
+        YandexMetrica.activate(this, resources.getString(R.string.yandex_metrica_api_key))
         YandexMetrica.enableActivityAutoTracking(this)
     }
 
