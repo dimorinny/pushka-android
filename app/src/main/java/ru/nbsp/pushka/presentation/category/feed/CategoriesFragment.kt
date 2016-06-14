@@ -3,6 +3,7 @@ package ru.nbsp.pushka.presentation.category.feed
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import ru.nbsp.pushka.presentation.category.feed.adapter.CategoriesAdapter
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.source.PresentationCategory
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.util.ColorUtils
 import ru.nbsp.pushka.util.IconUtils
@@ -25,9 +26,11 @@ import javax.inject.Inject
  */
 class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesView {
 
-    val recyclerView: StateRecyclerView by bindView(R.id.categories_recycler_view)
+    val recyclerView: RecyclerView by bindView(R.id.categories_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.categories_refresh_layout)
+    val container: ViewGroup by bindView(R.id.categories_container)
 
+    val stateLayout: StateFrameLayout by bindView(R.id.categories_state_layout)
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
     val progressPlaceholder: View by bindView(R.id.progress_placeholder)
@@ -52,6 +55,7 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
         BaseApplication.graph.inject(this)
 
         initViews()
+        initStateLayout()
         initPresenter(presenter)
         initRecyclerView()
         presenter.loadCategoriesFromCache()
@@ -66,17 +70,20 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
                 R.color.orange);
     }
 
+    private fun initStateLayout() {
+        stateLayout.setEmptyView(emptyPlaceholder)
+        stateLayout.setErrorView(errorPlaceholder)
+        stateLayout.setProgressView(progressPlaceholder)
+        stateLayout.setNormalView(container)
+        stateLayout.setState(State.STATE_PROGRESS)
+    }
+
     override fun initPresenter(presenter: CategoriesPresenter) {
         presenter.view = this
         super.initPresenter(presenter)
     }
 
     private fun initRecyclerView() {
-        recyclerView.setEmptyView(emptyPlaceholder)
-        recyclerView.setErrorView(errorPlaceholder)
-        recyclerView.setProgressView(progressPlaceholder)
-        recyclerView.setState(State.STATE_PROGRESS)
-
         adapter = CategoriesAdapter(iconUtils, colorUtils)
         adapter.itemClickListener = object : OnItemClickListener {
             override fun onItemClicked(index: Int, view: View) {
@@ -96,7 +103,7 @@ class CategoriesFragment : PresentedFragment<CategoriesPresenter>(), CategoriesV
     }
 
     override fun setState(state: State) {
-        recyclerView.setState(state)
+        stateLayout.setState(state)
     }
 
     override fun openCategoryScreen(presentationCategory: PresentationCategory) {

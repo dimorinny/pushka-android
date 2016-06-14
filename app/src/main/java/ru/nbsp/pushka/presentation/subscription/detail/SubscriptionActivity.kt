@@ -56,9 +56,9 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     val unsubscribeProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     val changeSubscriptionProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
 
+    val subscriptionStateLayout: StateFrameLayout by bindView(R.id.subscription_state_layout)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
     val progressPlaceholder: View by bindView(R.id.progress_placeholder)
-    val subscriptionStateLayout: StateFrameLayout by bindView(R.id.subscription_state_layout)
     val subscriptionContainer: ViewGroup by bindView(R.id.subscription_container)
 
     val subscriptionTitleView: TextView by bindView(R.id.subscription_title)

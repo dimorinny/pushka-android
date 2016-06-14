@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alerts_state_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/alerts_refresh_layout"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/alerts_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
-        <ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
-            android:id="@+id/alerts_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/alerts_refresh_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <ru.nbsp.pushka.presentation.core.widget.AutofitRecyclerView
+                android:id="@+id/alerts_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:columnWidth="240dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </FrameLayout>
 
     <include
         android:id="@+id/empty_placeholder"
@@ -35,4 +46,4 @@
     <include
         android:id="@+id/progress_placeholder"
         layout="@layout/placeholder_progress"/>
-</FrameLayout>
+</ru.nbsp.pushka.presentation.core.widget.StateFrameLayout>

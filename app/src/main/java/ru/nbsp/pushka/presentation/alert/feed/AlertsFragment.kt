@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,7 @@ import ru.nbsp.pushka.presentation.category.feed.CategoriesActivity
 import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.alert.PresentationAlert
 import ru.nbsp.pushka.presentation.core.state.State
-import ru.nbsp.pushka.presentation.core.widget.GridAutofitLayoutManager
-import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
+import ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
 import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.StringUtils
 import ru.nbsp.pushka.util.bindView
@@ -30,15 +30,13 @@ import javax.inject.Inject
  */
 class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
-    companion object {
-        const val GRID_FIXED_ALERT_WIDTH = 800
-    }
-
     var alertsActivityCallback: AlertsActivityCallback? = null
 
-    val recyclerView: StateRecyclerView by bindView(R.id.alerts_recycler_view)
+    val container: ViewGroup by bindView(R.id.alerts_container)
+    val recyclerView: RecyclerView by bindView(R.id.alerts_recycler_view)
     val refreshLayout: SwipeRefreshLayout by bindView(R.id.alerts_refresh_layout)
 
+    val stateLayout: StateFrameLayout by bindView(R.id.alerts_state_layout)
     val emptyPlaceholder: View by bindView(R.id.empty_placeholder)
     val errorPlaceholder: View by bindView(R.id.error_placeholder)
     val progressPlaceholder: View by bindView(R.id.progress_placeholder)
@@ -71,6 +69,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
         initPresenter(presenter)
         initViews()
+        initStateLayout()
         initRecyclerView()
         presenter.loadAlertsFromCache()
         presenter.loadAlertsFromServer()
@@ -93,19 +92,20 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
         refreshLayout.setOnRefreshListener { presenter.loadAlertsFromServer() }
     }
 
+    private fun initStateLayout() {
+        stateLayout.setEmptyView(emptyPlaceholder)
+        stateLayout.setErrorView(errorPlaceholder)
+        stateLayout.setProgressView(progressPlaceholder)
+        stateLayout.setNormalView(container)
+        stateLayout.setState(State.STATE_PROGRESS)
+    }
+
     override fun initPresenter(presenter: AlertsPresenter) {
         presenter.view = this
         super.initPresenter(presenter)
     }
 
     private fun initRecyclerView() {
-        recyclerView.layoutManager = GridAutofitLayoutManager(activity, GRID_FIXED_ALERT_WIDTH)
-
-        recyclerView.setEmptyView(emptyPlaceholder)
-        recyclerView.setErrorView(errorPlaceholder)
-        recyclerView.setProgressView(progressPlaceholder)
-        recyclerView.setState(State.STATE_PROGRESS)
-
         alertsAdapter = AlertsAdapter(context, picasso, iconUtils)
 
         recyclerView.adapter = alertsAdapter
@@ -142,7 +142,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
     }
 
     override fun setState(state: State) {
-        recyclerView.setState(state)
+        stateLayout.setState(state)
     }
 
     override fun disableSwipeRefresh() {
