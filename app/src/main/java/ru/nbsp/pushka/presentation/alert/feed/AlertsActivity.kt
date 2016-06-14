@@ -46,6 +46,7 @@ class AlertsActivity : OneFragmentNavigationActivity(), AlertsActivityCallback {
     }
 
     private fun initViews() {
+        initTitle()
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean { return false }
 
@@ -64,6 +65,10 @@ class AlertsActivity : OneFragmentNavigationActivity(), AlertsActivityCallback {
                 setStatusBarColor(R.color.light_grey)
             }
         })
+    }
+
+    private fun initTitle() {
+        title = resources.getString(R.string.title_feed)
     }
 
     private fun setStatusBarColor(@ColorRes color: Int) {

@@ -15,7 +15,7 @@ import ru.nbsp.pushka.presentation.subscription.params.control.dropdown.Dropdown
 class DropdownControlBuilder(val gson: Gson) : ControlBuilder.Builder {
 
     override fun build(control: PresentationControl, context: Context): Control {
-        var attributes = gson.fromJson(control.attributes, DropdownAttributes::class.java)
+        val attributes = gson.fromJson(control.attributes, DropdownAttributes::class.java)
         val dropdown = DropdownControl(context, attributes.options)
         dropdown.setTitle(control.title)
         return dropdown

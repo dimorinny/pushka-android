@@ -30,7 +30,7 @@ class AutoCompleteAdapter : BaseAdapter(), Filterable {
             view = inflater.inflate(R.layout.item_simple_list, parent, false)
         }
 
-        (view!!.findViewById(R.id.text) as TextView).text = items[position].name
+        (view!!.findViewById(R.id.item_text) as TextView).text = items[position].name
         return view
     }
 

@@ -14,7 +14,7 @@ import ru.nbsp.pushka.presentation.subscription.params.control.autocomplete.Auto
 class AutoCompleteControlBuilder(val gson: Gson) : ControlBuilder.Builder {
 
     override fun build(control: PresentationControl, context: Context): Control {
-        var attributes = gson.fromJson(control.attributes, ListAttributes::class.java)
+        val attributes = gson.fromJson(control.attributes, ListAttributes::class.java)
         val dropdown = AutoCompleteControl(context, attributes)
         dropdown.setTitle(control.title)
         return dropdown
