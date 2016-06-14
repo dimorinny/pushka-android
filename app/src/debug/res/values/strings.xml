@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Пушка-DEBUG</string>
+
+    <!-- Titles -->
+    <string name="title_feed">Лента-DEBUG</string>
+    <string name="title_subscription">Подписки-DEBUG</string>
+    <string name="title_settings">Настройки-DEBUG</string>
+    <string name="title_sources">Источники-DEBUG</string>
+    <string name="title_devices">Устройства-DEBUG</string>
+</resources>
