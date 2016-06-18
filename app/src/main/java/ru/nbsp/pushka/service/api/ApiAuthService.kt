@@ -78,8 +78,7 @@ class ApiAuthService : Service() {
                     val user = it.user
                     val identity = it.identity
                     Account(user.userId, user.firstName, user.lastName, user.photo,
-                            identity.accessToken, identity.refreshToken,
-                            timeStampUtils.currentTimestamp() + identity.expires)
+                            identity.accessToken, identity.refreshToken, identity.expires)
                 }
                 .doOnNext {
                     accountManager.setAccount(it)

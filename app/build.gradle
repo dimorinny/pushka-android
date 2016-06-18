@@ -40,7 +40,7 @@ kapt {
     generateStubs = true
 }
 
-def appcompatVersion = "23.4.0"
+def appcompatVersion = "24.0.0"
 def playServicesVersion = "8.4.0"
 
 dependencies {

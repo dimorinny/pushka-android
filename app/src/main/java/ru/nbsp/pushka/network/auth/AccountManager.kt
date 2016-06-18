@@ -46,7 +46,7 @@ class AccountManager
                 photo = account.photo,
                 accessToken = identity.accessToken,
                 refreshToken = identity.refreshToken,
-                expiredTimestamp = timestampUtils.currentTimestamp() + identity.expires)
+                expiredTimestamp = identity.expires)
 
         setAccount(newAccount)
         return newAccount

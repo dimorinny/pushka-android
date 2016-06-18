@@ -1,10 +1,10 @@
 package ru.nbsp.pushka.presentation.subscription.detail
 
 import ru.nbsp.pushka.R
-import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.subscription.LoadSourceAndSubscriptionEvent
 import ru.nbsp.pushka.bus.event.subscription.UnsubscribeEvent
+import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
@@ -157,9 +157,7 @@ class SubscriptionPresenter
     }
 
     inner class UnsubscribeSubscriber : Subscriber<String>() {
-        override fun onCompleted() {
-            throw UnsupportedOperationException()
-        }
+        override fun onCompleted() {}
 
         override fun onError(e: Throwable) {
             e.printStackTrace()

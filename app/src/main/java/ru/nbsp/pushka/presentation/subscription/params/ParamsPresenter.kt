@@ -52,7 +52,7 @@ class ParamsPresenter
     }
 
     fun getValues(): HashMap<String, String?> {
-        var map = HashMap<String, String?>()
+        val map = HashMap<String, String?>()
         for (param in params) {
             map.put(param.name, view!!.getValue(param.name))
         }
