@@ -13,6 +13,11 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize '2g'
     }
     buildTypes {
         release {
@@ -53,6 +58,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$appcompatVersion"
     compile "com.android.support:cardview-v7:$appcompatVersion"
     compile "com.android.support:design:$appcompatVersion"
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.machinarius:preferencefragment:0.1.1'
 
     // Network

@@ -1,7 +1,7 @@
 package ru.nbsp.pushka
 
-import android.app.Application
 import android.os.StrictMode
+import android.support.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import com.vk.sdk.VKSdk
@@ -15,7 +15,7 @@ import ru.nbsp.pushka.gcm.PushkaGcmListener
 /**
  * Created by Dimorinny on 11.02.16.
  */
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
 
     companion object {
         lateinit var graph: AppComponent
