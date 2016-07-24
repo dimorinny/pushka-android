@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.subscription.detail
+package ru.nbsp.pushka.presentation.subscription.edit
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.bus.RxBus
@@ -23,7 +23,7 @@ import javax.inject.Inject
 /**
  * Created by Dimorinny on 29.04.16.
  */
-class SubscriptionPresenter
+class EditSubscriptionPresenter
         @Inject constructor(
                 @StorageRepository val sourcesRepository: SourcesRepository,
                 @StorageRepository val storageSubscriptionRepository: SubscriptionRepository,
@@ -31,7 +31,7 @@ class SubscriptionPresenter
                 val serviceManager: ServiceManager,
                 val stringUtils: StringUtils): BasePresenter {
 
-    override var view: SubscriptionView? = null
+    override var view: EditSubscriptionView? = null
     var source: PresentationSource? = null
     var subscription: PresentationSubscription? = null
     val compositeSubscription: CompositeSubscription = CompositeSubscription()

@@ -1,4 +1,4 @@
-package ru.nbsp.pushka.presentation.subscription.detail
+package ru.nbsp.pushka.presentation.subscription.edit
 
 import android.app.ProgressDialog
 import android.graphics.Color
@@ -28,7 +28,7 @@ import javax.inject.Inject
 /**
  * Created by Dimorinny on 29.04.16.
  */
-class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), SubscriptionView {
+class EditSubscriptionActivity : PresentedActivity<EditSubscriptionPresenter>(), EditSubscriptionView {
 
     companion object {
         const val ARG_SOURCE_ID = "arg_source"
@@ -38,7 +38,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
     }
 
     @Inject
-    lateinit var presenter: SubscriptionPresenter
+    lateinit var presenter: EditSubscriptionPresenter
 
     @Inject
     lateinit var iconUtils: IconUtils
@@ -171,7 +171,7 @@ class SubscriptionActivity : PresentedActivity<SubscriptionPresenter>(), Subscri
         fragment.setParams(params)
     }
 
-    override fun initPresenter(presenter: SubscriptionPresenter) {
+    override fun initPresenter(presenter: EditSubscriptionPresenter) {
         presenter.view = this
         super.initPresenter(presenter)
     }

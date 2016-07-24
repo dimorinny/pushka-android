@@ -21,7 +21,7 @@ import ru.nbsp.pushka.presentation.navigation.NavigationActivity
 import ru.nbsp.pushka.presentation.settings.SettingsFragment
 import ru.nbsp.pushka.presentation.source.feed.SourcesActivity
 import ru.nbsp.pushka.presentation.source.feed.SourcesFragment
-import ru.nbsp.pushka.presentation.subscription.detail.SubscriptionActivity
+import ru.nbsp.pushka.presentation.subscription.edit.EditSubscriptionActivity
 import ru.nbsp.pushka.presentation.subscription.feed.SubscriptionsFragment
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
 import ru.nbsp.pushka.presentation.subscription.params.control.autocomplete.AutoCompleteControl
@@ -73,7 +73,7 @@ interface AppComponent {
     fun inject(categoriesFragment: CategoriesFragment)
     fun inject(paramsFragment: ParamsFragment)
     fun inject(subscribeActivity: SubscribeActivity)
-    fun inject(subscriptionActivity: SubscriptionActivity)
+    fun inject(editSubscriptionActivity: EditSubscriptionActivity)
     fun inject(alertActivity: AlertActivity)
     fun inject(autoCompleteControl: AutoCompleteControl)
 

@@ -60,7 +60,7 @@
             android:label="@string/empty"
             />
         <activity
-            android:name=".presentation.subscription.detail.SubscriptionActivity"
+            android:name=".presentation.subscription.edit.EditSubscriptionActivity"
             android:label="@string/empty"
             />
 

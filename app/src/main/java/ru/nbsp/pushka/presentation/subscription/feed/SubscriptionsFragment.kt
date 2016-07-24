@@ -16,7 +16,7 @@ import ru.nbsp.pushka.presentation.core.adapter.OnItemClickListener
 import ru.nbsp.pushka.presentation.core.model.subscription.PresentationSubscription
 import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.widget.StateRecyclerView
-import ru.nbsp.pushka.presentation.subscription.detail.SubscriptionActivity
+import ru.nbsp.pushka.presentation.subscription.edit.EditSubscriptionActivity
 import ru.nbsp.pushka.presentation.subscription.feed.adapter.SubscriptionsAdapter
 import ru.nbsp.pushka.util.IconUtils
 import ru.nbsp.pushka.util.StringUtils
@@ -115,11 +115,11 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
     }
 
     override fun openSubscriptionScreen(subscription: PresentationSubscription) {
-        val intent = Intent(activity, SubscriptionActivity::class.java)
-        intent.putExtra(SubscriptionActivity.ARG_SUBSCRIPTION_ID, subscription.id)
-        intent.putExtra(SubscriptionActivity.ARG_SUBSCRIPTION_TITLE, subscription.title)
-        intent.putExtra(SubscriptionActivity.ARG_SOURCE_ID, subscription.sourceId)
-        intent.putExtra(SubscriptionActivity.ARG_SOURCE_COLOR, subscription.color)
+        val intent = Intent(activity, EditSubscriptionActivity::class.java)
+        intent.putExtra(EditSubscriptionActivity.ARG_SUBSCRIPTION_ID, subscription.id)
+        intent.putExtra(EditSubscriptionActivity.ARG_SUBSCRIPTION_TITLE, subscription.title)
+        intent.putExtra(EditSubscriptionActivity.ARG_SOURCE_ID, subscription.sourceId)
+        intent.putExtra(EditSubscriptionActivity.ARG_SOURCE_COLOR, subscription.color)
         activity.startActivity(intent)
     }
 
