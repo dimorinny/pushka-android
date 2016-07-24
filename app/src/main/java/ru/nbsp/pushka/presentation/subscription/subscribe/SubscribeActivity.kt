@@ -19,6 +19,8 @@ import ru.nbsp.pushka.R
 import ru.nbsp.pushka.presentation.PresentedActivity
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
+import ru.nbsp.pushka.presentation.core.state.State
+import ru.nbsp.pushka.presentation.core.widget.StateFrameLayout
 import ru.nbsp.pushka.presentation.subscription.params.ParamsFragment
 import ru.nbsp.pushka.util.ColorUtils
 import ru.nbsp.pushka.util.IconUtils
@@ -45,6 +47,11 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     lateinit var sourceId: String
     lateinit var sourceColor: String
 
+    val subscriptionStateLayout: StateFrameLayout by bindView(R.id.subscription_state_layout)
+    val errorPlaceholder: View by bindView(R.id.error_placeholder)
+    val progressPlaceholder: View by bindView(R.id.progress_placeholder)
+    val sourceContainer: ViewGroup by bindView(R.id.source_container)
+
     val subscribeProgressDialog: ProgressDialog by lazy { ProgressDialog(this) }
     val sourceTitle: TextView by bindView(R.id.source_title)
     val subtitle: TextView by bindView(R.id.source_subtitle)
@@ -65,6 +72,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         BaseApplication.graph.inject(this)
 
         initArgs()
+        initStateLayout()
         initToolbar()
         initColors()
         initFragment()
@@ -103,6 +111,13 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         }
     }
 
+    private fun initStateLayout() {
+        subscriptionStateLayout.setNormalView(sourceContainer)
+        subscriptionStateLayout.setErrorView(errorPlaceholder)
+        subscriptionStateLayout.setProgressView(progressPlaceholder)
+        subscriptionStateLayout.setState(State.STATE_PROGRESS)
+    }
+
     private fun initArgs() {
         sourceId = intent.getStringExtra(ARG_SOURCE_ID)
         sourceColor = intent.getStringExtra(ARG_SOURCE_COLOR)
@@ -127,6 +142,10 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         return fragment.validate()
     }
 
+    override fun setState(state: State) {
+        subscriptionStateLayout.setState(state)
+    }
+
     override fun setParams(params: List<PresentationParam>) {
         fragment.setParams(params)
     }
@@ -147,7 +166,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     private fun initToolbar() {
         setSupportActionBar(toolbar)
         if (supportActionBar != null) {
-            (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true);
+            (supportActionBar as ActionBar).setDisplayHomeAsUpEnabled(true)
         }
     }
 

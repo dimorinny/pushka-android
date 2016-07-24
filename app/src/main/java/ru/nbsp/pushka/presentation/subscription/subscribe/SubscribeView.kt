@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.presentation.subscription.subscribe
 
 import ru.nbsp.pushka.presentation.core.base.BaseView
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.presentation.core.model.source.PresentationParam
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
 
@@ -16,5 +17,6 @@ interface SubscribeView: BaseView {
     fun hideSubscribeProgressDialog()
     fun showMessage(message: String)
     fun showError(message: String)
+    fun setState(state: State)
     fun showSubscribeConnectionError(message: String)
 }

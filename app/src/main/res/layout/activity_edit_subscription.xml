@@ -40,7 +40,8 @@
                         android:id="@+id/source_container"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        >
 
                         <include
                             android:layout_width="48dp"
@@ -65,9 +66,9 @@
                                 android:id="@+id/subscription_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
                                 android:textSize="18sp"
                                 android:textColor="@color/colorPrimaryText"
+                                android:maxLines="1"
                                 />
 
                             <TextView
@@ -115,10 +116,10 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:textColor="@color/colorPrimaryText"
-                                android:singleLine="true"
                                 android:layout_margin="16dp"
                                 android:textSize="16sp"
                                 android:text="@string/subscribe_with_sound"
+                                android:maxLines="1"
                                 />
 
                             <CheckBox
@@ -151,10 +152,10 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:textColor="@color/colorPrimaryText"
-                                android:singleLine="true"
                                 android:layout_margin="16dp"
                                 android:textSize="16sp"
                                 android:text="@string/subscribe_with_alert"
+                                android:maxLines="1"
                                 />
 
                             <CheckBox

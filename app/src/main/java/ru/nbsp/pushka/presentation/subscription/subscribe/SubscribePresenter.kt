@@ -10,6 +10,7 @@ import ru.nbsp.pushka.network.error.subscription.ApiSubscriberDelegate
 import ru.nbsp.pushka.network.error.subscription.annotation.ErrorHandler
 import ru.nbsp.pushka.presentation.core.base.BasePresenter
 import ru.nbsp.pushka.presentation.core.model.source.PresentationSource
+import ru.nbsp.pushka.presentation.core.state.State
 import ru.nbsp.pushka.repository.source.SourcesRepository
 import ru.nbsp.pushka.service.ServiceManager
 import ru.nbsp.pushka.util.ErrorUtils
@@ -63,7 +64,7 @@ class SubscribePresenter
 
     fun loadSourceFromCache(sourceId: String) {
         subscription.add(sourcesRepository.getSource(sourceId)
-                .subscribe(LoadSourceSubscriber()))
+                .subscribe(LoadSourceFromCacheSubscriber()))
     }
 
     fun loadSourceFromServer(sourceId: String) {
@@ -77,7 +78,7 @@ class SubscribePresenter
         }
     }
 
-    inner class LoadSourceSubscriber : Subscriber<PresentationSource>() {
+    inner class LoadSourceFromCacheSubscriber : Subscriber<PresentationSource>() {
         override fun onCompleted() {}
 
         override fun onError(t: Throwable) {
@@ -85,6 +86,8 @@ class SubscribePresenter
         }
 
         override fun onNext(result: PresentationSource) {
+            view?.setState(State.STATE_NORMAL)
+
             if (result != source) {
                 view?.setSourceData(result)
                 if (result.params.size != 0) {
@@ -96,16 +99,23 @@ class SubscribePresenter
         }
     }
 
-    // TODO: handle errors
     inner class LoadSourceFromServerSubscription : ApiSubscriberDelegate<PresentationSource> {
 
         override fun baseErrorHandler(t: Throwable) {
             t.printStackTrace()
+
+            if (source == null) {
+                view?.setState(State.STATE_ERROR)
+            }
+
+            observeLoadSource()
         }
 
         override fun onApiError(t: Throwable, code: Int) {}
 
         override fun onNext(data: PresentationSource) {
+            view?.setState(State.STATE_NORMAL)
+
             if (data != source) {
                 view?.setSourceData(data)
                 if (data.params.size != 0) {
