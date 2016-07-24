@@ -52,7 +52,7 @@ class SubscriptionsPresenter
     }
 
     fun onSubscriptionClicked(index: Int) {
-        view?.openSubscriptionScreen(subscriptions[index])
+        view?.openEditSubscriptionScreen(subscriptions[index])
     }
 
     fun onSearchQueryChanged(query: String) {

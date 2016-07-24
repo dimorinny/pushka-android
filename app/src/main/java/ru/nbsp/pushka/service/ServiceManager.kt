@@ -51,6 +51,13 @@ class ServiceManager
         context.startService(intent)
     }
 
+    fun loadSource(sourceId: String) {
+        val intent = Intent(context, ApiSourceService::class.java)
+        intent.putExtra(ApiSourceService.ARG_SERVICE_COMMAND, ApiSourceService.COMMAND_LOAD_SOURCE)
+        intent.putExtra(ApiSourceService.ARG_SOURCE_ID, sourceId)
+        context.startService(intent)
+    }
+
     fun loadCategories() {
         val intent = Intent(context, ApiSourceService::class.java)
         intent.putExtra(ApiSourceService.ARG_SERVICE_COMMAND, ApiSourceService.COMMAND_LOAD_CATEGORIES)

@@ -176,10 +176,6 @@ class EditSubscriptionActivity : PresentedActivity<EditSubscriptionPresenter>(),
         super.initPresenter(presenter)
     }
 
-    override fun setTitle(sourceTitle: String) {
-        title = sourceTitle
-    }
-
     override fun showUnsubscribeProgressDialog() {
         unsubscribeProgressDialog.show()
     }

@@ -11,7 +11,6 @@ interface SubscribeView: BaseView {
     fun closeScreen()
     fun setParams(params: List<PresentationParam>)
     fun setSourceData(source: PresentationSource)
-    fun setTitle(sourceTitle: String)
     fun validateFields(): Boolean
     fun showSubscribeProgressDialog()
     fun hideSubscribeProgressDialog()

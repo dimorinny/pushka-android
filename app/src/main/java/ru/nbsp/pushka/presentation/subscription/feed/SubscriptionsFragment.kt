@@ -76,7 +76,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
 
         refreshLayout.setColorSchemeResources(R.color.green,
                 R.color.blue,
-                R.color.orange);
+                R.color.orange)
     }
 
     override fun initPresenter(presenter: SubscriptionsPresenter) {
@@ -114,7 +114,7 @@ class SubscriptionsFragment : PresentedFragment<SubscriptionsPresenter>(), Subsc
         recyclerView.setState(state)
     }
 
-    override fun openSubscriptionScreen(subscription: PresentationSubscription) {
+    override fun openEditSubscriptionScreen(subscription: PresentationSubscription) {
         val intent = Intent(activity, EditSubscriptionActivity::class.java)
         intent.putExtra(EditSubscriptionActivity.ARG_SUBSCRIPTION_ID, subscription.id)
         intent.putExtra(EditSubscriptionActivity.ARG_SUBSCRIPTION_TITLE, subscription.title)

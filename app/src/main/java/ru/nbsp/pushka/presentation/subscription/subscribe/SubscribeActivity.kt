@@ -72,6 +72,7 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
         initViews()
 
         presenter.loadSourceFromCache(sourceId)
+        presenter.loadSourceFromServer(sourceId)
     }
 
     private fun initFragment() {
@@ -133,10 +134,6 @@ class SubscribeActivity : PresentedActivity<SubscribePresenter>(), SubscribeView
     override fun initPresenter(presenter: SubscribePresenter) {
         presenter.view = this
         super.initPresenter(presenter)
-    }
-
-    override fun setTitle(sourceTitle: String) {
-        title = sourceTitle
     }
 
     override fun showSubscribeProgressDialog() {

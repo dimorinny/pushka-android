@@ -12,7 +12,6 @@ interface EditSubscriptionView : BaseView {
     fun setParams(params: List<PresentationParam>)
     fun setState(state: State)
     fun setSubscriptionData(subscription: PresentationSubscription)
-    fun setTitle(sourceTitle: String)
     fun validateFields(): Boolean
     fun showUnsubscribeProgressDialog()
     fun hideUnsubscribeProgressDialog()

@@ -124,7 +124,6 @@ class EditSubscriptionPresenter
 
             if (result != subscription) {
                 view?.setSubscriptionData(result)
-                view?.setTitle(result.title)
             }
 
             subscription = result
@@ -149,7 +148,6 @@ class EditSubscriptionPresenter
 
             if (result != subscription) {
                 view?.setSubscriptionData(result)
-                view?.setTitle(result.title)
             }
 
             subscription = result

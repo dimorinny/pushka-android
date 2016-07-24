@@ -26,10 +26,12 @@
 
     <!-- Titles -->
     <string name="title_feed">Лента</string>
-    <string name="title_subscription">Подписки</string>
+    <string name="title_subscription">Мои подписки</string>
     <string name="title_settings">Настройки</string>
-    <string name="title_sources">Источники</string>
+    <string name="title_sources">Подписаться</string>
     <string name="title_devices">Устройства</string>
+    <string name="title_subscribe">Подписаться на источник</string>
+    <string name="title_edit_subscription">Редактирование подписки</string>
 
     <string name="title_loading">Загрузка…</string>
     <string name="title_error">Ошибка загрузки</string>
@@ -39,8 +41,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="drawer_settings">Настройки</string>
     <string name="drawer_feed">Лента</string>
-    <string name="drawer_sources">Источники</string>
-    <string name="drawer_subscription">Подписки</string>
+    <string name="drawer_sources">Подписаться</string>
+    <string name="drawer_subscription">Мои подписки</string>
     <string name="drawer_devices">Устройства</string>
 
     <!-- Login -->

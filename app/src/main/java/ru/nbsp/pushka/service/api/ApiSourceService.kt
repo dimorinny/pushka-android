@@ -8,6 +8,7 @@ import ru.nbsp.pushka.di.annotation.ApiRepository
 import ru.nbsp.pushka.bus.RxBus
 import ru.nbsp.pushka.bus.event.BaseEvent
 import ru.nbsp.pushka.bus.event.source.LoadCategoriesEvent
+import ru.nbsp.pushka.bus.event.source.LoadSourceEvent
 import ru.nbsp.pushka.bus.event.source.LoadSourcesEvent
 import ru.nbsp.pushka.interactor.category.StorageCategoryInteractor
 import ru.nbsp.pushka.interactor.source.StorageSourceInteractor
@@ -42,8 +43,11 @@ class ApiSourceService : Service() {
     companion object {
         const val ARG_SERVICE_COMMAND = "arg_service_command"
         const val ARG_CATEGORY_ID = "arg_category_id"
+        const val ARG_SOURCE_ID = "arg_source_id"
+
         const val COMMAND_LOAD_SOURCES = "command_load_sources"
         const val COMMAND_LOAD_CATEGORIES = "command_load_categories"
+        const val COMMAND_LOAD_SOURCE = "command_load_source"
     }
 
     override fun onBind(intent: Intent?): IBinder? { return null }
@@ -72,9 +76,30 @@ class ApiSourceService : Service() {
             COMMAND_LOAD_CATEGORIES -> {
                 handleLoadCategoriesCommand(startId)
             }
+            COMMAND_LOAD_SOURCE -> {
+                handleLoadSourceCommand(intent, startId)
+            }
         }
 
         return START_NOT_STICKY
+    }
+
+    private fun handleLoadSourceCommand(intent: Intent, startId: Int) {
+        val sourceId = intent.getStringExtra(ARG_SOURCE_ID)
+
+        apiSourcesRepository.getSource(sourceId)
+                .flatMap {
+                    storageSourcesInteractor.saveSource(it)
+                }
+                .subscribe(object : BaseEventSubscriber(this, startId, bus) {
+                    override fun error(t: Throwable): BaseEvent {
+                        return LoadSourceEvent.Error(t)
+                    }
+
+                    override fun success(): BaseEvent {
+                        return LoadSourceEvent.Success(sourceId)
+                    }
+                })
     }
 
     private fun handleLoadCategoriesCommand(startId: Int) {

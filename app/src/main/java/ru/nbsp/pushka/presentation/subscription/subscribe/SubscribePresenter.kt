@@ -2,6 +2,7 @@ package ru.nbsp.pushka.presentation.subscription.subscribe
 
 import ru.nbsp.pushka.R
 import ru.nbsp.pushka.bus.RxBus
+import ru.nbsp.pushka.bus.event.source.LoadSourceEvent
 import ru.nbsp.pushka.bus.event.subscription.SubscribeEvent
 import ru.nbsp.pushka.di.annotation.StorageRepository
 import ru.nbsp.pushka.network.error.subscription.ApiSubscriber
@@ -37,6 +38,17 @@ class SubscribePresenter
         super.onCreate()
 
         observeSubscribe()
+        observeLoadSource()
+    }
+
+    private fun observeLoadSource() {
+        subscription.add(rxBus.events(LoadSourceEvent::class.java)
+                .flatMap {
+                    when (it) {
+                        is LoadSourceEvent.Success -> sourcesRepository.getSource(it.sourceId)
+                        is LoadSourceEvent.Error -> Observable.error(it.t)
+                    }
+                }.subscribe(ApiSubscriber(LoadSourceFromServerSubscription())))
     }
 
     private fun observeSubscribe() {
@@ -52,6 +64,10 @@ class SubscribePresenter
     fun loadSourceFromCache(sourceId: String) {
         subscription.add(sourcesRepository.getSource(sourceId)
                 .subscribe(LoadSourceSubscriber()))
+    }
+
+    fun loadSourceFromServer(sourceId: String) {
+        serviceManager.loadSource(sourceId)
     }
 
     fun subscribeButtonClicked(sound: Boolean, notification: Boolean, params: HashMap<String, String?>) {
@@ -71,13 +87,33 @@ class SubscribePresenter
         override fun onNext(result: PresentationSource) {
             if (result != source) {
                 view?.setSourceData(result)
-                view?.setTitle(result.name)
                 if (result.params.size != 0) {
                     view?.setParams(result.params)
                 }
             }
 
             source = result
+        }
+    }
+
+    // TODO: handle errors
+    inner class LoadSourceFromServerSubscription : ApiSubscriberDelegate<PresentationSource> {
+
+        override fun baseErrorHandler(t: Throwable) {
+            t.printStackTrace()
+        }
+
+        override fun onApiError(t: Throwable, code: Int) {}
+
+        override fun onNext(data: PresentationSource) {
+            if (data != source) {
+                view?.setSourceData(data)
+                if (data.params.size != 0) {
+                    view?.setParams(data.params)
+                }
+            }
+
+            source = data
         }
     }
 

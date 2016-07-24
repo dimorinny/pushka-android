@@ -57,11 +57,11 @@
             />
         <activity
             android:name=".presentation.subscription.subscribe.SubscribeActivity"
-            android:label="@string/empty"
+            android:label="@string/title_subscribe"
             />
         <activity
             android:name=".presentation.subscription.edit.EditSubscriptionActivity"
-            android:label="@string/empty"
+            android:label="@string/title_edit_subscription"
             />
 
         <service android:name=".service.api.ApiAuthService"/>
