@@ -10,6 +10,7 @@
     <color name="colorSecondaryText">#727272</color>
     <color name="colorDivider">#E0E0E0</color>
     <color name="colorWindowBackground">#EEEEEE</color>
+    <color name="colorWindowBackgroundDark">#E0E0E0</color>
 
     <!-- Fab Sheet -->
     <color name="fab_sheet_item_title_color">#de000000</color>

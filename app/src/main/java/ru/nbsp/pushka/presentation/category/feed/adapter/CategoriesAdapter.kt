@@ -28,7 +28,7 @@ class CategoriesAdapter(val iconUtils: IconUtils, val colorUtils: ColorUtils) : 
             notifyDataSetChanged()
         }
 
-    inner class CategoryViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
+    inner class CategoryViewHolder(holderView: View) : RecyclerView.ViewHolder(holderView) {
         val container: ViewGroup by bindView(R.id.item_category_container)
         val icon: ImageView by bindView(R.id.item_category_icon)
         val title: TextView by bindView(R.id.item_category_title)
