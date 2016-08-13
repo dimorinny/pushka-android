@@ -11,24 +11,25 @@ import javax.inject.Singleton
 class IconUtils @Inject constructor() {
 
     private val icons = mapOf(
-            Pair("newspaper", R.drawable.ic_newspaper_white_36dp),
-            Pair("filmstrip", R.drawable.ic_filmstrip_white_36dp),
-            Pair("habrahabr", R.drawable.ic_habrahabr_white_36dp),
-            Pair("geektimes", R.drawable.ic_geektimes_white_36dp),
-            Pair("megamozg", R.drawable.ic_megamozg_white_36dp),
-            Pair("humor", R.drawable.ic_smile_white_36dp),
-            Pair("livejournal", R.drawable.ic_livejournal_white_36dp),
-            Pair("twitch", R.drawable.ic_twitch_white_36dp),
-            Pair("android", R.drawable.ic_android_white_24dp),
-            Pair("telegram", R.drawable.ic_telegram_white_24dp),
-            Pair("rutracker", R.drawable.ic_rutracker_white_36dp),
-            Pair("calendar", R.drawable.ic_calendar_white_36dp),
-            Pair("category_news", R.drawable.ic_news_112dp),
-            Pair("category_films", R.drawable.ic_films_112dp),
-            Pair("category_social", R.drawable.ic_bullhorn_112dp),
-            Pair("category_games", R.drawable.ic_gamepad_112dp),
-            Pair("category_it", R.drawable.ic_listing_112dp),
-            Pair("category_utilities", R.drawable.ic_utilities_112dp)
+            "newspaper" to R.drawable.ic_newspaper_white_36dp,
+            "filmstrip" to R.drawable.ic_filmstrip_white_36dp,
+            "habrahabr" to R.drawable.ic_habrahabr_white_36dp,
+            "geektimes" to R.drawable.ic_geektimes_white_36dp,
+            "megamozg" to R.drawable.ic_megamozg_white_36dp,
+            "humor" to R.drawable.ic_smile_white_36dp,
+            "livejournal" to R.drawable.ic_livejournal_white_36dp,
+            "twitch" to R.drawable.ic_twitch_white_36dp,
+            "twitter" to R.drawable.ic_twitter_36dp,
+            "android" to R.drawable.ic_android_white_24dp,
+            "telegram" to R.drawable.ic_telegram_white_24dp,
+            "rutracker" to R.drawable.ic_rutracker_white_36dp,
+            "calendar" to R.drawable.ic_calendar_white_36dp,
+            "category_news" to R.drawable.ic_news_112dp,
+            "category_films" to R.drawable.ic_films_112dp,
+            "category_social" to R.drawable.ic_bullhorn_112dp,
+            "category_games" to R.drawable.ic_gamepad_112dp,
+            "category_it" to R.drawable.ic_listing_112dp,
+            "category_utilities" to R.drawable.ic_utilities_112dp
     )
 
     fun getIcon(name: String): Int {

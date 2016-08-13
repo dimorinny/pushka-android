@@ -19,14 +19,13 @@ import javax.inject.Singleton
 class DataManager
     @Inject constructor(val realmProvider: Provider<Realm>) {
 
-    fun getAlertsObservable(): Observable<List<DataAlert>> {
-        return realmProvider.get().where(DataAlert::class.java)
+    fun getAlertsObservable(): Observable<List<DataAlert>> =
+            realmProvider.get().where(DataAlert::class.java)
                 .findAllSorted("date", Sort.DESCENDING)
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun clearAlerts() {
         realmProvider.get().executeTransaction {
@@ -58,23 +57,22 @@ class DataManager
 //        }
 //    }
 
-    fun getAlertObservable(alertId: String): Observable<DataAlert> {
-        val result = realmProvider.get().where(DataAlert::class.java)
+    fun getAlertObservable(alertId: String): Observable<DataAlert> =
+            realmProvider.get().where(DataAlert::class.java)
                 .equalTo("id", alertId)
                 .findFirst()
+                .run {
+                    if (this != null) {
+                        asObservable()
+                    } else {
+                        Observable.empty()
+                    }
+                }
 
-        return if (result != null) {
-            result.asObservable<DataAlert>()
-        } else {
-            Observable.empty()
-        }
-    }
-
-    fun getAlertsWithFilter(query: String): Observable<List<DataAlert>> {
-        // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
-        // For more information look https://realm.io/docs/java/latest/#current-limitations
-
-        return realmProvider.get().where(DataAlert::class.java)
+    // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
+    // For more information look https://realm.io/docs/java/latest/#current-limitations
+    fun getAlertsWithFilter(query: String): Observable<List<DataAlert>> =
+            realmProvider.get().where(DataAlert::class.java)
                 .findAllSorted("date", Sort.DESCENDING)
                 .asObservable()
                 .first()
@@ -84,7 +82,6 @@ class DataManager
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun putAlert(alert: DataAlert) {
         realmProvider.get().executeTransaction {
@@ -108,15 +105,14 @@ class DataManager
         }
     }
 
-    fun getSourcesObservable(categoryId: String): Observable<List<DataSource>> {
-        return realmProvider.get().where(DataSource::class.java)
+    fun getSourcesObservable(categoryId: String): Observable<List<DataSource>> =
+            realmProvider.get().where(DataSource::class.java)
                 .equalTo("category", categoryId)
                 .findAllSorted("name")
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun clearSources() {
         realmProvider.get().executeTransaction {
@@ -168,17 +164,17 @@ class DataManager
         }
     }
 
-    fun getSourceObservable(sourceId: String): Observable<DataSource> {
-        val result = realmProvider.get().where(DataSource::class.java)
+    fun getSourceObservable(sourceId: String): Observable<DataSource> =
+            realmProvider.get().where(DataSource::class.java)
                 .equalTo("id", sourceId)
                 .findFirst()
-
-        return if (result != null) {
-            result.asObservable()
-        } else {
-            Observable.empty()
-        }
-    }
+                .run {
+                    if (this != null) {
+                        asObservable()
+                    } else {
+                        Observable.empty()
+                    }
+                }
 
     fun putCategories(categories: List<DataCategory>) {
         realmProvider.get().executeTransaction {
@@ -192,14 +188,13 @@ class DataManager
         }
     }
 
-    fun getCategoriesObservable(): Observable<List<DataCategory>> {
-        return realmProvider.get().where(DataCategory::class.java)
+    fun getCategoriesObservable(): Observable<List<DataCategory>> =
+            realmProvider.get().where(DataCategory::class.java)
                 .findAll()
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun putSubscription(subscription: DataSubscription) {
         realmProvider.get().executeTransaction {
@@ -207,17 +202,17 @@ class DataManager
         }
     }
 
-    fun getSubscriptionObservable(subscriptionId: String): Observable<DataSubscription> {
-        val result = realmProvider.get().where(DataSubscription::class.java)
+    fun getSubscriptionObservable(subscriptionId: String): Observable<DataSubscription> =
+            realmProvider.get().where(DataSubscription::class.java)
                 .equalTo("id", subscriptionId)
                 .findFirst()
-
-        return if (result != null) {
-            result.asObservable<DataSubscription>()
-        } else {
-            Observable.empty()
-        }
-    }
+                .run {
+                    if (this != null) {
+                        asObservable()
+                    } else {
+                        Observable.empty()
+                    }
+                }
 
     fun clearSubscription(subscriptionId: String) {
         realmProvider.get().executeTransaction {
@@ -241,20 +236,18 @@ class DataManager
         }
     }
 
-    fun getSubscriptionsObservable(): Observable<List<DataSubscription>> {
-        return realmProvider.get().where(DataSubscription::class.java)
+    fun getSubscriptionsObservable(): Observable<List<DataSubscription>> =
+            realmProvider.get().where(DataSubscription::class.java)
                 .findAllSorted("title")
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
-    fun getSubscriptionsWithFilter(query: String): Observable<List<DataSubscription>> {
-        // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
-        // For more information look https://realm.io/docs/java/latest/#current-limitations
-
-        return realmProvider.get().where(DataSubscription::class.java)
+    // I don't use realm filter, because it does not support normal filter for cyrillic symbols.
+    // For more information look https://realm.io/docs/java/latest/#current-limitations
+    fun getSubscriptionsWithFilter(query: String): Observable<List<DataSubscription>> =
+            realmProvider.get().where(DataSubscription::class.java)
                 .findAllSorted("title")
                 .asObservable()
                 .first()
@@ -264,7 +257,6 @@ class DataManager
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun clearDevices() {
         realmProvider.get().executeTransaction {
@@ -288,14 +280,13 @@ class DataManager
         }
     }
 
-    fun getDevicesObservable(): Observable<List<DataDevice>> {
-        return realmProvider.get().where(DataDevice::class.java)
+    fun getDevicesObservable(): Observable<List<DataDevice>> =
+            realmProvider.get().where(DataDevice::class.java)
                 .findAll()
                 .asObservable()
                 .map {
                     realmProvider.get().copyFromRealm(it)
                 }
-    }
 
     fun clearAll() {
         clearAlerts()

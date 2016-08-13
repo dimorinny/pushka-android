@@ -13,8 +13,8 @@ class AuthBackendUtils @Inject constructor(val context: Context) {
 
     companion object {
         private val PREFIX_MAP = mapOf(
-                Pair("vk", R.string.vk),
-                Pair("google", R.string.google)
+                "vk" to R.string.vk,
+                "google" to R.string.google
         )
     }
 

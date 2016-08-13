@@ -22,11 +22,11 @@ class ErrorUtils
     }
 
     private val errorMessages = mapOf(
-            Pair(CONNECTION_ERROR_CODE, R.string.error_connection),
-            Pair(ALREADY_SUBSCRIBED_CODE, R.string.error_already_subscribed),
-            Pair(SOURCE_NOT_FOUND_CODE, R.string.error_source_not_found),
-            Pair(SUBSCRIPTION_NOT_FOUND_CODE, R.string.error_subscription_not_found),
-            Pair(INTERNAL_SERVER_ERROR_CODE, R.string.error_something_wrong)
+            CONNECTION_ERROR_CODE to R.string.error_connection,
+            ALREADY_SUBSCRIBED_CODE to R.string.error_already_subscribed,
+            SOURCE_NOT_FOUND_CODE to R.string.error_source_not_found,
+            SUBSCRIPTION_NOT_FOUND_CODE to R.string.error_subscription_not_found,
+            INTERNAL_SERVER_ERROR_CODE to R.string.error_something_wrong
     )
 
     fun errorMessage(code: Int): String {
