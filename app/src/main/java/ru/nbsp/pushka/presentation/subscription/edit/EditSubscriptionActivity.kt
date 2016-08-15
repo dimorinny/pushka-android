@@ -1,6 +1,7 @@
 package ru.nbsp.pushka.presentation.subscription.edit
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -184,6 +186,14 @@ class EditSubscriptionActivity : PresentedActivity<EditSubscriptionPresenter>(),
         unsubscribeProgressDialog.dismiss()
     }
 
+    override fun showShareMenu(subject: String, text: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(Intent.createChooser(intent, getString(R.string.app_name)))
+    }
+
     override fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -205,8 +215,16 @@ class EditSubscriptionActivity : PresentedActivity<EditSubscriptionPresenter>(),
                 finish()
                 return true
             }
+            R.id.action_share -> {
+                presenter.sharedButtonClicked()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.share, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onDestroy() {

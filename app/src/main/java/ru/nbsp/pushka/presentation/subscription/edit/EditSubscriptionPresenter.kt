@@ -31,6 +31,10 @@ class EditSubscriptionPresenter
                 val serviceManager: ServiceManager,
                 val stringUtils: StringUtils): BasePresenter {
 
+    companion object {
+        const val SUBSCRIPTION_URL = "https://dev.pushka.xyz/subscription/"
+    }
+
     override var view: EditSubscriptionView? = null
     var source: PresentationSource? = null
     var subscription: PresentationSubscription? = null
@@ -69,6 +73,12 @@ class EditSubscriptionPresenter
                     }
                 }
                 .subscribe(UnsubscribeSubscriber()))
+    }
+
+    fun sharedButtonClicked() {
+        if (subscription != null) {
+            view?.showShareMenu(subscription!!.title, SUBSCRIPTION_URL + subscription!!.id)
+        }
     }
 
     fun loadSourceAndSubscriptionFromNetwork(sourceId: String, subscriptionId: String) {

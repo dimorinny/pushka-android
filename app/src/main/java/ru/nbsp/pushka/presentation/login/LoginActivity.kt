@@ -3,6 +3,7 @@ package ru.nbsp.pushka.presentation.login
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -27,6 +28,8 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     companion object {
         private const val KEN_BURNS_DURATION = 20000L;
         private const val FONT_PATH = "fonts/Bebas.ttf"
+
+        private const val HELP_URL = "https://pushka.xyz/"
     }
 
     @Inject
@@ -42,6 +45,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
     val backgroundImage: KenBurnsView by bindView(R.id.login_background_image)
     val vkButton: View by bindView(R.id.login_vk_button)
     val googleButton: View by bindView(R.id.login_google_button)
+    val helpButton: View by bindView(R.id.login_help_button)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +63,7 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
         progressDialog.setMessage(resources.getString(R.string.login_dialog_message))
         vkButton.setOnClickListener { presenter.onVkLoginButtonClicked() }
         googleButton.setOnClickListener { presenter.onGoogleLoginButtonClicked() }
+        helpButton.setOnClickListener { presenter.onHelpButtonClicked() }
     }
 
     private fun initAuthManager() {
@@ -83,6 +88,11 @@ class LoginActivity : PresentedActivity<LoginPresenter>(), LoginView, SocialAuth
 
     override fun openVkLoginDialog() {
         socialAuthManager.login(SocialAuthManager.DRIVER_VK, this)
+    }
+
+    override fun openHelp() {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(HELP_URL))
+        startActivity(browserIntent)
     }
 
     override fun openGoogleLoginDialog() {

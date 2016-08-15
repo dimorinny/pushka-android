@@ -8,6 +8,7 @@ import ru.nbsp.pushka.presentation.core.base.BaseView
 interface LoginView : BaseView {
     fun openVkLoginDialog()
     fun openGoogleLoginDialog()
+    fun openHelp()
     fun showAlert(message: String)
     fun showDialog()
     fun hideDialog()

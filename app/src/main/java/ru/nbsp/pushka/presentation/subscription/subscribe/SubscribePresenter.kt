@@ -31,6 +31,10 @@ class SubscribePresenter
                         val errorUtils: ErrorUtils,
                         val stringUtils: StringUtils): BasePresenter {
 
+    companion object {
+        const val SOURCE_URL = "https://dev.pushka.xyz/source/"
+    }
+
     override var view: SubscribeView? = null
     var source: PresentationSource? = null
     val subscription: CompositeSubscription = CompositeSubscription()
@@ -69,6 +73,12 @@ class SubscribePresenter
 
     fun loadSourceFromServer(sourceId: String) {
         serviceManager.loadSource(sourceId)
+    }
+
+    fun sharedButtonClicked() {
+        if (source != null) {
+            view?.showShareMenu(source!!.name, SOURCE_URL + source!!.id)
+        }
     }
 
     fun subscribeButtonClicked(sound: Boolean, notification: Boolean, params: HashMap<String, String?>) {

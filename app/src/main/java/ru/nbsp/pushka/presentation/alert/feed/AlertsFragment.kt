@@ -87,7 +87,7 @@ class AlertsFragment : PresentedFragment<AlertsPresenter>(), AlertsView {
 
         refreshLayout.setColorSchemeResources(R.color.green,
                 R.color.blue,
-                R.color.orange);
+                R.color.orange)
 
         refreshLayout.setOnRefreshListener { presenter.loadAlertsFromServer() }
     }

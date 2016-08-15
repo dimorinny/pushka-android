@@ -13,6 +13,7 @@ interface EditSubscriptionView : BaseView {
     fun setState(state: State)
     fun setSubscriptionData(subscription: PresentationSubscription)
     fun validateFields(): Boolean
+    fun showShareMenu(subject: String, text: String)
     fun showUnsubscribeProgressDialog()
     fun hideUnsubscribeProgressDialog()
     fun showMessage(message: String)
