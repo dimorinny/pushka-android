@@ -11,6 +11,6 @@ class ApiConfig {
 
         const val VERSION = "v1"
         const val DEV_URL = "https://dev.pushka.xyz/api/$VERSION/"
-        const val PROD_URL = "https://pushka.xyz/api/$VERSION/"
+        const val PROD_URL = "https://dev.pushka.xyz/api/$VERSION/"
     }
 }

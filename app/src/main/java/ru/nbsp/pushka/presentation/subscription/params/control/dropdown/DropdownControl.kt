@@ -40,7 +40,7 @@ class DropdownControl(context: Context, values: List<Option>, attrs: AttributeSe
 
     override fun setError() {
         errorIndicator.visibility = VISIBLE
-        errorIndicator.text = "ERROR"
+        errorIndicator.text = context.getString(R.string.subscribe_control_error)
     }
 
     override fun getValue(): String? = adapter.options[spinner.selectedItemPosition].value

@@ -83,7 +83,7 @@ class AutoCompleteControl(context: Context, val attributes: ListAttributes, attr
 
     override fun setError() {
         errorIndicator.visibility = VISIBLE
-        errorIndicator.text = "ERROR"
+        errorIndicator.text = context.getString(R.string.subscribe_control_error)
     }
 
     override fun getValue(): String? = currentValue

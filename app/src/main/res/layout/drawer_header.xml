@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="172dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/status_bar_height"
-    android:orientation="vertical"
     android:background="@color/drawer_header_background"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/status_bar_height"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
 
@@ -21,10 +20,10 @@
         android:id="@+id/header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         />
 
     <TextView

@@ -39,7 +39,7 @@ class NumberControl(context: Context, val attributes: NumberAttributes, attrs: A
 
     override fun setError() {
         error.visibility = VISIBLE
-        error.text = "ERROR"
+        error.text = context.getString(R.string.subscribe_control_error)
     }
 
     fun setTitle(value: String) {

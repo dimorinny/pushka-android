@@ -72,6 +72,7 @@
     <string name="subscribe_with_sound">Со звуком</string>
     <string name="subscribe_with_alert">Получать уведомления</string>
     <string name="subscribe_subscribe_text">Подписаться</string>
+    <string name="subscribe_control_error">Данное поле обязательно для заполнения</string>
 
     <!-- Alerts -->
     <string name="alert_empty_placeholder_title">Ваша лента пуста</string>
